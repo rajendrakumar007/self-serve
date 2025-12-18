@@ -1,16 +1,123 @@
-# React + Vite
+# SelfServe - Customer self-service platform for insurance
+SelfServe is a customer-facing insurance portal that allows users to manage policies, claims, and payments through a single self-service platform. It aims to reduce manual processes while improving customer experience.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project - Objectives
+- Provide a seamless self-service experience for insurance customers
+- Reduce dependency on agents and manual processes
+- Deliver a modern, responsive, and accessible UI
+- Build a scalable architecture aligned with enterprise standards
 
-Currently, two official plugins are available:
+## Core Features
+- Responsive landing page with modern UI/UX
+- Insurance discovery (Car, Bike, Health, Life, Travel, etc.)
+- Modular navigation with multi-level dropdowns
+- Dark / Light theme support
+- Story-driven content sections for user trust
+- Scalable component structure :
+  - Policy Management
+  - Claims Tracking
+  - Payments & Renewals
+  - Notifications & Support
+ 
+## Tech Stack
+ 
+- **React JS** – Component-based UI development
+- **Bootstrap 5** – Layout, responsiveness, and utilities
+- **React Icons** – Iconography
+- **Git & GitHub** – Version control and collaboration
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##  Getting Started (Local Setup)
+ 
+### Clone the Repository
+ 
+```bash
+git clone https://github.com/rajendradongara/self-serve.git 
+cd frontend
+```
+### Install Dependencies
+```bash
+npm install
+``` 
+ 
+### Run the Application
+ ```bash
+npm run dev
+ ```
 
-## React Compiler
+## Branching Strategy (Team Workflow)
+ 
+This project follows a professional Git Flow-inspired workflow.
+ 
+### Main Branches
+ 
+main – Production-ready, stable code
+ 
+develop – Integration branch for ongoing development
+ 
+ 
+### Feature Branches
+ 
+Each team member works on their own feature branch:
+ 
+feature/<name>-<module>
+ 
+#### Examples:
+ 
+feature/member-navbar
+ 
+feature/member-hero
+ 
+feature/member-claims
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+ 
+##  Commit Message Convention 
+We follow conventional commits for clarity and maintainability:
+ 
+- feat: A new feature or functionality
 
-## Expanding the ESLint configuration
+- bugfix: A bug fix or patch
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- docs: Documentation changes (README, comments, etc.)
+
+- hotfix: An urgent fix
+
+- style: Formatting or style changes (whitespace, semicolons, etc.)
+
+- refactor: Code restructuring without changing functionality
+
+- chore: Build, dependencies, or tooling updates
+
+- perf: Performance improvements
+
+- test: Adding or updating tests
+ 
+ 
+
+##  Pull Request Process
+ 
+1. Create a feature branch from develop
+ 
+ 
+2. Complete your work with clean commits
+ 
+ 
+3. Push the branch to remote
+ 
+ 
+4. Open a Pull Request:
+ 
+Base: develop
+ 
+Add clear title and description
+
+5. Resolve review comments (if any)
+
+6. Merge only after approval
+ 
+  
+---
+ 
+ ## License
+ 
+This project is for educational and demonstration purposes.
+Licensing details will be added if the project is extended for production use.
