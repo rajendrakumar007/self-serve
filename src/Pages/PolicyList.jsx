@@ -78,77 +78,84 @@ export default function PolicyList() {
   };
 
   return (
-    <>
-      {status === 'loading' && <Loading label="Loading policies..." />}
 
-      {status === 'failed' && (
-        <div className="alert alert-danger">Failed to load policies. {error ?? ''}</div>
-      )}
+<>
+  {status === 'loading' && <Loading label="Loading policies..." />}
 
+  {status === 'failed' && (
+    <div className="rounded-md border border-danger bg-dangerBg text-danger px-3 py-2">
+      Failed to load policies. {error ?? ''}
+    </div>
+  )}
 
-      {status === 'succeeded' && (
-        <div className="card">
-          <div className="card-header d-flex justify-content-between align-items-center">
-            <h2 className="h5 mb-0">Policies ({filtered.length})</h2>
-            <div className="text-muted">Customer: {customerId}</div>
-          </div>
+  {status === 'succeeded' && (
+    <section className="w-full">
+      {/* Header strip */}
+      <div className="px-4 py-3 flex items-center justify-between bg-bgCard border border-borderStrong rounded-card shadow-xs">
+        <h2 className="text-base font-semibold text-textPrimary">Policies ({filtered.length})</h2>
+        <div className="text-textMuted">Customer: {customerId}</div>
+      </div>
 
-          <div className="card-body">
-            <PolicyFilters value={filters} onChange={setFilters} />
+      {/* Filters card */}
+      <div className="mt-3 rounded-card border border-borderDefault bg-bgCard shadow-xs p-4">
+        <PolicyFilters value={filters} onChange={setFilters} />
+      </div>
 
+      {/* Table */}
+      <div className="mt-3 overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead className="bg-bgMuted text-textSecondary">
+            <tr>
+              <th className="text-left font-medium px-3 py-2">Policy ID</th>
+              <th className="text-left font-medium px-3 py-2">Type</th>
+              <th className="text-left font-medium px-3 py-2">Coverage</th>
+              <th className="text-left font-medium px-3 py-2">Start — End</th>
+              <th className="text-left font-medium px-3 py-2">Status</th>
+              <th className="text-right font-medium px-3 py-2">Actions</th>
+            </tr>
+          </thead>
 
-            <div className="table-responsive mt-3">
-              <table className="table table-hover align-middle mb-0">
-                <thead className="table-light">
-                  <tr>
-                    <th>Policy ID</th>
-                    <th>Type</th>
-                    <th>Coverage</th>
-                    <th>Start — End</th>
-                    <th>Status</th>
-                    <th className="text-end">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((p) => (
-                    <tr key={p.policyId}>
-                      <td>
-                        <Link to={`/policies/${p.policyId}`} className="fw-medium">
-                          {p.policyId}
-                        </Link>
-                      </td>
-                      <td>{p.policyType ?? '-'}</td>
-                      <td>₹{formatINR(p.coverageAmount)}</td>
-                      <td>
-                        {formatDate(p.startDate)} — {formatDate(p.endDate)}
-                      </td>
-                      <td>
-                        <StatusBadge status={p.status} />
-                      </td>
-                      <td className="text-end">
-                        <div className="btn-group">
-                          <Link to={`/policies/${p.policyId}`} className="btn btn-sm btn-primary">
-                            View
-                          </Link>
-                          <DownloadButton policy={p} size="sm" />
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+          <tbody className="divide-y divide-borderDefault">
+            {filtered.map(p => (
+              <tr key={p.policyId} className="hover:bg-bgHover">
+                <td className="px-3 py-2">
+                  <Link to={`/policies/${p.policyId}`} className="text-textPrimary hover:text-primaryDark font-medium">
+                    {p.policyId}
+                  </Link>
+                </td>
+                <td className="px-3 py-2 text-textPrimary">{p.policyType ?? '-'}</td>
+                <td className="px-3 py-2 text-textPrimary">₹{formatINR(p.coverageAmount)}</td>
+                <td className="px-3 py-2 text-textPrimary">
+                  {formatDate(p.startDate)} — {formatDate(p.endDate)}
+                </td>
+                <td className="px-3 py-2"><StatusBadge status={p.status} /></td>
+                <td className="px-3 py-2 text-right">
+                  <div className="inline-flex items-center gap-2">
+                    <Link
+                      to={`/policies/${p.policyId}`}
+                      className="inline-flex items-center px-3 py-1.5 text-sm rounded-md bg-primary text-textInverted hover:bg-primaryDark transition"
+                    >
+                      View
+                    </Link>
+                    <DownloadButton policyId={p.policyId} documentUrl={p.documentUrl} />
+                  </div>
+                </td>
+              </tr>
+            ))}
 
-                  {filtered.length === 0 && (
-                    <tr>
-                      <td colSpan={6} className="text-center text-muted py-4">
-                        No policies match the filters.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+            {filtered.length === 0 && (
+              <tr>
+                <td colSpan={6} className="px-3 py-6 text-center text-textMuted">
+                  No policies match the filters.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+</>
+
   );
 }

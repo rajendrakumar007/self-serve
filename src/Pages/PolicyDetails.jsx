@@ -10,35 +10,47 @@ import Loading from '../Components/policies/Loading.jsx';
 export default function PolicyDetails() {
   const { id: idParam } = useParams();
   const id = isNaN(Number(idParam)) ? idParam : Number(idParam);
-
   const dispatch = useDispatch();
   const { selected, status, error } = useSelector((s) => s.policies);
 
   useEffect(() => {
-    if (idParam) {
-      dispatch(fetchPolicyById({ id }));
-    }
+    if (idParam) dispatch(fetchPolicyById({ id }));
   }, [dispatch, id, idParam]);
 
+  // Loading
   if (status === 'loading') return <Loading label="Loading policy..." />;
 
-  if (status === 'failed') {
+  // Failed
+  if (status === 'failed')
     return (
-      <div className="alert alert-danger">
+      <div className="rounded-md border border-danger bg-dangerBg text-danger px-3 py-2">
         Failed to load policy. {error ?? ''}
-        <div className="mt-2"><Link to="/policies" className="btn btn-link">Back to list</Link></div>
+        <div className="mt-2">
+          <Link
+            to="/policies"
+            className="text-primary hover:text-primaryDark underline underline-offset-2"
+          >
+            Back to list
+          </Link>
+        </div>
       </div>
     );
-  }
 
-  if (!selected) {
+  // Not found
+  if (!selected)
     return (
-      <div className="alert alert-warning">
+      <div className="rounded-md border border-warning bg-warningBg text-warning px-3 py-2">
         Policy not found.
-        <div className="mt-2"><Link to="/policies" className="btn btn-link">Back to list</Link></div>
+        <div className="mt-2">
+          <Link
+            to="/policies"
+            className="text-primary hover:text-primaryDark underline underline-offset-2"
+          >
+            Back to list
+          </Link>
+        </div>
       </div>
     );
-  }
 
   const p = selected;
 
@@ -53,57 +65,67 @@ export default function PolicyDetails() {
   };
 
   return (
-    <div className="card">
-      <div className="card-header d-flex justify-content-between align-items-center">
-        <h2 className="h5 mb-0">Policy {p.policyId}</h2>
-        <div className="d-flex align-items-center gap-2">
+    <section className="w-full">
+      {/* Header strip (subtle surface on top of app bg) */}
+      <div className="px-4 py-3 flex items-center justify-between bg-bgCard border border-borderStrong rounded-card shadow-xs">
+        <h2 className="text-base font-semibold text-textPrimary">Policy {p.policyId}</h2>
+        <div className="flex items-center gap-2">
           <StatusBadge status={p.status} />
-          <DownloadButton policy={p} />
+          <DownloadButton policyId={p.policyId} documentUrl={p.documentUrl} />
         </div>
       </div>
 
+      {/* Details panel */}
+      <div className="mt-3 rounded-card border border-borderDefault bg-bgCard shadow-xs p-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {/* Left column */}
+          <div>
+            <dl className="grid grid-cols-5 gap-y-2">
+              <dt className="col-span-2 text-textSecondary">Customer ID</dt>
+              <dd className="col-span-3 text-textPrimary">{p.customerId ?? '-'}</dd>
 
-      <div className="card-body">
-        <div className="row g-3">
+              <dt className="col-span-2 text-textSecondary">Policy Type</dt>
+              <dd className="col-span-3 text-textPrimary">{p.policyType ?? '-'}</dd>
 
-          <div className="col-md-6">
-            <dl className="row mb-0">
-              <dt className="col-5">Customer ID</dt>
-              <dd className="col-7">{p.customerId ?? '-'}</dd>
-
-              <dt className="col-5">Policy Type</dt>
-              <dd className="col-7">{p.policyType ?? '-'}</dd>
-
-              <dt className="col-5">Coverage</dt>
-              <dd className="col-7">₹{formatINR(p.coverageAmount)}</dd>
+              <dt className="col-span-2 text-textSecondary">Coverage</dt>
+              <dd className="col-span-3 text-textPrimary">₹{formatINR(p.coverageAmount)}</dd>
             </dl>
           </div>
 
           {/* Right column */}
-          <div className="col-md-6">
-            <dl className="row mb-0">
-              <dt className="col-5">Start</dt>
-              <dd className="col-7">{formatDate(p.startDate)}</dd>
+          <div>
+            <dl className="grid grid-cols-5 gap-y-2">
+              <dt className="col-span-2 text-textSecondary">Start</dt>
+              <dd className="col-span-3 text-textPrimary">{formatDate(p.startDate)}</dd>
 
-              <dt className="col-5">End</dt>
-              <dd className="col-7">{formatDate(p.endDate)}</dd>
+              <dt className="col-span-2 text-textSecondary">End</dt>
+              <dd className="col-span-3 text-textPrimary">{formatDate(p.endDate)}</dd>
 
-              <dt className="col-5">Status</dt>
-              <dd className="col-7"><StatusBadge status={p.status} /></dd>
+              <dt className="col-span-2 text-textSecondary">Status</dt>
+              <dd className="col-span-3">
+                <StatusBadge status={p.status} />
+              </dd>
             </dl>
           </div>
         </div>
 
-        <hr className="my-4" />
+        <hr className="my-4 border-borderDefault" />
 
-        <h6 className="text-uppercase text-muted mb-2">Terms & Coverage Details</h6>
-        <p className="mb-3">{p.terms ?? '—'}</p>
+        <h6 className="text-xs font-semibold tracking-wide text-textMuted uppercase mb-2">
+          Terms & Coverage Details
+        </h6>
+        <p className="mb-3 text-textSecondary">{p.terms ?? '—'}</p>
 
-        <div className="d-flex align-items-center gap-2">
-          <Link to="/policies" className="btn btn-link">Back to list</Link>
-          <DownloadButton policy={p} />
+        <div className="flex items-center gap-2">
+          <Link
+            to="/policies"
+            className="text-primary hover:text-primaryDark underline underline-offset-2"
+          >
+            Back to list
+          </Link>
+          <DownloadButton policyId={p.policyId} documentUrl={p.documentUrl} />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
