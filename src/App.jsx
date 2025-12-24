@@ -1,7 +1,9 @@
+
+// src/App.jsx
 import React from "react";
-import { Routes, Route, Navigate } from 'react-router-dom';
-import PolicyList from './Pages/PolicyList.jsx';
-import PolicyDetails from './Pages/PolicyDetails.jsx';
+import { Routes, Route, Navigate } from "react-router-dom";
+import PolicyList from "./Pages/PolicyList.jsx";
+import PolicyDetails from "./Pages/PolicyDetails.jsx";
 
 function App() {
   return (

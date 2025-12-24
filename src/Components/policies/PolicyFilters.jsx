@@ -22,9 +22,7 @@ export default function PolicyFilters({ onChange }) {
 return (
   <div className="rounded-card border border-borderDefault bg-bgCard shadow-sm mb-3">
     <div className="px-4 py-3">
-      {/* Row: Search / Status / Type / Reset */}
       <div className="grid grid-cols-1 gap-2 md:grid-cols-12 md:items-end">
-        {/* Search */}
         <div className="md:col-span-4">
           <label className="block text-sm font-medium text-textSecondary mb-1">
             Search
@@ -44,7 +42,6 @@ return (
           />
         </div>
 
-        {/* Status */}
         <div className="md:col-span-3">
           <label className="block text-sm font-medium text-textSecondary mb-1">
             Status
@@ -65,7 +62,6 @@ return (
           </select>
         </div>
 
-        {/* Type */}
         <div className="md:col-span-3">
           <label className="block text-sm font-medium text-textSecondary mb-1">
             Type
@@ -87,7 +83,6 @@ return (
           </select>
         </div>
 
-        {/* Reset button */}
         <div className="md:col-span-2">
           <button
             onClick={() => dispatch({ type: 'RESET' })}
@@ -101,21 +96,18 @@ return (
             "
             type="button"
           >
-            {/* Keep Bootstrap icon if desired; or swap to Heroicons/Lucide */}
             <i className="bi bi-arrow-counterclockwise" aria-hidden="true" />
             <span>Reset</span>
           </button>
         </div>
       </div>
 
-      {/* Row: Sort By + Direction */}
       <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-12">
         <div className="md:col-span-4">
           <label className="block text-sm font-medium text-textSecondary mb-1">
             Sort By
           </label>
 
-          {/* Input group: select + button */}
           <div className="flex">
             <select
               value={state.sortBy}

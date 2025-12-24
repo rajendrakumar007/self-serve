@@ -1,9 +1,14 @@
 
 import axios from 'axios';
 
+// Prefer environment variable; fallback to local dev server.
+const baseURL =
+  import.meta?.env?.VITE_API_BASE_URL?.trim() ||
+  'http://localhost:4000';
+
 const axiosClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000',
-  timeout: 10000
+  baseURL,
+  timeout: 10000,
 });
 
 export default axiosClient;
