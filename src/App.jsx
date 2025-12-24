@@ -1,3 +1,4 @@
+import React from "react";
 function App() {
   return (
     <div className="min-h-screen bg-bgBase flex items-center justify-center">
