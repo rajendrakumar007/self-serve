@@ -1,3 +1,5 @@
+import TermsModal from "../../Components/TermsModal";
+import PrivacyPolicyModal from "../../Components/PrivacyPolicyModal";
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -5,6 +7,11 @@ import { registerUser, findUserByEmail } from "../../utils/auth";
 
 function SignUp() {
   const navigate = useNavigate();
+
+  const [showTerms, setShowTerms] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
+
+
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -200,11 +207,11 @@ function SignUp() {
     setPrivacyAccepted(false);
     setIsOtpVerified(false);
 
-      // Redirect to login after small delay (keep banner visible briefly)
-      setTimeout(() => {
-        setShowSuccess(false);
-        navigate("/login");
-      }, 4000);
+    // Redirect to login after small delay (keep banner visible briefly)
+    setTimeout(() => {
+      setShowSuccess(false);
+      navigate("/login");
+    }, 4000);
   };
 
   const isEmailValid = isValidComEmail(email);
@@ -231,13 +238,12 @@ function SignUp() {
         {/* Toast (otp/info/error) */}
         {toast.show && (
           <div
-            className={`absolute -top-4 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] rounded-md shadow-md p-3 flex items-center justify-between ${
-              toast.type === "success"
+            className={`absolute -top-4 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] rounded-md shadow-md p-3 flex items-center justify-between ${toast.type === "success"
                 ? "bg-success text-textInverted"
                 : toast.type === "error"
-                ? "bg-danger text-textInverted"
-                : "bg-primary text-textInverted"
-            }`}
+                  ? "bg-danger text-textInverted"
+                  : "bg-primary text-textInverted"
+              }`}
           >
             <span className="font-semibold">{toast.message}</span>
             <span className="text-xs opacity-80">&nbsp;</span>
@@ -285,7 +291,7 @@ function SignUp() {
           />
           {!isEmailValid && email.trim() !== "" && (
             <p className="text-danger text-xs sm:text-sm mb-2">
-              Enter a valid Email ID (must contain @ and end with .com)
+              Enter a valid Email ID
             </p>
           )}
 
@@ -305,19 +311,18 @@ function SignUp() {
 
             <button
               type="button"
-              className={`py-2.5 rounded-md text-textInverted text-sm font-medium transition ${
-                !isEmailValid || !isContactValid
+              className={`py-2.5 rounded-md text-textInverted text-sm font-medium transition ${!isEmailValid || !isContactValid
                   ? "bg-accent/50 cursor-not-allowed"
                   : "bg-accent hover:bg-success"
-              } mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight`}
+                } mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight`}
               onClick={handleGenerateOtp}
               disabled={!isEmailValid || !isContactValid}
               title={
                 !isEmailValid
                   ? "Enter a valid .com email first"
                   : !isContactValid
-                  ? "Enter a 10-digit mobile number"
-                  : "Get OTP"
+                    ? "Enter a 10-digit mobile number"
+                    : "Get OTP"
               }
             >
               Get OTP
@@ -376,6 +381,7 @@ function SignUp() {
           />
 
           {/* Terms & Conditions */}
+
           <div className="flex items-center mb-2 text-xs sm:text-sm">
             <input
               type="checkbox"
@@ -385,14 +391,19 @@ function SignUp() {
             />
             <label className="text-textSecondary">
               I agree to the{" "}
-              <a href="/terms" className="text-primaryLight hover:underline">
+              <button
+                type="button"
+                className="text-primaryLight hover:underline hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight rounded-sm"
+                onClick={() => setShowTerms(true)}
+              >
                 Terms &amp; Conditions
-              </a>{" "}
-              *
+              </button>{" "}
             </label>
           </div>
 
+
           {/* Privacy Policy */}
+
           <div className="flex items-center mb-3 text-xs sm:text-sm">
             <input
               type="checkbox"
@@ -402,12 +413,21 @@ function SignUp() {
             />
             <label className="text-textSecondary">
               I agree to the{" "}
-              <a href="/privacy" className="text-primaryLight hover:underline">
+              <button
+                type="button"
+                className="text-primaryLight hover:underline hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight rounded-sm"
+                onClick={() => setShowPrivacy(true)}
+              >
                 Privacy Policy
-              </a>{" "}
-              *
+              </button>{" "}
             </label>
           </div>
+
+
+          {/* Legal modals */}
+          <TermsModal isOpen={showTerms} onClose={() => setShowTerms(false)} />
+          <PrivacyPolicyModal isOpen={showPrivacy} onClose={() => setShowPrivacy(false)} />
+
 
           {/* General errors */}
           {error && (
