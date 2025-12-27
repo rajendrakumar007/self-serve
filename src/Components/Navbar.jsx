@@ -77,7 +77,7 @@ const Navbar = () => {
         {/* LOGO */}
         <Link to="/" className="flex items-center gap-2 font-bold">
           <FaShieldAlt className="text-primary text-xl" />
-          Self Serve
+          SelfServe
         </Link>
 
         {/* TOGGLER (mobile) */}

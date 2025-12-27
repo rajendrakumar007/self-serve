@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
-
+      
       {/* HERO SECTION */}
       <section className="py-12 bg-primaryGradient text-textInverted">
         <div className="max-w-7xl mx-auto px-4 py-12">

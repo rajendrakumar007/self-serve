@@ -8,6 +8,15 @@
       "email": "demo.user@example.com",
       "password": "UGFzc3dvcmQxIQ==",
       "contact": "9999999999"
+    },
+    {
+      "firstName": "Satya",
+      "middleName": "Ranjan",
+      "lastName": "Panda",
+      "email": "satyaranjan958@gmail.com",
+      "password": "U2F0eWFAMTIz",
+      "contact": "9937310790",
+      "id": 2
     }
   ]
 }

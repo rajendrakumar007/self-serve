@@ -1,8 +1,9 @@
-import usersSeed from "../data/users.json";
+
+// src/utils/auth.js (adapt path if different)
+// NOTE: token/profile remain in localStorage; USERS are stored only on server (json-server).
 
 const AUTH_TOKEN_KEY = "auth_token";
 const AUTH_EVENT = "auth-change";
-const USERS_KEY = "users";
 const PROFILE_KEY = "user_profile";
 
 // API base for mock server
@@ -41,96 +42,65 @@ export const clearCurrentUser = () => {
   localStorage.removeItem(PROFILE_KEY);
 };
 
-// --- helpers: try API first, fallback to localStorage + seed ---
+// ---------- USERS ON SERVER ONLY ----------
+
 export const getUsers = async () => {
-  try {
-    const res = await fetch(`${API_BASE}/users`);
-    if (res.ok) return await res.json();
-  } catch (e) {
-    // ignore, fallback
-  }
-  const raw = localStorage.getItem(USERS_KEY);
-  if (raw) {
-    try {
-      return JSON.parse(raw);
-    } catch (e) {
-      return [];
-    }
-  }
-  return usersSeed?.users ?? [];
+  const res = await fetch(`${API_BASE}/users`);
+  if (!res.ok) throw new Error("Failed to fetch users");
+  return await res.json();
 };
 
 export const findUserByEmail = async (email) => {
-  try {
-    const res = await fetch(`${API_BASE}/users?email=${encodeURIComponent(email)}`);
-    if (res.ok) {
-      const arr = await res.json();
-      return arr[0] || null;
-    }
-  } catch (e) {
-    // fallback to local
-  }
-  const users = await getUsers();
-  return users.find((u) => u.email.toLowerCase() === email.toLowerCase()) || null;
+  const res = await fetch(`${API_BASE}/users?email=${encodeURIComponent(email)}`);
+  if (!res.ok) throw new Error("Failed to search users by email");
+  const arr = await res.json();
+  return arr[0] || null;
 };
 
 export const findUserByContact = async (contact) => {
-  try {
-    const res = await fetch(`${API_BASE}/users?contact=${encodeURIComponent(contact)}`);
-    if (res.ok) {
-      const arr = await res.json();
-      return arr[0] || null;
-    }
-  } catch (e) {
-    // fallback to local
-  }
-  const users = await getUsers();
-  return users.find((u) => u.contact === contact) || null;
+  const res = await fetch(`${API_BASE}/users?contact=${encodeURIComponent(contact)}`);
+  if (!res.ok) throw new Error("Failed to search users by contact");
+  const arr = await res.json();
+  return arr[0] || null;
 };
 
-// Save on server (POST) or fallback to localStorage
 export const registerUser = async ({ firstName, middleName, lastName, email, password, contact }) => {
-  // check existing
+  // Check if email already exists (server)
   const existing = await findUserByEmail(email);
   if (existing) return { ok: false, message: "Email already registered" };
 
-  const encoded = typeof window !== "undefined" ? window.btoa(password) : Buffer.from(password).toString("base64");
+  const encoded = typeof window !== "undefined"
+    ? window.btoa(password)
+    : Buffer.from(password).toString("base64");
+
   const payload = { firstName, middleName, lastName, email, password: encoded, contact };
 
-  // Try server
-  try {
-    const res = await fetch(`${API_BASE}/users`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (res.ok) return { ok: true };
-  } catch (e) {
-    // fallback
-  }
+  // Persist to server -> json-server writes into src/data/db.json
+  const res = await fetch(`${API_BASE}/users`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
 
-  // fallback: persist in localStorage
-  const users = (await getUsers()) || [];
-  users.push(payload);
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
-  return { ok: true };
+  if (res.ok) return { ok: true };
+  return { ok: false, message: "Unable to register" };
 };
 
 export const verifyCredentials = async (email, password) => {
   const user = await findUserByEmail(email);
   if (!user) return null;
-  const encoded = typeof window !== "undefined" ? window.btoa(password) : Buffer.from(password).toString("base64");
-  if (user.password === encoded) return user;
-  return null;
+
+  const encoded = typeof window !== "undefined"
+    ? window.btoa(password)
+    : Buffer.from(password).toString("base64");
+
+  return user.password === encoded ? user : null;
 };
 
-// Update a user's profile (try server, fallback to localStorage)
 export const updateUserProfile = async (email, updates) => {
-  // find existing user (server or local)
   const user = await findUserByEmail(email);
   if (!user) return { ok: false, message: "User not found" };
 
-  // prepare payload (only allow certain fields)
   const payload = {};
   if (updates.firstName !== undefined) payload.firstName = updates.firstName;
   if (updates.middleName !== undefined) payload.middleName = updates.middleName;
@@ -138,31 +108,14 @@ export const updateUserProfile = async (email, updates) => {
   if (updates.contact !== undefined) payload.contact = updates.contact;
   if (updates.email !== undefined) payload.email = updates.email;
 
-  // Try server patch
-  try {
-    if (user.id) {
-      const res = await fetch(`${API_BASE}/users/${user.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (res.ok) return { ok: true };
-    }
-  } catch (e) {
-    // ignore and fallback
-  }
+  const res = await fetch(`${API_BASE}/users/${user.id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
 
-  // fallback: update localStorage users list
-  try {
-    const users = (await getUsers()) || [];
-    const idx = users.findIndex((u) => u.email.toLowerCase() === email.toLowerCase());
-    if (idx === -1) return { ok: false, message: "User not found" };
-    users[idx] = { ...users[idx], ...payload };
-    localStorage.setItem(USERS_KEY, JSON.stringify(users));
-    return { ok: true };
-  } catch (e) {
-    return { ok: false, message: "Unable to update user" };
-  }
+  if (res.ok) return { ok: true };
+  return { ok: false, message: "Unable to update user" };
 };
 
 export { AUTH_TOKEN_KEY, AUTH_EVENT };
