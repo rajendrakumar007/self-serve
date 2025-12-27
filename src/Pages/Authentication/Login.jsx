@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { verifyCredentials, login, findUserByContact } from "../../utils/auth";
 
 function Login() {
   const [mode, setMode] = useState("email");
@@ -9,19 +10,43 @@ function Login() {
   const [mobile, setMobile] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const [generatedOtp, setGeneratedOtp] = useState("");
   const [error, setError] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [toast, setToast] = useState({ show: false, type: "info", message: "" });
+
+  const showToast = (type, message, ms = 2200) => {
+    setToast({ show: true, type, message });
+    setTimeout(() => setToast((t) => ({ ...t, show: false })), ms);
+  };
+
+  const navigate = useNavigate();
 
   const handleSendOtp = () => {
     if (!mobile || !/^[0-9]{10}$/.test(mobile)) {
       setError("Enter a valid 10-digit mobile number");
       return;
     }
-    setError("");
-    setOtpSent(true);
-    alert(`OTP sent to ${mobile}.`);
+    const findOtpUser = async () => {
+      const user = await findUserByContact(mobile);
+      if (!user) {
+        setError("No account found for this mobile number");
+        return null;
+      }
+      return user;
+    };
+    // perform async lookup
+    findOtpUser().then((u) => {
+      if (!u) return;
+      setError("");
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
+      setGeneratedOtp(code);
+      setOtpSent(true);
+      showToast("info", `OTP sent to ${mobile}: ${code}`, 30000);
+    });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -35,10 +60,29 @@ function Login() {
         setError("Password is required");
         return;
       }
-      alert(`Login via Email successful.\nEmail: ${email}\nPassword: ${password}`);
+
+      // check credentials
+      const user = await verifyCredentials(email.trim().toLowerCase(), password);
+      if (!user) {
+        setError("Invalid email or password");
+        return;
+      }
+
+      // Successful email login — store profile too
+      login("selfserve_auth_token", user);
+      setShowSuccess(true);
+
+      // Reset fields
       setEmail("");
       setPassword("");
+
+      // Redirect after a short delay
+      setTimeout(() => {
+        setShowSuccess(false);
+        navigate("/");
+      }, 1000);
     } else {
+      // Mobile login
       if (!mobile) {
         setError("Mobile number is required");
         return;
@@ -51,20 +95,63 @@ function Login() {
         setError("Enter the OTP");
         return;
       }
-      if (/^[0-9]{6}$/.test(otp)) {
-        alert(`Login via Mobile Number successful.\nMobile Number: ${mobile}\nOTP: ${otp}`);
-        setMobile("");
-        setOtp("");
-        setOtpSent(false);
-      } else {
+      if (!/^[0-9]{6}$/.test(otp)) {
         setError("OTP must be 6 digits");
+        return;
       }
+      if (otp !== generatedOtp) {
+        setError("Invalid OTP");
+        return;
+      }
+      // Successful mobile login — find user and store profile
+      const mobileUser = await findUserByContact(mobile);
+      if (!mobileUser) {
+        setError("No user found for this mobile number");
+        return;
+      }
+      login("selfserve_auth_token", mobileUser);
+      setShowSuccess(true);
+
+      // Reset fields
+      setMobile("");
+      setOtp("");
+      setOtpSent(false);
+      setGeneratedOtp("");
+
+      // Redirect after a short delay
+      setTimeout(() => {
+        setShowSuccess(false);
+        navigate("/");
+      }, 1500);
     }
   };
 
   return (
     <div className="min-h-screen bg-secondary bg-gradient-to-br from-secondary to-primaryDark text-textInverted flex justify-center items-center p-4">
-      <div className="w-full max-w-md bg-bgCard/95 backdrop-blur-sm rounded-card shadow-lg p-6 sm:p-8 border border-borderDefault">
+      <div className="w-full max-w-md bg-bgCard/95 backdrop-blur-sm rounded-card shadow-lg p-6 sm:p-8 border border-borderDefault relative">
+        {/* Success card (small) */}
+        {showSuccess && (
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] bg-success text-textInverted rounded-md shadow-md p-3 flex items-center justify-between">
+            <span className="font-semibold">Login successful</span>
+            <span className="text-xs opacity-80">Redirecting…</span>
+          </div>
+        )}
+        {/* Toast for OTP/info/errors */}
+        {toast.show && (
+          <div
+            className={`absolute -top-4 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] rounded-md shadow-md p-3 flex items-center justify-between ${
+              toast.type === "success"
+                ? "bg-success text-textInverted"
+                : toast.type === "error"
+                ? "bg-danger text-textInverted"
+                : "bg-primary text-textInverted"
+            }`}
+          >
+            <span className="font-semibold">{toast.message}</span>
+            <span className="text-xs opacity-80">&nbsp;</span>
+          </div>
+        )}
+
         {/* Heading */}
         <h2 className="text-center text-2xl font-bold text-textPrimary mb-6">Login</h2>
 

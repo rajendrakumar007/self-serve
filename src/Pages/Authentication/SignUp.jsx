@@ -1,7 +1,10 @@
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { registerUser, findUserByEmail } from "../../utils/auth";
 
 function SignUp() {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -18,6 +21,45 @@ function SignUp() {
   const [passwordError, setPasswordError] = useState("");
   const [mobileError, setMobileError] = useState("");
   const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showExists, setShowExists] = useState(false);
+  const [toast, setToast] = useState({ show: false, type: "info", message: "" });
+
+  const showToast = (type, message, ms = 2200) => {
+    setToast({ show: true, type, message });
+    setTimeout(() => setToast((t) => ({ ...t, show: false })), ms);
+  };
+
+  // If the email field loses focus and user exists, redirect to login
+  const handleEmailBlur = async () => {
+    const normalized = email.trim().toLowerCase();
+    if (!normalized || !isValidComEmail(normalized)) return;
+    try {
+      const user = await findUserByEmail(normalized);
+      if (user) {
+        setShowExists(true);
+        // clear fields
+        setFirstName("");
+        setMiddleName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setContact("");
+        setOtp("");
+        setGeneratedOtp("");
+        setTermsAccepted(false);
+        setPrivacyAccepted(false);
+        setIsOtpVerified(false);
+        setTimeout(() => {
+          setShowExists(false);
+          navigate("/login");
+        }, 900);
+      }
+    } catch (e) {
+      // ignore network errors here
+    }
+  };
 
   const validatePassword = (pwd) => {
     const pattern =
@@ -50,35 +92,101 @@ function SignUp() {
     const randomOtp = Math.floor(100000 + Math.random() * 900000).toString();
     setGeneratedOtp(randomOtp);
     setIsOtpVerified(false);
-    alert(`OTP sent to ${contact}\nThe OTP is : ${randomOtp}`);
+    showToast("info", `The OTP is ${randomOtp}`, 10000);
   };
 
   const handleVerifyOtp = () => {
     if (!otp) {
-      alert("Please enter the OTP first");
+      showToast("error", "Please enter the OTP first");
       return;
     }
     if (otp === generatedOtp) {
-      alert("OTP is successfully verified");
+      showToast("success", "OTP successfully verified");
       setIsOtpVerified(true);
     } else {
-      alert("Invalid OTP, please try again.");
+      showToast("error", "Invalid OTP, please try again.");
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setPasswordError("");
     setMobileError("");
+    // Basic validations
+    if (!firstName.trim() || !lastName.trim()) {
+      setError("Please enter your full name");
+      return;
+    }
+    if (!isValidComEmail(email)) {
+      setError("Enter a valid .com email");
+      return;
+    }
+    if (!/^[0-9]{10}$/.test(contact)) {
+      setMobileError("Mobile number must be exactly 10 digits");
+      return;
+    }
+    if (!validatePassword(password)) {
+      setPasswordError(
+        "Password must be 8-15 chars with upper, lower, number & special char"
+      );
+      return;
+    }
+    if (password !== confirmPassword) {
+      setPasswordError("Passwords do not match");
+      return;
+    }
+    if (!isOtpVerified) {
+      setError("Please verify the OTP sent to your mobile number");
+      return;
+    }
+    if (!termsAccepted || !privacyAccepted) {
+      setError("You must accept Terms & Privacy to register");
+      return;
+    }
 
-    // validation logic unchanged...
-    // (omitted for brevity — your original logic stays as-is)
+    // Register
+    const result = await registerUser({
+      firstName: firstName.trim(),
+      middleName: middleName.trim(),
+      lastName: lastName.trim(),
+      email: email.trim().toLowerCase(),
+      password,
+      contact,
+    });
 
-    alert(
-      `Signup successful!\nName: ${firstName} ${middleName} ${lastName}\nEmail: ${email.trim()}\nMobile: ${contact}`
-    );
+    if (!result.ok) {
+      // If email already exists, show a small banner and redirect to login
+      if (result.message && /email already registered/i.test(result.message)) {
+        setShowExists(true);
+        // Reset fields
+        setFirstName("");
+        setMiddleName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setContact("");
+        setOtp("");
+        setGeneratedOtp("");
+        setTermsAccepted(false);
+        setPrivacyAccepted(false);
+        setIsOtpVerified(false);
 
+        setTimeout(() => {
+          setShowExists(false);
+          navigate("/login");
+        }, 900);
+        return;
+      }
+
+      setError(result.message || "Unable to register");
+      return;
+    }
+
+    // Show a small success popup (like Login page) and redirect to /login
+    setShowSuccess(true);
+    // Reset fields
     setFirstName("");
     setMiddleName("");
     setLastName("");
@@ -91,6 +199,12 @@ function SignUp() {
     setTermsAccepted(false);
     setPrivacyAccepted(false);
     setIsOtpVerified(false);
+
+      // Redirect to login after small delay (keep banner visible briefly)
+      setTimeout(() => {
+        setShowSuccess(false);
+        navigate("/login");
+      }, 4000);
   };
 
   const isEmailValid = isValidComEmail(email);
@@ -99,7 +213,36 @@ function SignUp() {
   return (
     <div className="min-h-screen bg-secondary bg-gradient-to-br from-secondary to-primaryDark text-textInverted flex justify-center items-center p-4">
       {/* Card */}
-      <div className="w-full max-w-md bg-bgCard/95 backdrop-blur-sm rounded-card shadow-lg p-6 sm:p-8 border border-borderDefault">
+      <div className="w-full max-w-md bg-bgCard/95 backdrop-blur-sm rounded-card shadow-lg p-6 sm:p-8 border border-borderDefault relative">
+        {/* Success popup (small) */}
+        {showSuccess && (
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] bg-success text-textInverted rounded-md shadow-md p-3 flex items-center justify-between">
+            <span className="font-semibold">Registration successful</span>
+            <span className="text-xs opacity-80">Redirecting…</span>
+          </div>
+        )}
+        {/* Already exists popup (small) */}
+        {showExists && (
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] bg-accent text-textInverted rounded-md shadow-md p-3 flex items-center justify-between">
+            <span className="font-semibold">Account already exists</span>
+            <span className="text-xs opacity-80">Redirecting to login…</span>
+          </div>
+        )}
+        {/* Toast (otp/info/error) */}
+        {toast.show && (
+          <div
+            className={`absolute -top-4 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] rounded-md shadow-md p-3 flex items-center justify-between ${
+              toast.type === "success"
+                ? "bg-success text-textInverted"
+                : toast.type === "error"
+                ? "bg-danger text-textInverted"
+                : "bg-primary text-textInverted"
+            }`}
+          >
+            <span className="font-semibold">{toast.message}</span>
+            <span className="text-xs opacity-80">&nbsp;</span>
+          </div>
+        )}
         <h2 className="text-center text-2xl font-semibold text-textPrimary mb-6">
           New Registration
         </h2>

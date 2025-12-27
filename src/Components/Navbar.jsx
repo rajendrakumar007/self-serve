@@ -1,39 +1,42 @@
 
 import { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "../Context/ThemeContext";
-import {
-  FaShieldAlt,
-  FaBell,
-  FaSun,
-  FaMoon,
-  FaQuestionCircle,
-  FaUser,
-  FaCheckCircle,
-  FaInfoCircle,
-} from "react-icons/fa";
-import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
+import { FaShieldAlt, FaBell, FaSun, FaMoon } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { isLoggedIn, AUTH_EVENT, getCurrentUser } from "../utils/auth";
+import pp from "../assets/pp.png";
 
 const CLOSE_DELAY_MS = 150;
 
 const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
+  // Auth: controls visibility for Check Policy & Profile
+  const [isAuthenticated, setIsAuthenticated] = useState(isLoggedIn());
+  const [currentUser, setCurrentUser] = useState(getCurrentUser());
+  useEffect(() => {
+    const handler = () => {
+      setIsAuthenticated(isLoggedIn());
+      setCurrentUser(getCurrentUser());
+    };
+    window.addEventListener("storage", handler); // cross-tab
+    window.addEventListener(AUTH_EVENT, handler); // same-tab
+    return () => {
+      window.removeEventListener("storage", handler);
+      window.removeEventListener(AUTH_EVENT, handler);
+    };
+  }, []);
+
   // Desktop
   const [openDropdown, setOpenDropdown] = useState(null); // 'policies' | 'claims' | 'resources' | null
-  const [openPolicySub, setOpenPolicySub] = useState(null); // 'health' | 'motor' | 'term' | null
-
   const dropdownCloseTimer = useRef(null);
-  const subCloseTimer = useRef(null);
 
   // Mobile
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobilePoliciesOpen, setMobilePoliciesOpen] = useState(false);
   const [mobileClaimsOpen, setMobileClaimsOpen] = useState(false);
   const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
-  const [mobileHealthOpen, setMobileHealthOpen] = useState(false);
-  const [mobileMotorOpen, setMobileMotorOpen] = useState(false);
-  const [mobileTermOpen, setMobileTermOpen] = useState(false);
 
   const navRef = useRef(null);
 
@@ -45,32 +48,16 @@ const Navbar = () => {
   // Desktop hover helpers
   const openOnly = (key) => {
     setOpenDropdown(key);
-    setOpenPolicySub(null);
     if (dropdownCloseTimer.current) clearTimeout(dropdownCloseTimer.current);
   };
   const scheduleDropdownClose = () => {
     if (dropdownCloseTimer.current) clearTimeout(dropdownCloseTimer.current);
     dropdownCloseTimer.current = setTimeout(() => {
       setOpenDropdown(null);
-      setOpenPolicySub(null);
     }, CLOSE_DELAY_MS);
   };
   const cancelDropdownClose = () => {
     if (dropdownCloseTimer.current) clearTimeout(dropdownCloseTimer.current);
-  };
-
-  const openSubOnly = (key) => {
-    setOpenPolicySub(key);
-    if (subCloseTimer.current) clearTimeout(subCloseTimer.current);
-  };
-  const scheduleSubClose = () => {
-    if (subCloseTimer.current) clearTimeout(subCloseTimer.current);
-    subCloseTimer.current = setTimeout(() => {
-      setOpenPolicySub(null);
-    }, CLOSE_DELAY_MS);
-  };
-  const cancelSubClose = () => {
-    if (subCloseTimer.current) clearTimeout(subCloseTimer.current);
   };
 
   // Close on outside click
@@ -78,7 +65,6 @@ const Navbar = () => {
     const handler = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
         setOpenDropdown(null);
-        setOpenPolicySub(null);
       }
     };
     document.addEventListener("mousedown", handler);
@@ -91,7 +77,7 @@ const Navbar = () => {
         {/* LOGO */}
         <Link to="/" className="flex items-center gap-2 font-bold">
           <FaShieldAlt className="text-primary text-xl" />
-          SelfServe
+          Self Serve
         </Link>
 
         {/* TOGGLER (mobile) */}
@@ -123,215 +109,72 @@ const Navbar = () => {
                 Policies <IoIosArrowDown size={14} />
               </button>
 
-              {/* Top-level dropdown */}
               {openDropdown === "policies" && (
                 <ul
                   className="absolute mt-2 min-w-56 p-2 rounded-md shadow-lg bg-bgCard text-textSecondary z-50"
                   onMouseEnter={cancelDropdownClose}
                   onMouseLeave={scheduleDropdownClose}
                 >
-                  {/* Health Insurance */}
-                  <li
-                    className="relative"
-                    onMouseEnter={() => {
-                      cancelSubClose();
-                      openSubOnly("health");
-                    }}
-                    onMouseLeave={scheduleSubClose}
-                  >
-                    <button
-                      type="button"
-                      className="flex justify-between items-center w-full px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer"
+                  <li>
+                    <Link
+                      to="/policies/car"
+                      className="block px-4 py-2 rounded-md hover:bg-bgHover text-textPrimary"
                     >
-                      Health Insurance <IoIosArrowForward />
-                    </button>
-
-                    {/* Submenu — turned into real menu with links */}
-                    {openPolicySub === "health" && (
-                      <div
-                        className="absolute left-full top-0 min-w-[280px] p-3 rounded-md shadow-lg bg-bgCard z-50 border border-borderDefault"
-                        onMouseEnter={cancelSubClose}
-                        onMouseLeave={scheduleSubClose}
-                      >
-                        <div className="mb-2 flex items-center gap-2 text-textPrimary font-semibold">
-                          <FaInfoCircle className="text-primary" />
-                          Health Insurance
-                        </div>
-                        <ul className="space-y-1 text-sm">
-                          <li>
-                            <Link
-                              to="/policies/health/overview"
-                              className="flex items-center gap-2 px-3 py-2 rounded hover:bg-bgHover text-textPrimary"
-                            >
-                              <FaCheckCircle className="text-success" />
-                              Overview
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/policies/health/benefits"
-                              className="flex items-center gap-2 px-3 py-2 rounded hover:bg-bgHover text-textPrimary"
-                            >
-                              <FaCheckCircle className="text-success" />
-                              Benefits
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/policies/health/network"
-                              className="flex items-center gap-2 px-3 py-2 rounded hover:bg-bgHover text-textPrimary"
-                            >
-                              <FaCheckCircle className="text-success" />
-                              Hospital Network
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/policies/health/quote"
-                              className="flex items-center justify-between px-3 py-2 rounded bg-primary text-textInverted hover:bg-primaryDark"
-                            >
-                              Get Quote <IoIosArrowForward />
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
+                      Car Insurance
+                    </Link>
                   </li>
-
-                  {/* Motor Insurance */}
-                  <li
-                    className="relative"
-                    onMouseEnter={() => {
-                      cancelSubClose();
-                      openSubOnly("motor");
-                    }}
-                    onMouseLeave={scheduleSubClose}
-                  >
-                    <button
-                      type="button"
-                      className="flex justify-between items-center w-full px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer"
+                  <li>
+                    <Link
+                      to="/policies/bike"
+                      className="block px-4 py-2 rounded-md hover:bg-bgHover text-textPrimary"
                     >
-                      Motor Insurance <IoIosArrowForward />
-                    </button>
-                    {openPolicySub === "motor" && (
-                      <div
-                        className="absolute left-full top-0 min-w-[280px] p-3 rounded-md shadow-lg bg-bgCard z-50 border border-borderDefault"
-                        onMouseEnter={cancelSubClose}
-                        onMouseLeave={scheduleSubClose}
-                      >
-                        <div className="mb-2 flex items-center gap-2 text-textPrimary font-semibold">
-                          <FaInfoCircle className="text-primary" />
-                          Motor Insurance
-                        </div>
-                        <ul className="space-y-1 text-sm">
-                          <li>
-                            <Link
-                              to="/policies/motor/overview"
-                              className="flex items-center gap-2 px-3 py-2 rounded hover:bg-bgHover text-textPrimary"
-                            >
-                              <FaCheckCircle className="text-success" />
-                              Overview
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/policies/motor/coverage"
-                              className="flex items-center gap-2 px-3 py-2 rounded hover:bg-bgHover text-textPrimary"
-                            >
-                              <FaCheckCircle className="text-success" />
-                              Coverage & Add-ons
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/policies/motor/renewal"
-                              className="flex items-center gap-2 px-3 py-2 rounded hover:bg-bgHover text-textPrimary"
-                            >
-                              <FaCheckCircle className="text-success" />
-                              Renewal
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/policies/motor/quote"
-                              className="flex items-center justify-between px-3 py-2 rounded bg-primary text-textInverted hover:bg-primaryDark"
-                            >
-                              Get Quote <IoIosArrowForward />
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
+                      Bike Insurance
+                    </Link>
                   </li>
-
-                  {/* Term Insurance */}
-                  <li
-                    className="relative"
-                    onMouseEnter={() => {
-                      cancelSubClose();
-                      openSubOnly("term");
-                    }}
-                    onMouseLeave={scheduleSubClose}
-                  >
-                    <button
-                      type="button"
-                      className="flex justify-between items-center w-full px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer"
+                  <li>
+                    <Link
+                      to="/policies/health"
+                      className="block px-4 py-2 rounded-md hover:bg-bgHover text-textPrimary"
                     >
-                      Term Insurance <IoIosArrowForward />
-                    </button>
-                    {openPolicySub === "term" && (
-                      <div
-                        className="absolute left-full top-0 min-w-[280px] p-3 rounded-md shadow-lg bg-bgCard z-50 border border-borderDefault"
-                        onMouseEnter={cancelSubClose}
-                        onMouseLeave={scheduleSubClose}
-                      >
-                        <div className="mb-2 flex items-center gap-2 text-textPrimary font-semibold">
-                          <FaInfoCircle className="text-primary" />
-                          Term Insurance
-                        </div>
-                        <ul className="space-y-1 text-sm">
-                          <li>
-                            <Link
-                              to="/policies/term/overview"
-                              className="flex items-center gap-2 px-3 py-2 rounded hover:bg-bgHover text-textPrimary"
-                            >
-                              <FaCheckCircle className="text-success" />
-                              Overview
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/policies/term/benefits"
-                              className="flex items-center gap-2 px-3 py-2 rounded hover:bg-bgHover text-textPrimary"
-                            >
-                              <FaCheckCircle className="text-success" />
-                              Benefits & Riders
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/policies/term/calculator"
-                              className="flex items-center gap-2 px-3 py-2 rounded hover:bg-bgHover text-textPrimary"
-                            >
-                              <FaCheckCircle className="text-success" />
-                              Premium Calculator
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/policies/term/quote"
-                              className="flex items-center justify-between px-3 py-2 rounded bg-primary text-textInverted hover:bg-primaryDark"
-                            >
-                              Get Quote <IoIosArrowForward />
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
+                      Health Insurance
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/policies/life"
+                      className="block px-4 py-2 rounded-md hover:bg-bgHover text-textPrimary"
+                    >
+                      Life Insurance
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/policies/travel"
+                      className="block px-4 py-2 rounded-md hover:bg-bgHover text-textPrimary"
+                    >
+                      Travel Insurance
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/policies/airpass"
+                      className="block px-4 py-2 rounded-md hover:bg-bgHover text-textPrimary"
+                    >
+                      Air Pass
+                    </Link>
                   </li>
                 </ul>
               )}
             </li>
+
+            {/* Check Your Policy — ONLY when logged in */}
+            {isAuthenticated && (
+              <li>
+                <Link className="cursor-pointer hover:text-primary" to="/check-policy">
+                  Check Your Policy
+                </Link>
+              </li>
+            )}
 
             {/* CLAIMS */}
             <li
@@ -351,15 +194,9 @@ const Navbar = () => {
                   onMouseEnter={cancelDropdownClose}
                   onMouseLeave={scheduleDropdownClose}
                 >
-                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">
-                    Submit Claim
-                  </li>
-                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">
-                    Track Claim
-                  </li>
-                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">
-                    Claim History
-                  </li>
+                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">Submit Claim</li>
+                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">Track Claim</li>
+                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">Claim History</li>
                 </ul>
               )}
             </li>
@@ -382,15 +219,9 @@ const Navbar = () => {
                   onMouseEnter={cancelDropdownClose}
                   onMouseLeave={scheduleDropdownClose}
                 >
-                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">
-                    Policy Guides
-                  </li>
-                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">
-                    FAQs
-                  </li>
-                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">
-                    Blogs
-                  </li>
+                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">Policy Guides</li>
+                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">FAQs</li>
+                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">Blogs</li>
                 </ul>
               )}
             </li>
@@ -402,11 +233,8 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link
-                className="flex items-center gap-1 cursor-pointer hover:text-primary"
-                to="/support"
-              >
-                 Support
+              <Link className="flex items-center gap-1 cursor-pointer hover:text-primary" to="/support">
+                Support
               </Link>
             </li>
           </ul>
@@ -432,36 +260,37 @@ const Navbar = () => {
           </button>
 
           {/* AUTH */}
-          <Link
-            to={"/login"}
-            className="border border-primary text-primary px-4 py-1 rounded-md font-semibold shadow-sm hover:bg-primaryLight/10"
-          >
-            Login
-          </Link>
-          <Link
-            to={"/signup"}
-            className="bg-primary text-textInverted px-4 py-1 rounded-md font-semibold shadow hover:bg-primaryDark"
-          >
-            Register
-          </Link>
+          {!isAuthenticated && (
+            <Link
+              to={"/login"}
+              className="border border-primary text-primary px-4 py-1 rounded-md font-semibold shadow-sm hover:bg-primaryLight/10"
+            >
+              Login
+            </Link>
+          )}
 
-          {/* PROFILE ICON */}
-          <Link
-            to={"/profile"}
-            className="w-9 h-9 rounded-full flex items-center justify-center bg-bgMuted hover:bg-bgHover transition"
-            title="Profile"
-          >
-            <FaUser className="text-textSecondary" />
-          </Link>
+          {/* PROFILE ICON — ONLY when logged in */}
+          {isAuthenticated && (
+            <Link
+              to={"/profile"}
+              className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-bgHover transition"
+              title="Profile"
+            >
+              <img src={pp} alt="profile" className="w-9 h-9 rounded-full object-cover" />
+              {currentUser?.name && (
+                <span className="hidden sm:inline text-sm text-textPrimary dark:text-textInverted">
+                  Hi {currentUser.name.split(" ")[0]}
+                </span>
+              )}
+            </Link>
+          )}
         </div>
       </div>
 
       {/* MOBILE MENU (collapsible) */}
       <div
         id="nav-mobile"
-        className={`lg:hidden border-t border-borderDefault ${
-          mobileOpen ? "block" : "hidden"
-        }`}
+        className={`lg:hidden border-t border-borderDefault ${mobileOpen ? "block" : "hidden"}`}
       >
         <div className="px-4 py-3 space-y-2">
           {/* Policies accordion */}
@@ -471,125 +300,48 @@ const Navbar = () => {
             aria-expanded={mobilePoliciesOpen}
           >
             <span className="font-medium">Policies</span>
-            <IoIosArrowDown
-              className={`transition-transform ${
-                mobilePoliciesOpen ? "rotate-180" : ""
-              }`}
-            />
+            <IoIosArrowDown className={`transition-transform ${mobilePoliciesOpen ? "rotate-180" : ""}`} />
           </button>
           {mobilePoliciesOpen && (
-            <div className="pl-3 space-y-2">
-              {/* Health */}
-              <button
-                className="w-full flex items-center justify-between px-2 py-2 rounded hover:bg-bgHover"
-                onClick={() => setMobileHealthOpen((v) => !v)}
-              >
-                <span>Health Insurance</span>
-                <IoIosArrowForward
-                  className={`transition-transform ${
-                    mobileHealthOpen ? "rotate-90" : ""
-                  }`}
-                />
-              </button>
-              {mobileHealthOpen && (
-                <ul className="pl-3 space-y-1 text-sm">
-                  <li>
-                    <Link to="/policies/health/overview" className="block px-2 py-1 rounded hover:bg-bgHover">
-                      Overview
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/policies/health/benefits" className="block px-2 py-1 rounded hover:bg-bgHover">
-                      Benefits
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/policies/health/network" className="block px-2 py-1 rounded hover:bg-bgHover">
-                      Hospital Network
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/policies/health/quote" className="block px-2 py-1 rounded bg-primary text-textInverted hover:bg-primaryDark">
-                      Get Quote
-                    </Link>
-                  </li>
-                </ul>
-              )}
+            <ul className="pl-3 space-y-1 text-sm">
+              <li>
+                <Link to="/policies/car" className="block px-2 py-1 rounded hover:bg-bgHover">
+                  Car Insurance
+                </Link>
+              </li>
+              <li>
+                <Link to="/policies/bike" className="block px-2 py-1 rounded hover:bg-bgHover">
+                  Bike & Scooter Insurance
+                </Link>
+              </li>
+              <li>
+                <Link to="/policies/health" className="block px-2 py-1 rounded hover:bg-bgHover">
+                  Health Insurance
+                </Link>
+              </li>
+              <li>
+                <Link to="/policies/life" className="block px-2 py-1 rounded hover:bg-bgHover">
+                  Life Insurance
+                </Link>
+              </li>
+              <li>
+                <Link to="/policies/travel" className="block px-2 py-1 rounded hover:bg-bgHover">
+                Travel Insurance
+                </Link>
+              </li>
+              <li>
+                <Link to="/policies/airpass" className="block px-2 py-1 rounded hover:bg-bgHover">
+                  Air Pass
+                </Link>
+              </li>
+            </ul>
+          )}
 
-              {/* Motor */}
-              <button
-                className="w-full flex items-center justify-between px-2 py-2 rounded hover:bg-bgHover"
-                onClick={() => setMobileMotorOpen((v) => !v)}
-              >
-                <span>Motor Insurance</span>
-                <IoIosArrowForward
-                  className={`transition-transform ${
-                    mobileMotorOpen ? "rotate-90" : ""
-                  }`}
-                />
-              </button>
-              {mobileMotorOpen && (
-                <ul className="pl-3 space-y-1 text-sm">
-                  <li>
-                    <Link to="/policies/motor/overview" className="block px-2 py-1 rounded hover:bg-bgHover">
-                      Overview
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/policies/motor/coverage" className="block px-2 py-1 rounded hover:bg-bgHover">
-                      Coverage & Add-ons
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/policies/motor/renewal" className="block px-2 py-1 rounded hover:bg-bgHover">
-                      Renewal
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/policies/motor/quote" className="block px-2 py-1 rounded bg-primary text-textInverted hover:bg-primaryDark">
-                      Get Quote
-                    </Link>
-                  </li>
-                </ul>
-              )}
-
-              {/* Term */}
-              <button
-                className="w-full flex items-center justify-between px-2 py-2 rounded hover:bg-bgHover"
-                onClick={() => setMobileTermOpen((v) => !v)}
-              >
-                <span>Term Insurance</span>
-                <IoIosArrowForward
-                  className={`transition-transform ${
-                    mobileTermOpen ? "rotate-90" : ""
-                  }`}
-                />
-              </button>
-              {mobileTermOpen && (
-                <ul className="pl-3 space-y-1 text-sm">
-                  <li>
-                    <Link to="/policies/term/overview" className="block px-2 py-1 rounded hover:bg-bgHover">
-                      Overview
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/policies/term/benefits" className="block px-2 py-1 rounded hover:bg-bgHover">
-                      Benefits & Riders
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/policies/term/calculator" className="block px-2 py-1 rounded hover:bg-bgHover">
-                      Premium Calculator
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/policies/term/quote" className="block px-2 py-1 rounded bg-primary text-textInverted hover:bg-primaryDark">
-                      Get Quote
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </div>
+          {/* Check Your Policy (mobile) — ONLY when logged in */}
+          {isAuthenticated && (
+            <Link to="/check-policy" className="block px-2 py-2 rounded-md hover:bg-bgHover font-medium">
+              Check Your Policy
+            </Link>
           )}
 
           {/* Claims accordion */}
@@ -599,9 +351,7 @@ const Navbar = () => {
             aria-expanded={mobileClaimsOpen}
           >
             <span className="font-medium">Claims</span>
-            <IoIosArrowDown
-              className={`transition-transform ${mobileClaimsOpen ? "rotate-180" : ""}`}
-            />
+            <IoIosArrowDown className={`transition-transform ${mobileClaimsOpen ? "rotate-180" : ""}`} />
           </button>
           {mobileClaimsOpen && (
             <ul className="pl-3 space-y-1">
@@ -630,27 +380,13 @@ const Navbar = () => {
             aria-expanded={mobileResourcesOpen}
           >
             <span className="font-medium">Resources</span>
-            <IoIosArrowDown
-              className={`transition-transform ${mobileResourcesOpen ? "rotate-180" : ""}`}
-            />
+            <IoIosArrowDown className={`transition-transform ${mobileResourcesOpen ? "rotate-180" : ""}`} />
           </button>
           {mobileResourcesOpen && (
             <ul className="pl-3 space-y-1">
-              <li>
-                <Link to="/resources/guides" className="block px-2 py-1 rounded hover:bg-bgHover">
-                  Policy Guides
-                </Link>
-              </li>
-              <li>
-                <Link to="/resources/faqs" className="block px-2 py-1 rounded hover:bg-bgHover">
-                  FAQs
-                </Link>
-              </li>
-              <li>
-                <Link to="/resources/blogs" className="block px-2 py-1 rounded hover:bg-bgHover">
-                  Blogs
-                </Link>
-              </li>
+              <li className="px-2 py-1 rounded hover:bg-bgHover">Policy Guides</li>
+              <li className="px-2 py-1 rounded hover:bg-bgHover">FAQs</li>
+              <li className="px-2 py-1 rounded hover:bg-bgHover">Blogs</li>
             </ul>
           )}
 
@@ -660,9 +396,7 @@ const Navbar = () => {
               About
             </Link>
             <Link className="block px-2 py-1 rounded hover:bg-bgHover" to="/support">
-              <span className="inline-flex items-center gap-2">
-                Support
-              </span>
+              <span className="inline-flex items-center gap-2">Support</span>
             </Link>
           </div>
         </div>
@@ -672,4 +406,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-``

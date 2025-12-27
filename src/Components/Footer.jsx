@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           
           {/* Contact */}
-          <div>
+          <div id="footer-contact">
             <h6 className="text-md font-semibold text-textInverted">Contact</h6>
             <ul className="mt-2 space-y-2 text-textMuted">
               <li>

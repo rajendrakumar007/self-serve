@@ -8,6 +8,12 @@ const ForgotPassword = () => {
   const [phone, setPhone] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [toast, setToast] = useState({ show: false, type: "info", message: "" });
+
+  const showToast = (type, message, ms = 2200) => {
+    setToast({ show: true, type, message });
+    setTimeout(() => setToast((t) => ({ ...t, show: false })), ms);
+  };
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const validatePhone = (phone) => /^[0-9]{10}$/.test(phone);
@@ -28,7 +34,8 @@ const ForgotPassword = () => {
         setEmail("");
         return;
       }
-      setSuccess(`Password reset link sent to ${email}`);
+      // show popup like signup/login
+      showToast("success", `Password reset link sent to ${email}`);
       setEmail("");
     } else {
       if (!phone) {
@@ -40,7 +47,7 @@ const ForgotPassword = () => {
         setPhone("");
         return;
       }
-      setSuccess(`Password reset code sent to ${phone}`);
+      showToast("success", `Password reset code sent to ${phone}`);
       setPhone("");
     }
   };
@@ -112,14 +119,24 @@ const ForgotPassword = () => {
           </button>
         </form>
 
-        {success && <p className="mt-4 text-sm text-center text-success">{success}</p>}
+        {/* toast popup */}
+        {toast.show && (
+          <div
+            className={`absolute -top-4 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] rounded-md shadow-md p-3 flex items-center justify-between ${
+              toast.type === "success" ? "bg-success text-textInverted" : "bg-danger text-textInverted"
+            }`}
+          >
+            <span className="font-semibold">{toast.message}</span>
+            <span className="text-xs opacity-80">&nbsp;</span>
+          </div>
+        )}
 
         <div className="mt-5 text-center">
           <Link
             to="/login"
             className="text-primaryLight transition-colors hover:text-primary hover:underline"
           >
-            ← Back to Login
+            Back to Login
           </Link>
         </div>
       </div>

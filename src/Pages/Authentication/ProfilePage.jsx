@@ -1,205 +1,199 @@
-import profile from "../../assets/pp.png";
-import React, { useState } from "react";
 
-const ProfilePage = () => {
-  const [customer, setCustomer] = useState({
-    avatar: "",
-    name: "Satya",
-    number: "9876543210",
-    email: "satya@gmail.com",
-  });
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getCurrentUser, isLoggedIn, updateUserProfile, setCurrentUser, logout } from "../../utils/auth";
+import pp from "../../assets/pp.png";
 
-  const [editMode, setEditMode] = useState(false);
-  const [tempCustomer, setTempCustomer] = useState(customer);
-  const [errors, setErrors] = useState({});
-  const [showAvatarOptions, setShowAvatarOptions] = useState(false);
+const loadProfile = () => getCurrentUser() || { name: "", email: "", phone: "" };
 
-  // Validation for profile fields (logic unchanged)
-  const validateField = (name, value) => {
-    let error = "";
+const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const validatePhone = (phone) => /^[0-9]{10}$/.test(phone);
 
-    if (name === "name") {
-      if (!value || value.length < 2) {
-        error = "Name must be at least 2 characters.";
-      }
+export default function Profile() {
+  const [form, setForm] = useState(loadProfile());
+  const navigate = useNavigate();
+  const [saving, setSaving] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+  const [showPicOptions, setShowPicOptions] = useState(false);
+  const [showPicAction, setShowPicAction] = useState(false);
+  const [picActionType, setPicActionType] = useState("");
+
+  useEffect(() => {
+    // In case profile was updated elsewhere
+    const handleStorage = () => setForm(loadProfile());
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
+
+  useEffect(() => {
+    // Redirect to login if user is not authenticated
+    if (!isLoggedIn()) {
+      navigate("/login");
     }
-
-    if (name === "number") {
-      if (!/^\d{10}$/.test(value)) {
-        error = "Please enter valid mobile number.";
-      }
-    }
-
-    if (name === "email") {
-      if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(value)) {
-        error = "Please enter valid Email.";
-      }
-    }
-
-    return error;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setTempCustomer({ ...tempCustomer, [name]: value });
-
-    // Real-time validation (logic unchanged)
-    const errorMsg = validateField(name, value);
-    setErrors({ ...errors, [name]: errorMsg });
-  };
-
-  const validateProfile = () => {
-    let newErrors = {};
-    Object.keys(tempCustomer).forEach((field) => {
-      const errorMsg = validateField(field, tempCustomer[field]);
-      if (errorMsg) newErrors[field] = errorMsg;
-    });
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSave = () => {
-    if (validateProfile()) {
-      setCustomer(tempCustomer);
-      setEditMode(false);
-      alert("Profile updated successfully!");
-    } else {
-      alert("Please fix the errors before saving.");
-    }
-  };
-
-  const handleDiscard = () => {
-    setTempCustomer(customer);
-    setErrors({});
-    setEditMode(false);
-  };
+  }, [navigate]);
 
   const handleLogout = () => {
-    alert("Logged out!");
+    logout();
+    navigate("/");
   };
 
-  const handleAvatarUpdate = (option) => {
-    alert(`Profile pic successfully uploaded from ${option}!`);
-    setShowAvatarOptions(false);
+  const openPicOptions = () => setShowPicOptions(true);
+
+  const choosePicOption = (type) => {
+    // close options and show a small action popup (demo-only)
+    setShowPicOptions(false);
+    setPicActionType(type);
+    setShowPicAction(true);
+    setTimeout(() => setShowPicAction(false), 2000);
+  };
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: name === "phone" ? value.replace(/\D/g, "") : value,
+    }));
+  };
+
+  const onSave = (e) => {
+    e.preventDefault();
+    setSuccess("");
+    setError("");
+
+    if (!form.name.trim()) {
+      setError("Name is required.");
+      return;
+    }
+    if (!form.email.trim() || !validateEmail(form.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    if (!form.phone.trim() || !validatePhone(form.phone)) {
+      setError("Mobile must be exactly 10 digits.");
+      return;
+    }
+
+    setSaving(true);
+
+    // Build name parts
+    const parts = form.name.trim().split(/\s+/);
+    const firstName = parts[0] || "";
+    const lastName = parts.length > 1 ? parts[parts.length - 1] : "";
+    const middleName = parts.length > 2 ? parts.slice(1, -1).join(" ") : "";
+
+    // Attempt to update server/local users
+    (async () => {
+      const res = await updateUserProfile(form.email.trim().toLowerCase(), {
+        firstName,
+        middleName,
+        lastName,
+        contact: form.phone,
+        email: form.email.trim().toLowerCase(),
+      });
+
+      if (!res.ok) {
+        setSaving(false);
+        setError(res.message || "Unable to save profile");
+        return;
+      }
+
+      // Update stored profile shown to user
+      setCurrentUser({ firstName, middleName, lastName, email: form.email.trim().toLowerCase(), contact: form.phone });
+      setSaving(false);
+      setSuccess("Profile saved successfully.");
+    })();
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen w-screen bg-secondary bg-gradient-to-br from-secondary to-primaryDark text-textInverted">
-      {/* Card — same style as Login/Signup */}
-      <div className="w-full max-w-sm bg-bgCard/95 backdrop-blur-sm rounded-card shadow-lg p-6 sm:p-7 border border-borderDefault text-textPrimary">
-        {/* Title */}
-        <h2 className="mb-4 text-center font-bold text-2xl">Customer Profile</h2>
+    <div className="min-h-screen bg-secondary bg-gradient-to-br from-secondary to-primaryDark text-textInverted flex justify-center items-center p-4">
+      <div className="w-full max-w-md bg-bgCard/95 backdrop-blur-sm rounded-card shadow-lg p-6 sm:p-8 border border-borderDefault">
+        {/* Avatar + title */}
+        <div className="flex items-center gap-4 mb-5">
+          <img src={pp} alt="avatar" className="w-16 h-16 rounded-full bg-bgMuted object-cover" />
+          <div className="flex-1">
+            <div className="flex items-baseline gap-3">
+              {/* Show greeting with first name when available, otherwise fallback to 'Your Profile' */}
+              <h2 className="text-2xl font-bold text-textPrimary">
+                {form?.name && form.name.trim() ? `Hi ${form.name.split(" ")[0]}` : "Your Profile"}
+              </h2>
+            </div>
+            <div className="mt-2">
+              <button onClick={openPicOptions} className="px-3 py-1 rounded-md bg-accent text-textInverted text-sm hover:opacity-90">Change Profile Pic</button>
+              {showPicOptions && (
+                <div className="mt-3 grid gap-2">
+                  <button onClick={() => choosePicOption('gallery')} className="py-2 rounded-md bg-bgCard border border-borderDefault hover:bg-bgHover">From Gallery</button>
+                  <button onClick={() => choosePicOption('camera')} className="py-2 rounded-md bg-bgCard border border-borderDefault hover:bg-bgHover">From Camera</button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
 
-        {/* Avatar */}
-        <img
-          src={customer.avatar || profile}
-          alt="Avatar"
-          className="block w-24 h-24 rounded-full mx-auto mb-3 object-cover border-2 border-cyan-400 transition-transform duration-300 hover:scale-105"
-        />
-
-        {/* Update Profile Picture Button */}
-        <button
-          className="w-full py-2 px-3 rounded-md bg-primary text-textInverted hover:bg-primaryDark transition transform hover:scale-[1.02] mb-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight"
-          onClick={() => setShowAvatarOptions(!showAvatarOptions)}
-        >
-          Update Profile Picture
-        </button>
-
-        {/* Avatar Options */}
-        {showAvatarOptions && (
-          <div className="flex justify-center gap-2 mb-4">
-            <button
-              className="flex-1 py-2 px-3 rounded-md bg-success text-textInverted hover:bg-success/90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight"
-              onClick={() => handleAvatarUpdate("Camera")}
-            >
-              Upload from Camera
-            </button>
-            <button
-              className="flex-1 py-2 px-3 rounded-md bg-borderStrong text-textInverted hover:bg-borderStrong/80 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight"
-              onClick={() => handleAvatarUpdate("Gallery")}
-            >
-              Choose from Gallery
-            </button>
+        {/* small action popup when choosing gallery/camera */}
+        {showPicAction && (
+          <div className="mb-3 p-3 rounded-md bg-primary text-textInverted text-sm">
+            {picActionType === 'gallery' ? 'Open Gallery' : 'Open Camera'}
           </div>
         )}
 
-        {/* Name */}
-        <label className="block text-left font-semibold text-textSecondary mt-2 mb-1">
-          Name:
-        </label>
-        <input
-          type="text"
-          name="name"
-          className="w-full mb-2 px-3 py-2 rounded-md bg-bgMuted text-textPrimary placeholder:text-textMuted border border-borderDefault outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-bgMuted disabled:text-textMuted"
-          value={tempCustomer.name}
-          onChange={handleChange}
-          disabled={!editMode}
-        />
-        {errors.name && (
-          <p className="text-danger text-xs mb-2">{errors.name}</p>
-        )}
+        <form onSubmit={onSave} className="space-y-4">
+          <div>
+            <label className="block text-sm mb-1 text-textMuted">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={onChange}
+              className="w-full px-4 py-3 text-sm rounded-md bg-bgMuted text-textPrimary placeholder:text-textMuted border border-borderDefault outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              placeholder="Enter your full name"
+            />
+          </div>
 
-        {/* Number */}
-        <label className="block text-left font-semibold text-textSecondary mt-2 mb-1">
-          Mobile Number:
-        </label>
-        <input
-          type="text"
-          name="number"
-          className="w-full mb-2 px-3 py-2 rounded-md bg-bgMuted text-textPrimary placeholder:text-textMuted border border-borderDefault outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-bgMuted disabled:text-textMuted"
-          value={tempCustomer.number}
-          onChange={handleChange}
-          disabled={!editMode}
-        />
-        {errors.number && (
-          <p className="text-danger text-xs mb-2">{errors.number}</p>
-        )}
+          <div>
+            <label className="block text-sm mb-1 text-textMuted">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={onChange}
+              className="w-full px-4 py-3 text-sm rounded-md bg-bgMuted text-textPrimary placeholder:text-textMuted border border-borderDefault outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              placeholder="Enter your email"
+            />
+          </div>
 
-        {/* Email */}
-        <label className="block text-left font-semibold text-textSecondary mt-2 mb-1">
-          Email:
-        </label>
-        <input
-          type="email"
-          name="email"
-          className="w-full mb-2 px-3 py-2 rounded-md bg-bgMuted text-textPrimary placeholder:text-textMuted border border-borderDefault outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-bgMuted disabled:text-textMuted"
-          value={tempCustomer.email}
-          onChange={handleChange}
-          disabled={!editMode}
-        />
-        {errors.email && (
-          <p className="text-danger text-xs mb-2">{errors.email}</p>
-        )}
+          <div>
+            <label className="block text-sm mb-1 text-textMuted">Mobile</label>
+            <input
+              type="tel"
+              name="phone"
+              value={form.phone}
+              onChange={onChange}
+              maxLength={10}
+              className="w-full px-4 py-3 text-sm rounded-md bg-bgMuted text-textPrimary placeholder:text-textMuted border border-borderDefault outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              placeholder="10-digit mobile number"
+            />
+            <small className="text-textMuted text-xs">Must be 10 digits</small>
+          </div>
 
-        {/* Buttons */}
-        <div className="flex flex-wrap gap-2 justify-center mt-3">
-          {editMode ? (
-            <>
-              <button
-                className="flex-1 py-2 px-3 rounded-md bg-success text-textInverted hover:bg-success/90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight"
-                onClick={handleSave}
-              >
-                Save
-              </button>
-              <button
-                className="flex-1 py-2 px-3 rounded-md bg-borderStrong text-textInverted hover:bg-borderStrong/80 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight"
-                onClick={handleDiscard}
-              >
-                Discard
-              </button>
-            </>
-          ) : (
-            <button
-              className="flex-1 py-2 px-3 rounded-md bg-primary text-textInverted hover:bg-primaryDark transition transform hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight"
-              onClick={() => setEditMode(true)}
-            >
-              Edit
-            </button>
-          )}
+          {error && <p className="text-danger text-sm text-center">{error}</p>}
+          {success && <p className="text-success text-sm text-center">{success}</p>}
 
           <button
-            className="flex-1 py-2 px-3 rounded-md bg-danger text-textInverted hover:bg-danger/90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight"
+            type="submit"
+            disabled={saving}
+            className="w-full mt-2 px-4 py-3 text-base rounded-md bg-primary text-textInverted transition hover:bg-primaryDark hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight disabled:opacity-60"
+          >
+            {saving ? "Saving..." : "Save"}
+          </button>
+        </form>
+
+        <div className="mt-5 flex justify-between items-center">
+          <button onClick={() => navigate('/')} className="px-4 py-2 rounded-md bg-accent text-textInverted hover:opacity-90">Back to Home</button>
+
+          <button
             onClick={handleLogout}
+            className="text-sm bg-danger/90 text-textInverted px-3 py-2 rounded-md hover:bg-danger transition"
           >
             Logout
           </button>
@@ -207,6 +201,4 @@ const ProfilePage = () => {
       </div>
     </div>
   );
-};
-
-export default ProfilePage;
+}
