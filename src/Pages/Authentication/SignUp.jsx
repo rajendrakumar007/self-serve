@@ -92,7 +92,7 @@ function SignUp() {
     const randomOtp = Math.floor(100000 + Math.random() * 900000).toString();
     setGeneratedOtp(randomOtp);
     setIsOtpVerified(false);
-    showToast("info", `The OTP is ${randomOtp}`, 10000);
+    showToast("info", `The OTP is : ${randomOtp}`, 10000);
   };
 
   const handleVerifyOtp = () => {

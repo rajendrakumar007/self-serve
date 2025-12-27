@@ -42,7 +42,7 @@ function Login() {
       const code = Math.floor(100000 + Math.random() * 900000).toString();
       setGeneratedOtp(code);
       setOtpSent(true);
-      showToast("info", `OTP sent to ${mobile}: ${code}`, 30000);
+      showToast("info", `The OTP is : ${code}`, 10000);
     });
   };
 
@@ -213,7 +213,6 @@ function Login() {
                 maxLength={10}
                 className="px-3 py-2 rounded-md bg-bgMuted text-textPrimary placeholder:text-textMuted border border-borderDefault focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               />
-              <small className="text-textMuted text-xs">Must be 10 digits</small>
 
               {!otpSent && (
                 <button
@@ -237,7 +236,6 @@ function Login() {
                     maxLength={6}
                     className="px-3 py-2 rounded-md bg-bgMuted text-textPrimary placeholder:text-textMuted border border-borderDefault focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                   />
-                  <small className="text-textMuted text-xs">Must be 6 digits</small>
                 </>
               )}
             </>
