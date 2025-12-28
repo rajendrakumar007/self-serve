@@ -44,6 +44,24 @@ npm install
 npm run dev
  ```
 
+### (Optional) Run local mock API (persist users to JSON)
+
+This project includes a lightweight mock API powered by json-server. It persists users to `src/data/db.json` so signup and login can read/write real JSON during development.
+
+1. Install dev dependencies (if you haven't):
+
+```bash
+npm install
+```
+
+2. Start the mock server in a separate terminal:
+
+```bash
+npm run mock:server
+```
+
+The mock server will listen on http://localhost:4000 and expose `/users` endpoints used by the signup/login flows.
+
 ## Branching Strategy (Team Workflow)
  
 This project follows a professional Git Flow-inspired workflow.

@@ -2,21 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global dark-mode overrides for commonly used utility classes */
+.dark .bg-bgCard { background-color: #0F172A !important; }
+.dark .bg-bgMuted { background-color: #0B1220 !important; }
+.dark .bg-secondary { background-color: #0F172A !important; }
+.dark .text-textPrimary { color: #FFFFFF !important; }
+.dark .text-textSecondary { color: #CBD5E1 !important; }
+.dark .text-textMuted { color: #94A3B8 !important; }
+.dark .border-borderDefault { border-color: #1F2937 !important; }
+.dark .bg-primary { background-color: #2563EB !important; }
+.dark .bg-primaryDark { background-color: #1E40AF !important; }
+.dark .bg-success { background-color: #16A34A !important; }
 
-@layer base {
-  html, body, #root {
-    @apply h-full;
-  }
+/* Ensure page background follows theme wrapper */
+.dark body { background-color: #0F172A; color: #FFFFFF; }
 
-  body {
-    @apply min-h-screen bg-bgBase text-textPrimary;
-  }
-}
+/* Ensure utility variants with opacity (e.g., bg-bgCard/95) flip in dark mode too */
+.dark [class*="bg-bgCard"] { background-color: #0F172A !important; }
+.dark [class*="bg-bgMuted"] { background-color: #0B1220 !important; }
+.dark [class*="text-textPrimary"] { color: #FFFFFF !important; }
+.dark [class*="text-textSecondary"] { color: #CBD5E1 !important; }
 
-
-@layer components {
-  .app-surface {
-    @apply rounded-card border border-borderDefault bg-bgCard shadow-sm text-textPrimary;
- 
-  }
-}
+/* Ensure plain `bg-white` inputs also adapt in dark mode so text remains visible */
+.dark .bg-white { background-color: #0B1220 !important; }
+.dark .bg-white.text-textPrimary { color: #FFFFFF !important; }
+.dark .bg-white::placeholder { color: #94A3B8 !important; }
