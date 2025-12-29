@@ -1,0 +1,29 @@
+
+{
+  "policies": [
+    {
+      "id": "PL-1001",
+      "policyId": "PL-1001",
+      "customerId": "CUST-001",
+      "policyType": "Health",
+      "coverageAmount": 500000,
+      "startDate": "2024-09-01",
+      "endDate": "2026-08-31",
+      "status": "ACTIVE",
+      "documentUrl": "/docs/PL-1001.pdf",
+      "terms": "Pre-existing conditions covered after 24 months."
+    },
+    {
+      "id": "PL-1002",
+      "policyId": "PL-1002",
+      "customerId": "CUST-001",
+      "policyType": "Motor",
+      "coverageAmount": 300000,
+      "startDate": "2023-01-01",
+      "endDate": "2024-01-01",
+      "status": "EXPIRED",
+      "documentUrl": "/docs/PL-1002.pdf",
+      "terms": "Own damage + third-party liability."
+    }
+  ]
+}
