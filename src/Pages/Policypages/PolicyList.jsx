@@ -12,19 +12,17 @@ export default function PolicyList() {
   const dispatch = useDispatch();
   const { items = [], status, error } = useSelector((s) => s.policies);
 
-  const [customerId] = useState("CUST-001");
+  const [userId] = useState("USR-2025-0001");
 
   const [filters, setFilters] = useState({
     q: "",
     status: "ALL",
     type: "ALL",
-    sortBy: "startDate",
-    sortDir: "desc",
   });
 
   useEffect(() => {
-    dispatch(fetchPolicies({ customerId }));
-  }, [dispatch, customerId]);
+    dispatch(fetchPolicies({ userId }));
+  }, [dispatch, userId]);
 
   const filtered = useMemo(() => {
     let list = Array.isArray(items) ? [...items] : [];
@@ -38,31 +36,17 @@ export default function PolicyList() {
     }
 
     if (filters.type !== "ALL") {
-      list = list.filter((p) => (p.policyType ?? "") === filters.type);
+      list = list.filter((p) => (p.type ?? "") === filters.type);
     }
 
     if (q) {
       list = list.filter(
         (p) =>
           (p.policyId ?? "").toLowerCase().includes(q) ||
-          (p.policyType ?? "").toLowerCase().includes(q)
+          (p.type ?? "").toLowerCase().includes(q)
       );
     }
-
-    const key = filters.sortBy;
-    list.sort((a, b) => {
-      let va = a?.[key];
-      let vb = b?.[key];
-
-      if (String(key).includes("Date")) {
-        va = new Date(va).getTime();
-        vb = new Date(vb).getTime();
-      }
-
-      if (va < vb) return filters.sortDir === "asc" ? -1 : 1;
-      if (va > vb) return filters.sortDir === "asc" ? 1 : -1;
-      return 0;
-    });
+    console.log(q);
 
     return list;
   }, [items, filters]);
@@ -95,7 +79,7 @@ export default function PolicyList() {
             <h2 className="text-base font-semibold text-textPrimary">
               Policies ({filtered.length})
             </h2>
-            <div className="text-textMuted">Customer: {customerId}</div>
+            <div className="text-textMuted">Customer: {userId}</div>
           </div>
 
           {/* Filters card */}
@@ -131,10 +115,10 @@ export default function PolicyList() {
                       </Link>
                     </td>
                     <td className="px-3 py-2 text-textPrimary">
-                      {p.policyType ?? "-"}
+                      {p.type ?? "-"}
                     </td>
                     <td className="px-3 py-2 text-textPrimary">
-                      ₹{formatINR(p.coverageAmount)}
+                      ₹{formatINR(p.sumInsured)}
                     </td>
                     <td className="px-3 py-2 text-textPrimary">
                       {formatDate(p.startDate)} — {formatDate(p.endDate)}

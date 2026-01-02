@@ -6,6 +6,7 @@ import StatusBadge from "../../Components/policies/StatusBadge.jsx";
 import DownloadButton from "../../Components/policies/DownloadButton.jsx";
 import Loading from "../../Components/policies/Loading.jsx";
 import Navbar from "../../Components/Navbar.jsx";
+import CoverageTermsCard from "../../Components/policies/CoverageTermsCard.jsx";
 
 export default function PolicyDetails() {
   const { id: idParam } = useParams();
@@ -27,7 +28,7 @@ export default function PolicyDetails() {
         Failed to load policy. {error ?? ""}
         <div className="mt-2">
           <Link
-            to="/policies"
+            to="/check-policy"
             className="text-primary hover:text-primaryDark underline underline-offset-2"
           >
             Back to list
@@ -87,17 +88,15 @@ export default function PolicyDetails() {
               <dl className="grid grid-cols-5 gap-y-2">
                 <dt className="col-span-2 text-textSecondary">Customer ID</dt>
                 <dd className="col-span-3 text-textPrimary">
-                  {p.customerId ?? "-"}
+                  {p.userId ?? "-"}
                 </dd>
 
                 <dt className="col-span-2 text-textSecondary">Policy Type</dt>
-                <dd className="col-span-3 text-textPrimary">
-                  {p.policyType ?? "-"}
-                </dd>
+                <dd className="col-span-3 text-textPrimary">{p.type ?? "-"}</dd>
 
                 <dt className="col-span-2 text-textSecondary">Coverage</dt>
                 <dd className="col-span-3 text-textPrimary">
-                  ₹{formatINR(p.coverageAmount)}
+                  ₹{formatINR(p.sumInsured)}
                 </dd>
               </dl>
             </div>
@@ -129,10 +128,11 @@ export default function PolicyDetails() {
             Terms & Coverage Details
           </h6>
           <p className="mb-3 text-textSecondary">{p.terms ?? "—"}</p>
+          <CoverageTermsCard policy={p} />
 
           <div className="flex items-center gap-2">
             <Link
-              to="/policies"
+              to="/check-policy"
               className="text-primary hover:text-primaryDark underline underline-offset-2"
             >
               Back to list
