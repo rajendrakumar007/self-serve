@@ -2,13 +2,13 @@
 import React from "react";
 import Modal from "./Modal";
 
-export default function PrivacyPolicyModal({ isOpen, onClose }) {
+export default function PrivacyPolicyModal({ isOpen, onClose, onAgree }) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Privacy Policy">
+    <Modal isOpen={isOpen} onClose={onClose} title="Privacy Policy" onAgree={onAgree}>
       <section className="space-y-4 leading-relaxed">
         <p className="text-textSecondary">
           This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use
-          Self-Serve.
+          SELFSERVE.
         </p>
 
         <h4 className="font-semibold">1. Information We Collect</h4>
@@ -46,8 +46,8 @@ export default function PrivacyPolicyModal({ isOpen, onClose }) {
 
         <h4 className="font-semibold">6. Changes</h4>
         <p>
-          We may update this Privacy Policy occasionally. Continued use after updates indicates acceptance of the
-          revised policy.
+          We may update this Privacy Policy occasionally. Continued use after updates indicates acceptance of the revised
+          policy.
         </p>
 
         <h4 className="font-semibold">7. Contact</h4>

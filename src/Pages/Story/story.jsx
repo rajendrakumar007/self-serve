@@ -32,7 +32,7 @@ const StoryPage = () => {
           </p>
 
           <p>
-            Thanks to their <strong>SelfServe Health Policy</strong>, the
+            Thanks to their <strong>SELFSERVE Health Policy</strong>, the
             hospital initiated a cashless admission within minutes. No frantic
             calls. No running for documents. The policy handled everything
             automatically from pre authorization to payment.

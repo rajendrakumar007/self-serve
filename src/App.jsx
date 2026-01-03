@@ -8,6 +8,8 @@ import ProfilePage from "./Pages/Authentication/ProfilePage";
 import Home from "./Pages/Authentication/Home";
 import AuthLanding from "./Pages/Authentication/AuthLanding";
 import About from "./Pages/Authentication/About";
+import ResetPassword from "./Pages/Authentication/ResetPassword";
+
 
 // Keep all policy pages under the same folder & casing
 import CarPolicies from "./Pages/Policies/Car";
@@ -21,6 +23,14 @@ import PolicyList from "./Pages/Policypages/PolicyList";
 
 import StoryPage from "./Pages/Story/story";
 import { Provider } from "react-redux";
+
+
+
+import PrivacyPolicy from './Pages/Legal/PrivacyPolicy';
+import TermsOfService from './Pages/Legal/TermsOfService';
+import RefundPolicy from './Pages/Legal/RefundPolicy';
+
+
 
 function App() {
   return (
@@ -39,6 +49,10 @@ function App() {
       <Route path="/check-policy" element={<PolicyList />} />
       <Route path="/check-policy/:id" element={<PolicyDetails />} />
 
+      <Route path="/forgot" element={<ForgotPassword />} />
+      <Route path="/reset" element={<ResetPassword />} />
+
+
       {/* Policies — use URL paths, not file paths */}
       <Route path="/policies/car" element={<CarPolicies />} />
       <Route path="/policies/bike" element={<BikePolicies />} />
@@ -46,6 +60,17 @@ function App() {
       <Route path="/policies/life" element={<LifePolicies />} />
       <Route path="/policies/travel" element={<TravelPolicies />} />
       <Route path="/policies/airpass" element={<AirPassPolicies />} />
+
+
+      {/* Legal */}
+
+
+
+      <Route path="/legal/privacy" element={<PrivacyPolicy />} />
+      <Route path="/legal/terms" element={<TermsOfService />} />
+      <Route path="/legal/refund" element={<RefundPolicy />} />
+
+
     </Routes>
   );
 }

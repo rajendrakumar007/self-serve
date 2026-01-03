@@ -1,13 +1,16 @@
+
 {
   "users": [
     {
-      "id": 0,
+      "id": "26BH-000",
       "firstName": "Demo",
       "middleName": "",
       "lastName": "User",
       "email": "demo.user@example.com",
       "password": "UGFzc3dvcmQxIQ==",
-      "contact": "9999999999"
+      "contact": "9999999999",
+      "address": "Pune, MH",
+      "gender": "Other"
     }
   ]
 }
