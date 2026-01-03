@@ -105,11 +105,7 @@
       "email": "brucewayne@gmail.com",
       "password": "UmFqZW5kcmFAMjkxMA==",
       "phone": "9390098900",
-      "policies": [
-        "POL-CAR-0010",
-        "POL-AIR-0010",
-        "POL-AIR-0009"
-      ],
+      "policies": ["POL-CAR-0010", "POL-AIR-0010", "POL-AIR-0009"],
       "id": 12,
       "firstName": "Bruce",
       "middleName": "",
@@ -149,6 +145,7 @@
         "Day-care procedures"
       ],
       "terms": "Pre-existing conditions covered after 24 months. Covers hospitalization, pre and post hospitalization expenses, and day care procedures. Cashless facility available at network hospitals.",
+      "documentUrl": "/docs/USR-2025-0001.pdf",
       "sumInsured": 500000,
       "premium": 8500,
       "status": "ACTIVE",
@@ -161,11 +158,9 @@
       "userId": "USR-2025-0001",
       "type": "life",
       "title": "Life Secure Term",
-      "perks": [
-        "Death benefit",
-        "Affordable term cover"
-      ],
+      "perks": ["Death benefit", "Affordable term cover"],
       "terms": "Provides comprehensive life insurance coverage with death benefit payable to nominees. Term life insurance with no maturity benefits.",
+      "documentUrl": "/docs/USR-2025-0001.pdf",
       "sumInsured": 1000000,
       "premium": 12000,
       "status": "ACTIVE",
@@ -178,17 +173,14 @@
       "userId": "USR-2025-0001",
       "type": "car",
       "title": "Comprehensive Drive",
-      "perks": [
-        "Own damage cover",
-        "Cashless garages",
-        "Roadside assistance"
-      ],
+      "perks": ["Own damage cover", "Cashless garages", "Roadside assistance"],
       "terms": "Comprehensive car insurance covering own damage, third party liability, and personal accident. Cashless repair at network garages. Roadside assistance included.",
+      "documentUrl": "/docs/USR-2025-0001.pdf",
       "sumInsured": 400000,
       "premium": 4200,
-      "status": "ACTIVE",
-      "startDate": "2025-01-01",
-      "endDate": "2026-01-01"
+      "status": "EXPIRED",
+      "startDate": "2024-01-01",
+      "endDate": "2025-08-01"
     },
     {
       "id": 4,
@@ -196,12 +188,9 @@
       "userId": "USR-2025-0001",
       "type": "bike",
       "title": "Smart Bike Plus",
-      "perks": [
-        "Theft protection",
-        "Accident cover",
-        "Easy claims"
-      ],
+      "perks": ["Theft protection", "Accident cover", "Easy claims"],
       "terms": "Two-wheeler insurance covering theft, accident damage, and third party liability. Easy online claims process with quick settlement.",
+      "documentUrl": "/docs/USR-2025-0001.pdf",
       "sumInsured": 150000,
       "premium": 1800,
       "status": "ACTIVE",
@@ -214,11 +203,9 @@
       "userId": "USR-2025-0001",
       "type": "airpass",
       "title": "Saver Air Pass",
-      "perks": [
-        "Limited bookings",
-        "Fixed routes"
-      ],
+      "perks": ["Limited bookings", "Fixed routes"],
       "terms": "Annual air pass for limited domestic flights on fixed routes. Covers flight delays, cancellations, and medical emergencies during travel.",
+      "documentUrl": "/docs/USR-2025-0001.pdf",
       "sumInsured": 200000,
       "premium": 3000,
       "status": "ACTIVE",
@@ -231,15 +218,13 @@
       "userId": "USR-2025-0001",
       "type": "travel",
       "title": "Travel Basic Guard",
-      "perks": [
-        "Emergency medical cover",
-        "Trip delay cover"
-      ],
+      "perks": ["Emergency medical cover", "Trip delay cover"],
       "terms": "Travel insurance covering medical emergencies, trip delays, cancellations, and lost baggage during international travel. Valid for trips up to 30 days.",
+      "documentUrl": "/docs/USR-2025-0001.pdf",
       "sumInsured": 250000,
       "premium": 3500,
-      "status": "ACTIVE",
-      "startDate": "2025-02-01",
+      "status": "EXPIRED",
+      "startDate": "2023-02-01",
       "endDate": "2025-12-31"
     },
     {
@@ -265,11 +250,7 @@
       "userId": "USR-2025-0002",
       "type": "life",
       "title": "Life Income Plus",
-      "perks": [
-        "Income payout option",
-        "Tax benefits",
-        "Family security"
-      ],
+      "perks": ["Income payout option", "Tax benefits", "Family security"],
       "sumInsured": 1200000,
       "premium": 13500,
       "status": "ACTIVE",
@@ -282,10 +263,7 @@
       "userId": "USR-2025-0002",
       "type": "car",
       "title": "Third-Party Protect",
-      "perks": [
-        "Third-party liability",
-        "Legal coverage"
-      ],
+      "perks": ["Third-party liability", "Legal coverage"],
       "sumInsured": 350000,
       "premium": 4000,
       "status": "ACTIVE",
@@ -298,10 +276,7 @@
       "userId": "USR-2025-0002",
       "type": "bike",
       "title": "Basic Ride Cover",
-      "perks": [
-        "Third-party liability",
-        "Affordable premium"
-      ],
+      "perks": ["Third-party liability", "Affordable premium"],
       "sumInsured": 120000,
       "premium": 1600,
       "status": "ACTIVE",
@@ -314,10 +289,7 @@
       "userId": "USR-2025-0002",
       "type": "airpass",
       "title": "Flex Air Pass",
-      "perks": [
-        "Flexible bookings",
-        "Free rescheduling"
-      ],
+      "perks": ["Flexible bookings", "Free rescheduling"],
       "sumInsured": 220000,
       "premium": 3200,
       "status": "ACTIVE",
@@ -330,11 +302,7 @@
       "userId": "USR-2025-0002",
       "type": "travel",
       "title": "Global Travel Plus",
-      "perks": [
-        "Medical emergencies",
-        "Baggage loss",
-        "Trip cancellation"
-      ],
+      "perks": ["Medical emergencies", "Baggage loss", "Trip cancellation"],
       "sumInsured": 300000,
       "premium": 3800,
       "status": "ACTIVE",
@@ -365,10 +333,7 @@
       "userId": "USR-2025-0003",
       "type": "life",
       "title": "Life Secure Term",
-      "perks": [
-        "Death benefit",
-        "Affordable term cover"
-      ],
+      "perks": ["Death benefit", "Affordable term cover"],
       "sumInsured": 900000,
       "premium": 11000,
       "status": "ACTIVE",
@@ -417,10 +382,7 @@
       "userId": "USR-2025-0003",
       "type": "airpass",
       "title": "Saver Air Pass",
-      "perks": [
-        "Limited bookings",
-        "Fixed routes"
-      ],
+      "perks": ["Limited bookings", "Fixed routes"],
       "sumInsured": 210000,
       "premium": 3100,
       "status": "ACTIVE",
@@ -433,11 +395,7 @@
       "userId": "USR-2025-0003",
       "type": "travel",
       "title": "Global Travel Plus",
-      "perks": [
-        "Medical emergencies",
-        "Baggage loss",
-        "Trip cancellation"
-      ],
+      "perks": ["Medical emergencies", "Baggage loss", "Trip cancellation"],
       "sumInsured": 280000,
       "premium": 3600,
       "status": "ACTIVE",
@@ -468,11 +426,7 @@
       "userId": "USR-2025-0004",
       "type": "life",
       "title": "Life Income Plus",
-      "perks": [
-        "Income payout option",
-        "Tax benefits",
-        "Family security"
-      ],
+      "perks": ["Income payout option", "Tax benefits", "Family security"],
       "sumInsured": 1100000,
       "premium": 12500,
       "status": "ACTIVE",
@@ -485,11 +439,7 @@
       "userId": "USR-2025-0004",
       "type": "car",
       "title": "Comprehensive Drive",
-      "perks": [
-        "Own damage cover",
-        "Cashless garages",
-        "Roadside assistance"
-      ],
+      "perks": ["Own damage cover", "Cashless garages", "Roadside assistance"],
       "sumInsured": 420000,
       "premium": 4300,
       "status": "ACTIVE",
@@ -520,10 +470,7 @@
       "userId": "USR-2025-0004",
       "type": "airpass",
       "title": "Flex Air Pass",
-      "perks": [
-        "Flexible bookings",
-        "Free rescheduling"
-      ],
+      "perks": ["Flexible bookings", "Free rescheduling"],
       "sumInsured": 215000,
       "premium": 3150,
       "status": "ACTIVE",
@@ -536,10 +483,7 @@
       "userId": "USR-2025-0004",
       "type": "travel",
       "title": "Travel Basic Guard",
-      "perks": [
-        "Emergency medical cover",
-        "Trip delay cover"
-      ],
+      "perks": ["Emergency medical cover", "Trip delay cover"],
       "sumInsured": 260000,
       "premium": 3400,
       "status": "ACTIVE",
@@ -569,10 +513,7 @@
       "userId": "USR-2025-0005",
       "type": "life",
       "title": "Life Secure Term",
-      "perks": [
-        "Death benefit",
-        "Affordable term cover"
-      ],
+      "perks": ["Death benefit", "Affordable term cover"],
       "sumInsured": 950000,
       "premium": 11500,
       "status": "ACTIVE",
@@ -585,10 +526,7 @@
       "userId": "USR-2025-0005",
       "type": "car",
       "title": "Third-Party Protect",
-      "perks": [
-        "Third-party liability",
-        "Legal coverage"
-      ],
+      "perks": ["Third-party liability", "Legal coverage"],
       "sumInsured": 380000,
       "premium": 4100,
       "status": "ACTIVE",
@@ -601,10 +539,7 @@
       "userId": "USR-2025-0005",
       "type": "bike",
       "title": "Basic Ride Cover",
-      "perks": [
-        "Third-party liability",
-        "Affordable premium"
-      ],
+      "perks": ["Third-party liability", "Affordable premium"],
       "sumInsured": 140000,
       "premium": 1700,
       "status": "ACTIVE",
@@ -617,10 +552,7 @@
       "userId": "USR-2025-0005",
       "type": "airpass",
       "title": "Saver Air Pass",
-      "perks": [
-        "Limited bookings",
-        "Fixed routes"
-      ],
+      "perks": ["Limited bookings", "Fixed routes"],
       "sumInsured": 205000,
       "premium": 3050,
       "status": "ACTIVE",
@@ -633,10 +565,7 @@
       "userId": "USR-2025-0005",
       "type": "travel",
       "title": "Travel Basic Guard",
-      "perks": [
-        "Emergency medical cover",
-        "Trip delay cover"
-      ],
+      "perks": ["Emergency medical cover", "Trip delay cover"],
       "sumInsured": 270000,
       "premium": 3500,
       "status": "ACTIVE",
@@ -721,10 +650,7 @@
       "userId": "USR-2025-0006",
       "type": "airpass",
       "title": "Flex Air Pass",
-      "perks": [
-        "Flexible bookings",
-        "Free rescheduling"
-      ],
+      "perks": ["Flexible bookings", "Free rescheduling"],
       "sumInsured": 225000,
       "premium": 3300,
       "status": "ACTIVE",
@@ -737,11 +663,7 @@
       "userId": "USR-2025-0006",
       "type": "travel",
       "title": "Global Travel Plus",
-      "perks": [
-        "Medical emergencies",
-        "Baggage loss",
-        "Trip cancellation"
-      ],
+      "perks": ["Medical emergencies", "Baggage loss", "Trip cancellation"],
       "sumInsured": 290000,
       "premium": 3700,
       "status": "ACTIVE",
@@ -772,11 +694,7 @@
       "userId": "USR-2025-0007",
       "type": "life",
       "title": "Life Income Plus",
-      "perks": [
-        "Income payout option",
-        "Tax benefits",
-        "Family security"
-      ],
+      "perks": ["Income payout option", "Tax benefits", "Family security"],
       "sumInsured": 1050000,
       "premium": 12200,
       "status": "ACTIVE",
@@ -789,11 +707,7 @@
       "userId": "USR-2025-0007",
       "type": "car",
       "title": "Comprehensive Drive",
-      "perks": [
-        "Own damage cover",
-        "Cashless garages",
-        "Roadside assistance"
-      ],
+      "perks": ["Own damage cover", "Cashless garages", "Roadside assistance"],
       "sumInsured": 410000,
       "premium": 4250,
       "status": "ACTIVE",
@@ -824,10 +738,7 @@
       "userId": "USR-2025-0007",
       "type": "airpass",
       "title": "Saver Air Pass",
-      "perks": [
-        "Limited bookings",
-        "Fixed routes"
-      ],
+      "perks": ["Limited bookings", "Fixed routes"],
       "sumInsured": 210000,
       "premium": 3100,
       "status": "ACTIVE",
@@ -840,10 +751,7 @@
       "userId": "USR-2025-0007",
       "type": "travel",
       "title": "Travel Basic Guard",
-      "perks": [
-        "Emergency medical cover",
-        "Trip delay cover"
-      ],
+      "perks": ["Emergency medical cover", "Trip delay cover"],
       "sumInsured": 265000,
       "premium": 3450,
       "status": "ACTIVE",
@@ -874,10 +782,7 @@
       "userId": "USR-2025-0008",
       "type": "life",
       "title": "Life Secure Term",
-      "perks": [
-        "Death benefit",
-        "Affordable term cover"
-      ],
+      "perks": ["Death benefit", "Affordable term cover"],
       "sumInsured": 980000,
       "premium": 11800,
       "status": "ACTIVE",
@@ -890,10 +795,7 @@
       "userId": "USR-2025-0008",
       "type": "car",
       "title": "Third-Party Protect",
-      "perks": [
-        "Third-party liability",
-        "Legal coverage"
-      ],
+      "perks": ["Third-party liability", "Legal coverage"],
       "sumInsured": 370000,
       "premium": 4050,
       "status": "ACTIVE",
@@ -906,11 +808,7 @@
       "userId": "USR-2025-0008",
       "type": "bike",
       "title": "Smart Bike Plus",
-      "perks": [
-        "Theft protection",
-        "Accident cover",
-        "Easy claims"
-      ],
+      "perks": ["Theft protection", "Accident cover", "Easy claims"],
       "sumInsured": 145000,
       "premium": 1750,
       "status": "ACTIVE",
@@ -923,10 +821,7 @@
       "userId": "USR-2025-0008",
       "type": "airpass",
       "title": "Saver Air Pass",
-      "perks": [
-        "Limited bookings",
-        "Fixed routes"
-      ],
+      "perks": ["Limited bookings", "Fixed routes"],
       "sumInsured": 208000,
       "premium": 3080,
       "status": "ACTIVE",
@@ -939,11 +834,7 @@
       "userId": "USR-2025-0008",
       "type": "travel",
       "title": "Global Travel Plus",
-      "perks": [
-        "Medical emergencies",
-        "Baggage loss",
-        "Trip cancellation"
-      ],
+      "perks": ["Medical emergencies", "Baggage loss", "Trip cancellation"],
       "sumInsured": 275000,
       "premium": 3550,
       "status": "ACTIVE",
@@ -1046,11 +937,7 @@
       "userId": "USR-2025-0009",
       "type": "travel",
       "title": "Global Travel Plus",
-      "perks": [
-        "Medical emergencies",
-        "Baggage loss",
-        "Trip cancellation"
-      ],
+      "perks": ["Medical emergencies", "Baggage loss", "Trip cancellation"],
       "sumInsured": 295000,
       "premium": 3750,
       "status": "ACTIVE",
@@ -1081,11 +968,7 @@
       "userId": "USR-2025-0010",
       "type": "life",
       "title": "Life Income Plus",
-      "perks": [
-        "Income payout option",
-        "Tax benefits",
-        "Family security"
-      ],
+      "perks": ["Income payout option", "Tax benefits", "Family security"],
       "sumInsured": 1150000,
       "premium": 13000,
       "status": "ACTIVE",
@@ -1098,11 +981,7 @@
       "userId": "USR-2025-0010",
       "type": "car",
       "title": "Comprehensive Drive",
-      "perks": [
-        "Own damage cover",
-        "Cashless garages",
-        "Roadside assistance"
-      ],
+      "perks": ["Own damage cover", "Cashless garages", "Roadside assistance"],
       "sumInsured": 395000,
       "premium": 4180,
       "status": "ACTIVE",
@@ -1133,10 +1012,7 @@
       "userId": "USR-2025-0010",
       "type": "airpass",
       "title": "Flex Air Pass",
-      "perks": [
-        "Flexible bookings",
-        "Free rescheduling"
-      ],
+      "perks": ["Flexible bookings", "Free rescheduling"],
       "sumInsured": 212000,
       "premium": 3120,
       "status": "ACTIVE",
@@ -1149,11 +1025,7 @@
       "userId": "USR-2025-0010",
       "type": "travel",
       "title": "Global Travel Plus",
-      "perks": [
-        "Medical emergencies",
-        "Baggage loss",
-        "Trip cancellation"
-      ],
+      "perks": ["Medical emergencies", "Baggage loss", "Trip cancellation"],
       "sumInsured": 285000,
       "premium": 3650,
       "status": "ACTIVE",
