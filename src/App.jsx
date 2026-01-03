@@ -18,8 +18,11 @@ import HealthPolicies from "./Pages/Policies/Health";
 import LifePolicies from "./Pages/Policies/Life";
 import TravelPolicies from "./Pages/Policies/Travel";
 import AirPassPolicies from "./Pages/Policies/AirPass";
+import PolicyDetails from "./Pages/Policypages/PolicyDetails";
+import PolicyList from "./Pages/Policypages/PolicyList";
 
 import StoryPage from "./Pages/Story/story";
+import { Provider } from "react-redux";
 
 
 
@@ -30,7 +33,6 @@ import RefundPolicy from './Pages/Legal/RefundPolicy';
 
 
 function App() {
-
   return (
     <Routes>
       {/* Public pages */}
@@ -44,6 +46,8 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/check-policy" element={<PolicyList />} />
+      <Route path="/check-policy/:id" element={<PolicyDetails />} />
 
       <Route path="/forgot" element={<ForgotPassword />} />
       <Route path="/reset" element={<ResetPassword />} />
