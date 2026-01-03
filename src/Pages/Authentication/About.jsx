@@ -1,7 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
-import pp from "../../assets/pp.png";
+
+import pp1 from "../../assets/profilepic/pp1.png";
+import pp2 from "../../assets/profilepic/pp2.png";
+import pp3 from "../../assets/profilepic/pp3.png";
+import pp4 from "../../assets/profilepic/pp4.png";
+
+import ppg from "../../assets/profilepic/ppg.png";
+import ppg1 from "../../assets/profilepic/ppg1.png";
+
 
 const FeatureCard = ({ title, children }) => (
   <div className="bg-bgCard p-4 rounded-md shadow-sm">
@@ -10,9 +18,13 @@ const FeatureCard = ({ title, children }) => (
   </div>
 );
 
-const TeamMember = ({ name, role }) => (
-  <article tabIndex={0} className="text-center p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" aria-label={`${name}, ${role}`}>
-    <img src={pp} alt={name} className="mx-auto w-20 h-20 rounded-full object-cover mb-2" loading="lazy" />
+const TeamMember = ({ name, role, img }) => (
+  <article
+    tabIndex={0}
+    className="text-center p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+    aria-label={`${name}${role ? `, ${role}` : ""}`}
+  >
+    <img src={img} alt={name} className="mx-auto w-20 h-20 rounded-full object-cover mb-2" loading="lazy" />
     <div className="font-medium">{name}</div>
     <div className="text-textSecondary text-sm">{role}</div>
   </article>
@@ -26,12 +38,15 @@ const About = () => {
       <main role="main" aria-labelledby="about-heading" className="max-w-6xl mx-auto p-6">
         {/* HERO */}
         <section className="mb-8 text-center">
-          <h1 id="about-heading" className="text-4xl md:text-5xl font-bold mb-3">Building The Insurance Experience You Always Deserved</h1>
+          <h1 id="about-heading" className="text-4xl md:text-5xl font-bold mb-3">
+            Building The Insurance Experience You Always Deserved
+          </h1>
           <p className="max-w-3xl mx-auto text-lg text-textSecondary">
-            Our target is to empower people with reliable protection for complete peace of mind and lasting prosperity          </p>
+            Our target is to empower people with reliable protection for complete peace of mind and lasting prosperity
+          </p>
         </section>
 
-        {/* FEATURES / OVERVIEW (Insurance tone) */}
+        {/* FEATURES */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <FeatureCard title="Our Mission">Make insurance simple, transparent and easy to access for everyday needs.</FeatureCard>
           <FeatureCard title="Our Promise">Fast claims, clear policy language, and 24/7 support when it matters most.</FeatureCard>
@@ -45,32 +60,30 @@ const About = () => {
               <div className="text-2xl font-bold">100k+</div>
               <div className="text-textSecondary text-sm">Policies issued</div>
             </div>
-
             <div className="bg-bgCard p-4 rounded-md shadow-sm text-center">
               <div className="text-2xl font-bold">24/7</div>
               <div className="text-textSecondary text-sm">Claims support availability</div>
             </div>
-
             <div className="bg-bgCard p-4 rounded-md shadow-sm text-center">
               <div className="text-2xl font-bold">98%</div>
               <div className="text-textSecondary text-sm">Satisfaction</div>
             </div>
           </div>
-
         </section>
-
 
         {/* TEAM */}
         <section className="mb-8">
           <h3 className="font-semibold mb-4">Meet Our Team</h3>
-          <p className="text-textSecondary mb-4">A small cross functional group focused on product, design, engineering and operations.</p>
+          <p className="text-textSecondary mb-4">
+            A small cross functional group focused on product, design, engineering and operations.
+          </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            <TeamMember name="Rajendra" role="" />
-            <TeamMember name="Satya" role="" />
-            <TeamMember name="Anil" role="" />
-            <TeamMember name="Kavya" role="" />
-            <TeamMember name="Abhinav" role="" />
-            <TeamMember name="Iswarya" role=" " />
+            <TeamMember name="Rajendra" role="" img={pp4} />
+            <TeamMember name="Satya" role="" img={pp2} />
+            <TeamMember name="Anil" role="" img={pp3} />
+            <TeamMember name="Kavya" role="" img={ppg} /> 
+            <TeamMember name="Abhinav" role="" img={pp1} />
+            <TeamMember name="Iswarya" role="" img={ppg1} /> 
           </div>
         </section>
 

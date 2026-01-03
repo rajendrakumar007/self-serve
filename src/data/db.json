@@ -1,22 +1,37 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "26BH-000",
       "firstName": "Demo",
       "middleName": "",
       "lastName": "User",
       "email": "demo.user@example.com",
       "password": "UGFzc3dvcmQxIQ==",
-      "contact": "9999999999"
+      "contact": "9999999999",
+      "address": "Pune, MH",
+      "gender": "Other"
     },
     {
+      "id": "26BH-001",
       "firstName": "Satya",
-      "middleName": "Ranjan",
-      "lastName": "Panda",
+      "middleName": "",
+      "lastName": "Ranjan",
       "email": "satyaranjan958@gmail.com",
-      "password": "U2F0eWFAMTIz",
+      "password": "U2F0eWFAMTIzNDU2",
       "contact": "9937310790",
-      "id": 2
+      "address": "",
+      "gender": ""
+    },
+    {
+      "id": "26BH-002",
+      "firstName": "Bruce",
+      "middleName": "",
+      "lastName": "Bhai",
+      "email": "bruce@gmail.com",
+      "password": "QnJ1Y2VAMTIzNDU=",
+      "contact": "9989787890",
+      "address": "London",
+      "gender": "Male"
     }
   ]
 }
