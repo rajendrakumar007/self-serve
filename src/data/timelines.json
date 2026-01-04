@@ -1,0 +1,287 @@
+{
+  "stages": [
+    {
+      "id": "submitted",
+      "name": "Claim Submitted",
+      "description": "Your claim has been received"
+    },
+
+    {
+      "id": "verified",
+      "name": "Document Verification",
+      "description": "We're verifying your submitted documents"
+    },
+
+    {
+      "id": "reviewed",
+      "name": "Under Review",
+      "description": "Claim is being reviewed by our team"
+    },
+
+    {
+      "id": "investigation",
+      "name": "Investigation",
+      "description": "Additional investigation if required"
+    },
+
+    {
+      "id": "approved",
+      "name": "Decision",
+      "description": "Approval or rejection decision"
+    },
+
+    {
+      "id": "settled",
+      "name": "Settlement",
+      "description": "Payment processing and completion"
+    }
+  ],
+
+  "policyTimelines": {
+    "health": {
+      "label": "Health Insurance",
+
+      "cashless": {
+        "total": "2-4 hours",
+
+        "stages": {
+          "submitted": "Instant",
+
+          "verified": "30 mins - 1 hour",
+
+          "reviewed": "1-2 hours",
+
+          "approved": "30 mins",
+
+          "settled": "Instant (Cashless)"
+        }
+      },
+
+      "reimbursement": {
+        "total": "7-15 days",
+
+        "stages": {
+          "submitted": "Instant",
+
+          "verified": "1-2 days",
+
+          "reviewed": "3-5 days",
+
+          "approved": "1-2 days",
+
+          "settled": "2-5 days"
+        }
+      },
+
+      "fastTrack": true,
+
+      "fastTrackDays": 3
+    },
+
+    "motor-car": {
+      "label": "Car Insurance",
+
+      "cashless": {
+        "total": "3-5 days",
+
+        "stages": {
+          "submitted": "Instant",
+
+          "verified": "1 day",
+
+          "reviewed": "1-2 days",
+
+          "approved": "1 day",
+
+          "settled": "Instant (Cashless Garage)"
+        }
+      },
+
+      "reimbursement": {
+        "total": "10-20 days",
+
+        "stages": {
+          "submitted": "Instant",
+
+          "verified": "1-2 days",
+
+          "reviewed": "3-5 days",
+
+          "investigation": "3-7 days (if needed)",
+
+          "approved": "1-2 days",
+
+          "settled": "3-5 days"
+        }
+      },
+
+      "fastTrack": true,
+
+      "fastTrackDays": 5
+    },
+
+    "motor-bike": {
+      "label": "Bike Insurance",
+
+      "cashless": {
+        "total": "2-4 days",
+
+        "stages": {
+          "submitted": "Instant",
+
+          "verified": "1 day",
+
+          "reviewed": "1-2 days",
+
+          "approved": "1 day",
+
+          "settled": "Instant (Cashless Garage)"
+        }
+      },
+
+      "reimbursement": {
+        "total": "7-15 days",
+
+        "stages": {
+          "submitted": "Instant",
+
+          "verified": "1-2 days",
+
+          "reviewed": "2-4 days",
+
+          "investigation": "2-5 days (if needed)",
+
+          "approved": "1-2 days",
+
+          "settled": "2-3 days"
+        }
+      },
+
+      "fastTrack": true,
+
+      "fastTrackDays": 4
+    },
+
+    "travel": {
+      "label": "Travel Insurance",
+
+      "standard": {
+        "total": "5-10 days",
+
+        "stages": {
+          "submitted": "Instant",
+
+          "verified": "1-2 days",
+
+          "reviewed": "2-4 days",
+
+          "approved": "1-2 days",
+
+          "settled": "2-3 days"
+        }
+      },
+
+      "fastTrack": true,
+
+      "fastTrackDays": 3
+    },
+
+    "life": {
+      "label": "Life Insurance",
+
+      "standard": {
+        "total": "30-90 days",
+
+        "stages": {
+          "submitted": "Instant",
+
+          "verified": "3-5 days",
+
+          "reviewed": "7-15 days",
+
+          "investigation": "15-45 days (if needed)",
+
+          "approved": "3-7 days",
+
+          "settled": "7-15 days"
+        }
+      },
+
+      "fastTrack": false
+    },
+
+    "home": {
+      "label": "Home Insurance",
+
+      "standard": {
+        "total": "10-25 days",
+
+        "stages": {
+          "submitted": "Instant",
+
+          "verified": "2-3 days",
+
+          "reviewed": "3-7 days",
+
+          "investigation": "5-10 days (if needed)",
+
+          "approved": "2-3 days",
+
+          "settled": "3-5 days"
+        }
+      },
+
+      "fastTrack": true,
+
+      "fastTrackDays": 7
+    }
+  },
+
+  "statusColors": {
+    "Pending": "warning",
+
+    "Document Verification": "info",
+
+    "Under Review": "info",
+
+    "Investigation": "warning",
+
+    "Approved": "success",
+
+    "Rejected": "danger",
+
+    "Settled": "success"
+  },
+
+  "faqs": [
+    {
+      "question": "How long does it take to process a claim?",
+
+      "answer": "Processing time varies by policy type. Health claims (cashless) can be processed in 2-4 hours, while life insurance claims may take 30-90 days due to verification requirements."
+    },
+
+    {
+      "question": "What is fast-track claim processing?",
+
+      "answer": "Premium customers and claims below certain thresholds may qualify for expedited processing, reducing standard timelines by 40-60%."
+    },
+
+    {
+      "question": "Why is my claim under investigation?",
+
+      "answer": "Investigation is triggered for high-value claims, theft cases, or when additional verification is needed. This ensures fair processing for all parties."
+    },
+
+    {
+      "question": "Can I track my claim status in real-time?",
+
+      "answer": "Yes, you can track your claim status in the Track Claims section. You'll also receive SMS and email updates at each stage."
+    },
+
+    {
+      "question": "What happens if my claim is delayed?",
+
+      "answer": "If your claim exceeds standard processing time, you'll be notified with reasons. You can also contact our support team for priority assistance."
+    }
+  ]
+}

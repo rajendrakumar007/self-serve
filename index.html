@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claims Management Portal</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2563eb',
+            primaryDark: '#1e40af',
+            success: '#16a34a',
+            successBg: '#f0fdf4',
+            warning: '#ca8a04',
+            warningBg: '#fefce8',
+            danger: '#dc2626',
+            dangerBg: '#fef2f2',
+            info: '#0891b2',
+            infoBg: '#ecfeff',
+            textPrimary: '#111827',
+            textSecondary: '#4b5563',
+            textMuted: '#9ca3af',
+            bgBase: '#f9fafb',
+            bgCard: '#ffffff',
+            borderDefault: '#e5e7eb',
+          },
+          borderRadius: {
+            'card': '12px',
+            'pill': '9999px',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style type="text/tailwindcss">
+    @layer base {
+        body {
+         margin: 0;
+         font-family: 'Inter', sans-serif;
+         background-color: #f9fafb;
+        }
+      }
+    </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>

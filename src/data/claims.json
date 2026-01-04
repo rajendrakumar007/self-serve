@@ -1,0 +1,274 @@
+{
+  "claims": [
+    {
+      "claimID": "CLM-2024-0001",
+      "policyID": "POL-HLT-2024-001",
+      "customerID": "CUST-2024-0156",
+      "claimAmount": 15000,
+      "claimDate": "2024-11-20",
+      "status": "UNDER_REVIEW",
+      "description": "Hospitalization - Appendectomy",
+      "documentURLs": [
+        "/documents/medical-bills-001.pdf",
+        "/documents/discharge-summary-001.pdf"
+      ],
+      "estimatedCompletion": "2024-12-30",
+      "submittedDocuments": [
+        {
+          "name": "Medical Bills",
+          "type": "PDF",
+          "size": "2.4 MB",
+          "uploadedDate": "2024-11-20"
+        },
+        {
+          "name": "Discharge Summary",
+          "type": "PDF",
+          "size": "1.8 MB",
+          "uploadedDate": "2024-11-20"
+        }
+      ],
+      "timeline": [
+        {
+          "status": "SUBMITTED",
+          "date": "2024-11-20",
+          "message": "Claim submitted successfully"
+        },
+        {
+          "status": "UNDER_REVIEW",
+          "date": "2024-11-22",
+          "message": "Claim is under review by our team"
+        }
+      ]
+    },
+    {
+      "claimID": "CLM-2024-0002",
+      "policyID": "POL-MTR-2024-045",
+      "customerID": "CUST-2024-0156",
+      "claimAmount": 5500,
+      "claimDate": "2024-08-15",
+      "status": "APPROVED",
+      "description": "Vehicle accident - Front bumper damage",
+      "documentURLs": [
+        "/documents/accident-report-002.pdf",
+        "/documents/repair-estimate-002.pdf"
+      ],
+      "estimatedCompletion": "Completed",
+      "approvedAmount": 5500,
+      "settlementDate": "2024-09-10",
+      "submittedDocuments": [
+        {
+          "name": "Police Report",
+          "type": "PDF",
+          "size": "1.2 MB",
+          "uploadedDate": "2024-08-15"
+        },
+        {
+          "name": "Repair Estimate",
+          "type": "PDF",
+          "size": "890 KB",
+          "uploadedDate": "2024-08-15"
+        }
+      ],
+      "timeline": [
+        {
+          "status": "SUBMITTED",
+          "date": "2024-08-15",
+          "message": "Claim submitted successfully"
+        },
+        {
+          "status": "UNDER_REVIEW",
+          "date": "2024-08-17",
+          "message": "Claim is under review"
+        },
+        {
+          "status": "APPROVED",
+          "date": "2024-09-10",
+          "message": "Claim approved. Amount will be credited within 5 business days"
+        }
+      ]
+    },
+    {
+      "claimID": "CLM-2024-0003",
+      "policyID": "POL-HLT-2024-001",
+      "customerID": "CUST-2024-0156",
+      "claimAmount": 3200,
+      "claimDate": "2024-06-10",
+      "status": "REJECTED",
+      "description": "Dental treatment - Root canal",
+      "documentURLs": [
+        "/documents/dental-bills-003.pdf"
+      ],
+      "estimatedCompletion": "Completed",
+      "rejectionReason": "Dental procedures are not covered under your current health insurance policy. Please refer to policy document section 5.3 for excluded treatments.",
+      "submittedDocuments": [
+        {
+          "name": "Dental Bills",
+          "type": "PDF",
+          "size": "450 KB",
+          "uploadedDate": "2024-06-10"
+        }
+      ],
+      "timeline": [
+        {
+          "status": "SUBMITTED",
+          "date": "2024-06-10",
+          "message": "Claim submitted successfully"
+        },
+        {
+          "status": "UNDER_REVIEW",
+          "date": "2024-06-12",
+          "message": "Claim is under review"
+        },
+        {
+          "status": "REJECTED",
+          "date": "2024-06-18",
+          "message": "Claim rejected. Dental procedures not covered under policy."
+        }
+      ]
+    },
+    {
+      "claimID": "CLM-2024-0004",
+      "policyID": "POL-LIF-2023-089",
+      "customerID": "CUST-2024-0156",
+      "claimAmount": 8000,
+      "claimDate": "2024-12-15",
+      "status": "SUBMITTED",
+      "description": "Critical illness - Diagnostic tests",
+      "documentURLs": [
+        "/documents/lab-reports-004.pdf"
+      ],
+      "estimatedCompletion": "2025-01-15",
+      "submittedDocuments": [
+        {
+          "name": "Lab Reports",
+          "type": "PDF",
+          "size": "3.1 MB",
+          "uploadedDate": "2024-12-15"
+        }
+      ],
+      "timeline": [
+        {
+          "status": "SUBMITTED",
+          "date": "2024-12-15",
+          "message": "Claim submitted successfully. We’ll review within 2 business days."
+        }
+      ]
+    },
+    {
+      "claimID": "CLM-2024-0005",
+      "policyID": "POL-MTR-2024-045",
+      "customerID": "CUST-2024-0156",
+      "claimAmount": 12500,
+      "claimDate": "2024-10-05",
+      "status": "APPROVED",
+      "description": "Total loss - Vehicle theft",
+      "documentURLs": [
+        "/documents/police-fir-005.pdf",
+        "/documents/vehicle-rc-005.pdf"
+      ],
+      "estimatedCompletion": "Completed",
+      "approvedAmount": 12500,
+      "settlementDate": "2024-11-15",
+      "submittedDocuments": [
+        {
+          "name": "Police FIR",
+          "type": "PDF",
+          "size": "1.5 MB",
+          "uploadedDate": "2024-10-05"
+        },
+        {
+          "name": "Vehicle RC Copy",
+          "type": "PDF",
+          "size": "680 KB",
+          "uploadedDate": "2024-10-05"
+        }
+      ],
+      "timeline": [
+        {
+          "status": "SUBMITTED",
+          "date": "2024-10-05",
+          "message": "Claim submitted successfully"
+        },
+        {
+          "status": "UNDER_REVIEW",
+          "date": "2024-10-08",
+          "message": "Claim is under investigation"
+        },
+        {
+          "status": "APPROVED",
+          "date": "2024-11-15",
+          "message": "Claim approved after verification. Settlement processed."
+        }
+      ]
+    },
+    {
+      "claimID": "CLM-2024-0006",
+      "policyID": "POL-HLT-2024-001",
+      "customerID": "CUST-2024-0156",
+      "claimAmount": 22000,
+      "claimDate": "2024-09-12",
+      "status": "UNDER_REVIEW",
+      "description": "Surgery - ACL reconstruction",
+      "documentURLs": [
+        "/documents/surgery-bills-006.pdf",
+        "/documents/mri-report-006.pdf",
+        "/documents/surgeon-prescription-006.pdf"
+      ],
+      "estimatedCompletion": "2024-12-28",
+      "submittedDocuments": [
+        {
+          "name": "Surgery Bills",
+          "type": "PDF",
+          "size": "4.2 MB",
+          "uploadedDate": "2024-09-12"
+        },
+        {
+          "name": "MRI Report",
+          "type": "PDF",
+          "size": "2.8 MB",
+          "uploadedDate": "2024-09-12"
+        },
+        {
+          "name": "Surgeon Prescription",
+          "type": "PDF",
+          "size": "890 KB",
+          "uploadedDate": "2024-09-12"
+        }
+      ],
+      "timeline": [
+        {
+          "status": "SUBMITTED",
+          "date": "2024-09-12",
+          "message": "Claim submitted successfully"
+        },
+        {
+          "status": "UNDER_REVIEW",
+          "date": "2024-09-15",
+          "message": "Medical team is reviewing your case and documents"
+        }
+      ]
+    }
+  ],
+  "claimStatuses": {
+    "SUBMITTED": {
+      "label": "Submitted",
+      "color": "blue",
+      "description": "Your claim has been received and is queued for review"
+    },
+    "UNDER_REVIEW": {
+      "label": "Under Review",
+      "color": "yellow",
+      "description": "Our team is currently reviewing your claim documents"
+    },
+    "APPROVED": {
+      "label": "Approved",
+      "color": "green",
+      "description": "Your claim has been approved and will be settled soon"
+    },
+    "REJECTED": {
+      "label": "Rejected",
+      "color": "red",
+      "description": "Your claim could not be approved"
+    }
+  }
+}

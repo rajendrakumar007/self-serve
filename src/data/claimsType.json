@@ -1,0 +1,154 @@
+{
+
+  "health": {
+
+    "label": "Health Insurance",
+
+    "icon": "Heart",
+
+    "types": [
+
+      { "id": "hospitalization", "name": "Hospitalization", "description": "In-patient treatment and hospital stay" },
+
+      { "id": "opd", "name": "OPD Treatment", "description": "Out-patient doctor consultations" },
+
+      { "id": "surgery", "name": "Surgery", "description": "Surgical procedures and operations" },
+
+      { "id": "maternity", "name": "Maternity", "description": "Pregnancy and childbirth expenses" },
+
+      { "id": "daycare", "name": "Daycare Procedures", "description": "Treatments not requiring 24-hour hospitalization" },
+
+      { "id": "medicine", "name": "Medicine Reimbursement", "description": "Prescribed medicine costs" }
+
+    ],
+
+    "requiredDocs": ["Hospital Bills", "Discharge Summary", "Doctor Prescription", "ID Proof", "Policy Copy"]
+
+  },
+
+  "motor-car": {
+
+    "label": "Car Insurance",
+
+    "icon": "Car",
+
+    "types": [
+
+      { "id": "accident", "name": "Accident", "description": "Collision or accident damage" },
+
+      { "id": "theft", "name": "Theft", "description": "Vehicle stolen or parts stolen" },
+
+      { "id": "third-party", "name": "Third Party Liability", "description": "Damage caused to third party" },
+
+      { "id": "own-damage", "name": "Own Damage", "description": "Damage to own vehicle" },
+
+      { "id": "fire", "name": "Fire Damage", "description": "Damage due to fire" },
+
+      { "id": "natural-calamity", "name": "Natural Calamity", "description": "Flood, earthquake, storm damage" }
+
+    ],
+
+    "requiredDocs": ["FIR Copy", "Driving License", "RC Book", "Repair Estimate", "Photos", "Survey Report"]
+
+  },
+
+  "motor-bike": {
+
+    "label": "Bike Insurance",
+
+    "icon": "Bike",
+
+    "types": [
+
+      { "id": "accident", "name": "Accident", "description": "Collision or accident damage" },
+
+      { "id": "theft", "name": "Theft", "description": "Vehicle stolen or parts stolen" },
+
+      { "id": "third-party", "name": "Third Party Liability", "description": "Damage caused to third party" },
+
+      { "id": "own-damage", "name": "Own Damage", "description": "Damage to own vehicle" },
+
+      { "id": "fire", "name": "Fire Damage", "description": "Damage due to fire" }
+
+    ],
+
+    "requiredDocs": ["FIR Copy", "Driving License", "RC Book", "Repair Estimate", "Photos"]
+
+  },
+
+  "travel": {
+
+    "label": "Travel Insurance",
+
+    "icon": "Plane",
+
+    "types": [
+
+      { "id": "trip-cancellation", "name": "Trip Cancellation", "description": "Cancellation of planned trip" },
+
+      { "id": "lost-baggage", "name": "Lost Baggage", "description": "Baggage lost or delayed" },
+
+      { "id": "medical-emergency", "name": "Medical Emergency", "description": "Medical treatment during travel" },
+
+      { "id": "flight-delay", "name": "Flight Delay", "description": "Compensation for delayed flights" },
+
+      { "id": "passport-loss", "name": "Passport Loss", "description": "Lost or stolen passport" },
+
+      { "id": "trip-interruption", "name": "Trip Interruption", "description": "Trip cut short due to emergency" }
+
+    ],
+
+    "requiredDocs": ["Boarding Pass", "Passport Copy", "PIR Report", "Medical Bills", "Booking Confirmation"]
+
+  },
+
+  "life": {
+
+    "label": "Life Insurance",
+
+    "icon": "Shield",
+
+    "types": [
+
+      { "id": "death-benefit", "name": "Death Benefit", "description": "Claim on policyholder's demise" },
+
+      { "id": "maturity", "name": "Maturity Claim", "description": "Policy maturity payout" },
+
+      { "id": "survival", "name": "Survival Benefit", "description": "Periodic survival benefits" },
+
+      { "id": "rider", "name": "Rider Benefit", "description": "Additional rider benefits claim" }
+
+    ],
+
+    "requiredDocs": ["Death Certificate", "Policy Document", "ID Proof", "Bank Details", "Nominee ID"]
+
+  },
+
+  "home": {
+
+    "label": "Home Insurance",
+
+    "icon": "Home",
+
+    "types": [
+
+      { "id": "fire", "name": "Fire Damage", "description": "Damage due to fire or explosion" },
+
+      { "id": "theft", "name": "Burglary/Theft", "description": "Theft or burglary loss" },
+
+      { "id": "natural-disaster", "name": "Natural Disaster", "description": "Flood, earthquake, storm damage" },
+
+      { "id": "water-damage", "name": "Water Damage", "description": "Water leakage or flooding" },
+
+      { "id": "liability", "name": "Liability", "description": "Third party liability at property" },
+
+      { "id": "appliance", "name": "Appliance Damage", "description": "Electrical appliance breakdown" }
+
+    ],
+
+    "requiredDocs": ["FIR Copy", "Photos", "Repair Estimate", "Purchase Bills", "Property Documents"]
+
+  }
+
+}
+ 

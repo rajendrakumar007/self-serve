@@ -1,0 +1,176 @@
+[
+
+  {
+
+    "id": "POL-HEALTH-001",
+
+    "type": "health",
+
+    "name": "Family Health Shield",
+
+    "policyNumber": "HLT-2024-78542",
+
+    "provider": "SecureLife Insurance",
+
+    "sumInsured": 500000,
+
+    "premium": 12500,
+
+    "startDate": "2024-01-15",
+
+    "endDate": "2025-01-14",
+
+    "status": "active",
+
+    "icon": "Heart"
+
+  },
+
+  {
+
+    "id": "POL-CAR-001",
+
+    "type": "motor-car",
+
+    "name": "Comprehensive Car Insurance",
+
+    "policyNumber": "MTR-2024-45231",
+
+    "provider": "DriveSecure Insurance",
+
+    "vehicleNumber": "MH01AB1234",
+
+    "vehicleModel": "Honda City 2022",
+
+    "sumInsured": 850000,
+
+    "premium": 18500,
+
+    "startDate": "2024-03-01",
+
+    "endDate": "2025-02-28",
+
+    "status": "active",
+
+    "icon": "Car"
+
+  },
+
+  {
+
+    "id": "POL-BIKE-001",
+
+    "type": "motor-bike",
+
+    "name": "Two-Wheeler Protection",
+
+    "policyNumber": "MTR-2024-67890",
+
+    "provider": "DriveSecure Insurance",
+
+    "vehicleNumber": "MH02CD5678",
+
+    "vehicleModel": "Royal Enfield Classic 350",
+
+    "sumInsured": 180000,
+
+    "premium": 3500,
+
+    "startDate": "2024-02-10",
+
+    "endDate": "2025-02-09",
+
+    "status": "active",
+
+    "icon": "Bike"
+
+  },
+
+  {
+
+    "id": "POL-TRAVEL-001",
+
+    "type": "travel",
+
+    "name": "Global Travel Guard",
+
+    "policyNumber": "TRV-2024-11223",
+
+    "provider": "TravelSafe Insurance",
+
+    "destination": "Europe",
+
+    "tripType": "International",
+
+    "sumInsured": 2500000,
+
+    "premium": 4500,
+
+    "startDate": "2024-12-15",
+
+    "endDate": "2025-01-15",
+
+    "status": "active",
+
+    "icon": "Plane"
+
+  },
+
+  {
+
+    "id": "POL-LIFE-001",
+
+    "type": "life",
+
+    "name": "Term Life Protector",
+
+    "policyNumber": "LIF-2024-33445",
+
+    "provider": "LifeGuard Insurance",
+
+    "sumInsured": 10000000,
+
+    "premium": 25000,
+
+    "startDate": "2024-01-01",
+
+    "endDate": "2044-12-31",
+
+    "status": "active",
+
+    "icon": "Shield"
+
+  },
+
+  {
+
+    "id": "POL-HOME-001",
+
+    "type": "home",
+
+    "name": "Home Shield Plus",
+
+    "policyNumber": "HOM-2024-55667",
+
+    "provider": "PropertyGuard Insurance",
+
+    "propertyAddress": "123 Green Avenue, Mumbai",
+
+    "propertyType": "Apartment",
+
+    "sumInsured": 7500000,
+
+    "premium": 8500,
+
+    "startDate": "2024-04-01",
+
+    "endDate": "2025-03-31",
+
+    "status": "active",
+
+    "icon": "Home"
+
+  }
+
+]
+ 
