@@ -1,4 +1,3 @@
-
 // src/utils/auth.js (adapt path if different)
 // NOTE: token/profile remain in localStorage; USERS are stored only on server (json-server).
 
@@ -25,8 +24,16 @@ export const logout = () => {
 
 export const setCurrentUser = (user) => {
   if (!user) return;
-  const name = [user.firstName, user.middleName, user.lastName].filter(Boolean).join(" ");
-  const profile = { name, email: user.email, phone: user.contact };
+  const name = [user.firstName, user.middleName, user.lastName]
+    .filter(Boolean)
+    .join(" ");
+  const profile = {
+    name,
+    email: user.email,
+    phone: user.contact,
+    userId: user.userId,
+  };
+  console.log(profile);
   localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
 };
 
@@ -36,6 +43,11 @@ export const getCurrentUser = () => {
   } catch {
     return null;
   }
+};
+
+export const getCurrentUserId = () => {
+  const user = getCurrentUser();
+  return user?.userId || null;
 };
 
 export const clearCurrentUser = () => {
@@ -51,29 +63,54 @@ export const getUsers = async () => {
 };
 
 export const findUserByEmail = async (email) => {
-  const res = await fetch(`${API_BASE}/users?email=${encodeURIComponent(email)}`);
+  const res = await fetch(
+    `${API_BASE}/users?email=${encodeURIComponent(email)}`
+  );
   if (!res.ok) throw new Error("Failed to search users by email");
   const arr = await res.json();
   return arr[0] || null;
 };
 
 export const findUserByContact = async (contact) => {
-  const res = await fetch(`${API_BASE}/users?contact=${encodeURIComponent(contact)}`);
+  const res = await fetch(
+    `${API_BASE}/users?contact=${encodeURIComponent(contact)}`
+  );
   if (!res.ok) throw new Error("Failed to search users by contact");
   const arr = await res.json();
   return arr[0] || null;
 };
 
-export const registerUser = async ({ firstName, middleName, lastName, email, password, contact }) => {
+export const registerUser = async ({
+  firstName,
+  middleName,
+  lastName,
+  email,
+  password,
+  contact,
+}) => {
   // Check if email already exists (server)
   const existing = await findUserByEmail(email);
   if (existing) return { ok: false, message: "Email already registered" };
 
-  const encoded = typeof window !== "undefined"
-    ? window.btoa(password)
-    : Buffer.from(password).toString("base64");
+  const encoded =
+    typeof window !== "undefined"
+      ? window.btoa(password)
+      : Buffer.from(password).toString("base64");
 
-  const payload = { firstName, middleName, lastName, email, password: encoded, contact };
+  const users = await getUsers();
+  const year = new Date().getFullYear();
+  const seq = String(users.length + 1).padStart(4, "0");
+  const userId = `USR-${year}-${seq}`;
+
+  const payload = {
+    firstName,
+    middleName,
+    lastName,
+    email,
+    userId,
+    password: encoded,
+    contact,
+  };
 
   // Persist to server -> json-server writes into src/data/db.json
   const res = await fetch(`${API_BASE}/users`, {
@@ -90,9 +127,10 @@ export const verifyCredentials = async (email, password) => {
   const user = await findUserByEmail(email);
   if (!user) return null;
 
-  const encoded = typeof window !== "undefined"
-    ? window.btoa(password)
-    : Buffer.from(password).toString("base64");
+  const encoded =
+    typeof window !== "undefined"
+      ? window.btoa(password)
+      : Buffer.from(password).toString("base64");
 
   return user.password === encoded ? user : null;
 };

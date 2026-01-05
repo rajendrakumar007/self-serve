@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchPolicies } from "../../store/policiesSlice.js";
+import axiosClient from "../../services/axiosClient.js";
+import { getCurrentUserId, isLoggedIn } from "../../utils/auth.js";
 import Loading from "../../Components/policies/Loading.jsx";
 import StatusBadge from "../../Components/policies/StatusBadge.jsx";
 import PolicyFilters from "../../Components/policies/PolicyFilters.jsx";
@@ -9,29 +9,16 @@ import DownloadButton from "../../Components/policies/DownloadButton.jsx";
 import Navbar from "../../Components/Navbar.jsx";
 
 /**
- * PolicyList Page Component
- *
- * Displays a comprehensive list of all user policies in a table format.
- * Provides filtering, searching, and navigation to individual policy details.
- *
- * Features:
- * - Fetches all policies for the current user from Redux store
- * - Advanced filtering by search text, status, and policy type
- * - Responsive table layout with policy information
- * - Direct links to policy details and document downloads
- * - Loading and error state handling
- * - Real-time filter updates with useMemo optimization
- *
- * Route: /check-policy
- * @returns {JSX.Element} Policy list page with table and filters
+ * Policy list page component
  */
 export default function PolicyList() {
-  // Redux hooks for state management
-  const dispatch = useDispatch();
-  const { items = [], status, error } = useSelector((s) => s.policies);
+  // Local state for policies data
+  const [items, setItems] = useState([]);
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState(null);
 
-  // Hardcoded user ID for demo purposes (would come from auth in real app)
-  const [userId] = useState("USR-2025-0001");
+  // Get current user ID from auth
+  const userId = getCurrentUserId();
 
   // Filter state managed locally
   const [filters, setFilters] = useState({
@@ -42,8 +29,33 @@ export default function PolicyList() {
 
   // Fetch policies when component mounts
   useEffect(() => {
-    dispatch(fetchPolicies({ userId }));
-  }, [dispatch, userId]);
+    // Check if user is logged in
+    if (!isLoggedIn() || !userId) {
+      setStatus("failed");
+      setError("Please log in to view your policies");
+      return;
+    }
+
+    const fetchPolicies = async () => {
+      try {
+        setStatus("loading");
+        setError(null);
+        const response = await axiosClient.get(`/policies?userId=${userId}`);
+        const data = Array.isArray(response.data) ? response.data : [];
+        setItems(data);
+        setStatus("succeeded");
+      } catch (err) {
+        setStatus("failed");
+        setError(
+          err.response?.data?.message ||
+            err.message ||
+            "Failed to fetch policies"
+        );
+      }
+    };
+
+    fetchPolicies();
+  }, [userId]);
 
   /**
    * Filtered policies computation
@@ -88,7 +100,6 @@ export default function PolicyList() {
     typeof v === "number"
       ? v.toLocaleString("en-IN", { maximumFractionDigits: 0 })
       : Number(v ?? 0).toLocaleString("en-IN", { maximumFractionDigits: 0 });
-
   // Format dates for display
   const formatDate = (d) => {
     const dt = new Date(d);
@@ -148,11 +159,14 @@ export default function PolicyList() {
               <tbody className="divide-y divide-borderDefault">
                 {/* Render each filtered policy as a table row */}
                 {filtered.map((p) => (
-                  <tr key={p.policyId} className="hover:bg-bgHover">
+                  <tr
+                    key={p.policyId}
+                    className="hover:bg-bgHover dark:hover:bg-gray-700"
+                  >
                     {/* Policy ID - clickable link to details */}
                     <td className="px-3 py-2">
                       <Link
-                        to={`/policies/${p.policyId}`}
+                        to={`/check-policy/${p.policyId}`}
                         className="text-textPrimary hover:text-primaryDark font-medium"
                       >
                         {p.policyId}
@@ -181,7 +195,7 @@ export default function PolicyList() {
 
                     {/* Action buttons */}
                     <td className="px-3 py-2 text-right">
-                      <div className="inline-flex items-center gap-2">
+                      <div className="flex items-center justify-end gap-2">
                         {/* View details button */}
                         <Link
                           to={`/check-policy/${p.policyId}`}
@@ -189,6 +203,9 @@ export default function PolicyList() {
                         >
                           View
                         </Link>
+
+                        {/* Separator */}
+                        <div className="h-6 w-px bg-borderDefault mx-1"></div>
 
                         {/* Download document button */}
                         <DownloadButton
