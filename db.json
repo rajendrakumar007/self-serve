@@ -1,0 +1,337 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "userId": "USR-2025-0001",
+      "name": "Aarav Mehta",
+      "phone": "9876543201",
+      "email": "aarav@gmail.com",
+      "password": "YWFyYXZAMjAyNQ==",
+      "policies": []
+    },
+    {
+      "id": "2",
+      "userId": "USR-2025-0002",
+      "name": "Priya Sharma",
+      "phone": "9876543202",
+      "email": "priya@gmail.com",
+      "password": "cHJpeWFAMjAyNQ==",
+      "policies": []
+    }
+  ],
+  "policies": [
+    {
+      "id": "1",
+      "policyId": "POL-HLT-0001",
+      "userId": "USR-2025-0001",
+      "type": "HEALTH",
+      "name": "Premium Health Coverage",
+      "status": "ACTIVE",
+      "startDate": "2024-01-15",
+      "endDate": "2025-01-14",
+      "premium": 25000,
+      "sumInsured": 500000
+    },
+    {
+      "id": "2",
+      "policyId": "POL-CAR-0002",
+      "userId": "USR-2025-0002",
+      "type": "AUTO",
+      "name": "Comprehensive Car Insurance",
+      "status": "ACTIVE",
+      "startDate": "2024-03-20",
+      "endDate": "2025-03-19",
+      "premium": 15000,
+      "sumInsured": 1000000
+    },
+    {
+      "id": "3",
+      "policyId": "POL-LIFE-0003",
+      "userId": "USR-2025-0001",
+      "type": "LIFE",
+      "name": "Life Protection Plan",
+      "status": "ACTIVE",
+      "startDate": "2023-06-10",
+      "endDate": "2028-06-09",
+      "premium": 35000,
+      "sumInsured": 2500000
+    },
+    {
+      "id": "4",
+      "policyId": "POL-TRV-0004",
+      "userId": "USR-2025-0002",
+      "type": "TRAVEL",
+      "name": "International Travel Protection",
+      "status": "ACTIVE",
+      "startDate": "2024-12-01",
+      "endDate": "2026-11-30",
+      "premium": 5000,
+      "sumInsured": 500000
+    },
+    {
+      "id": "5",
+      "policyId": "POL-BIKE-0005",
+      "userId": "USR-2025-0001",
+      "type": "BIKE",
+      "name": "Bike Insurance Coverage",
+      "status": "ACTIVE",
+      "startDate": "2024-08-15",
+      "endDate": "2025-08-14",
+      "premium": 8000,
+      "sumInsured": 300000
+    },
+    {
+      "id": "6",
+      "policyId": "POL-HOME-0006",
+      "userId": "USR-2025-0002",
+      "type": "HOME",
+      "name": "Home Insurance Plan",
+      "status": "ACTIVE",
+      "startDate": "2024-04-01",
+      "endDate": "2029-03-31",
+      "premium": 45000,
+      "sumInsured": 5000000
+    }
+  ],
+  "claims": [
+    {
+      "id": "1",
+      "claimId": "CLM-2025-0001",
+      "userId": "USR-2025-0001",
+      "policyId": "POL-HLT-0001",
+      "policyType": "health",
+      "customerId": "CUST-0001",
+      "claimType": "MEDICAL",
+      "claimAmount": 120000,
+      "approvedAmount": null,
+      "status": "UNDER_REVIEW",
+      "raisedDate": "2025-02-05",
+      "incidentDate": "2025-01-28",
+      "submissionDate": "2025-02-05",
+      "location": "Apollo Hospitals, New Delhi",
+      "description": "Hospitalization due to viral infection with complications requiring 5 days admission",
+      "rejectionReason": null,
+      "documents": [
+        "hospital_admission_form.pdf",
+        "medical_prescription.pdf",
+        "discharge_summary.pdf",
+        "lab_reports.pdf"
+      ],
+      "timeline": {
+        "submitted": "2025-02-05",
+        "approved": null,
+        "settled": null
+      }
+    },
+    {
+      "id": "2",
+      "claimId": "CLM-2025-0002",
+      "userId": "USR-2025-0002",
+      "policyId": "POL-CAR-0002",
+      "policyType": "motor-car",
+      "customerId": "CUST-0002",
+      "claimType": "ACCIDENT",
+      "claimAmount": 45000,
+      "approvedAmount": 45000,
+      "status": "APPROVED",
+      "raisedDate": "2025-02-03",
+      "incidentDate": "2025-02-02",
+      "submissionDate": "2025-02-03",
+      "location": "Delhi-Gurgaon Highway, Sector 37",
+      "description": "Front bumper damage in road accident with third party involved",
+      "rejectionReason": null,
+      "documents": [
+        "fir_report.pdf",
+        "police_case_number_xyz.pdf",
+        "accident_photos.zip",
+        "insurance_survey_report.pdf",
+        "repair_estimate.pdf"
+      ],
+      "timeline": {
+        "submitted": "2025-02-03",
+        "approved": "2025-02-08",
+        "settled": null
+      }
+    },
+    {
+      "id": "3",
+      "claimId": "CLM-2025-0003",
+      "userId": "USR-2025-0001",
+      "policyId": "POL-HLT-0001",
+      "policyType": "health",
+      "customerId": "CUST-0001",
+      "claimType": "MEDICAL",
+      "claimAmount": 80000,
+      "approvedAmount": 75000,
+      "status": "SETTLED",
+      "raisedDate": "2025-01-28",
+      "incidentDate": "2025-01-25",
+      "submissionDate": "2025-01-28",
+      "location": "Max Healthcare, Gurgaon",
+      "description": "Outpatient surgery consultation and minor surgical procedure",
+      "rejectionReason": null,
+      "documents": [
+        "pre_operative_assessment.pdf",
+        "surgical_procedure_notes.pdf",
+        "post_operative_care_instructions.pdf",
+        "invoice_receipt.pdf",
+        "doctor_certificate.pdf"
+      ],
+      "timeline": {
+        "submitted": "2025-01-28",
+        "approved": "2025-02-02",
+        "settled": "2025-02-10"
+      }
+    },
+    {
+      "id": "4",
+      "claimId": "CLM-2025-0004",
+      "userId": "USR-2025-0002",
+      "policyId": "POL-CAR-0002",
+      "policyType": "motor-car",
+      "customerId": "CUST-0002",
+      "claimType": "DAMAGE",
+      "claimAmount": 25000,
+      "approvedAmount": 20000,
+      "status": "SETTLED",
+      "raisedDate": "2025-01-15",
+      "incidentDate": "2025-01-10",
+      "submissionDate": "2025-01-15",
+      "location": "Mumbai- Thane Expressway",
+      "description": "Side mirror and rear panel damage from collision",
+      "rejectionReason": null,
+      "documents": [
+        "fir_copy.pdf",
+        "damage_assessment.pdf",
+        "repair_quote.pdf"
+      ],
+      "timeline": {
+        "submitted": "2025-01-15",
+        "approved": "2025-01-22",
+        "settled": "2025-01-30"
+      }
+    },
+    {
+      "id": "5",
+      "claimId": "CLM-2025-0005",
+      "userId": "USR-2025-0001",
+      "policyId": "POL-HLT-0001",
+      "policyType": "health",
+      "customerId": "CUST-0001",
+      "claimType": "DENTAL",
+      "claimAmount": 15000,
+      "approvedAmount": 15000,
+      "status": "APPROVED",
+      "raisedDate": "2025-02-08",
+      "incidentDate": "2025-02-05",
+      "submissionDate": "2025-02-08",
+      "location": "Smile Dental Clinic, Bangalore",
+      "description": "Root canal treatment and crown placement for upper left molar",
+      "rejectionReason": null,
+      "documents": [
+        "treatment_plan.pdf",
+        "dental_invoice.pdf",
+        "x_rays.pdf"
+      ],
+      "timeline": {
+        "submitted": "2025-02-08",
+        "approved": "2025-02-10",
+        "settled": null
+      }
+    },
+    {
+      "id": "CLM-2026-5774",
+      "claimId": "CLM-2026-5774",
+      "userId": "USR-2025-0001",
+      "policyId": "POL-HLT-0001",
+      "customerId": "CUST-todi2zibh",
+      "claimType": 1,
+      "policyType": "health",
+      "claimAmount": 900000,
+      "approvedAmount": null,
+      "status": "UNDER_REVIEW",
+      "raisedDate": "2026-01-04",
+      "incidentDate": "2026-01-04",
+      "submissionDate": "2026-01-04",
+      "location": "pune",
+      "description": "0",
+      "rejectionReason": null,
+      "documents": [
+        "Claim-Submission-1767553095586.pdf"
+      ],
+      "timeline": {
+        "submitted": "2026-01-04",
+        "approved": null,
+        "settled": null
+      }
+    },
+    {
+      "id": "CLM-2026-0596",
+      "claimId": "CLM-2026-0596",
+      "userId": "USR-2025-0001",
+      "policyId": "POL-HLT-0001",
+      "customerId": "CUST-lip88mk86",
+      "claimType": 2,
+      "policyType": "health",
+      "claimAmount": 450050,
+      "approvedAmount": null,
+      "status": "UNDER_REVIEW",
+      "raisedDate": "2026-01-05",
+      "incidentDate": "2026-01-01",
+      "submissionDate": "2026-01-05",
+      "location": "vizag",
+      "description": "heyyy",
+      "rejectionReason": null,
+      "documents": [
+        "Claim-Submission-1767553095586.pdf"
+      ],
+      "timeline": {
+        "submitted": "2026-01-05",
+        "approved": null,
+        "settled": null
+      }
+    }
+  ],
+  "notifications": [
+    {
+      "id": "1",
+      "notificationId": "NTF-2025-0001",
+      "userId": "USR-2025-0001",
+      "type": "CLAIM_UPDATE",
+      "message": "Your claim CLM-2025-0001 is under review",
+      "read": false,
+      "date": "2025-02-10"
+    },
+    {
+      "id": "2",
+      "notificationId": "NTF-2025-0002",
+      "userId": "USR-2025-0002",
+      "type": "CLAIM_APPROVED",
+      "message": "Your claim CLM-2025-0002 has been approved",
+      "read": true,
+      "date": "2025-02-08"
+    }
+  ],
+  "payments": [
+    {
+      "id": "1",
+      "paymentId": "PAY-2025-0001",
+      "claimId": "CLM-2025-0002",
+      "userId": "USR-2025-0002",
+      "amount": 45000,
+      "status": "PROCESSED",
+      "date": "2025-02-09",
+      "method": "BANK_TRANSFER"
+    },
+    {
+      "id": "2",
+      "paymentId": "PAY-2025-0002",
+      "claimId": "CLM-2025-0003",
+      "userId": "USR-2025-0001",
+      "amount": 80000,
+      "status": "COMPLETED",
+      "date": "2025-02-05",
+      "method": "BANK_TRANSFER"
+    }
+  ]
+}
