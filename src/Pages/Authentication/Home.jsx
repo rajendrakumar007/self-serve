@@ -1,6 +1,8 @@
 
+import { useContext } from "react";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
+import { ThemeContext } from "../../Context/ThemeContext";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -12,17 +14,31 @@ import travel from "../../assets/imgs/travel.jpg";
 import airpass from "../../assets/imgs/airpass.jpg";
 
 const Home = () => {
+  const { theme } = useContext(ThemeContext);
+
+  // Page background — dark mode uses a deeper surface so navbar/footer pop.
+  // Light: bg-bgBase (your light page)
+  // Dark: bg-secondary (distinct from content & hero)
+  const pageBg =
+    theme === "dark"
+      ? "bg-secondary text-textInverted"
+      : "bg-bgBase text-textPrimary";
+
   return (
-    <>
+    <div className={`${pageBg} min-h-screen flex flex-col`}>
       <Navbar />
-      
+
       {/* HERO SECTION */}
-      <section className="py-12 bg-primaryGradient text-textInverted">
+      <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 py-12">
           <h1 className="font-bold text-4xl md:text-5xl mb-3">
             Insurance, built for everyday life
           </h1>
-          <p className="text-lg opacity-75 max-w-2xl mb-10">
+          <p
+            className={`text-lg opacity-75 max-w-2xl mb-10 ${
+              theme === "dark" ? "text-textInverted" : "text-textPrimary"
+            }`}
+          >
             Simple plans. Instant claims. Zero paperwork. Everything you need,
             right when you need it.
           </p>
@@ -72,44 +88,46 @@ const Home = () => {
             />
           </div>
 
-          {/* STORY SECTION */}
-          <div className="bg-bgCard shadow-lg rounded-xl p-8 text-textPrimary">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              <div className="lg:col-span-8">
-                <h2 className="font-bold text-2xl mb-3">
-                  Insurance that showed up on time
-                </h2>
-                <p className="text-lg text-textSecondary mb-3">
-                  When the Mehta family faced an unexpected emergency, their
-                  SelfServe health policy handled everything approvals,
-                  payments, and peace of mind.
-                </p>
-                <p className="text-textSecondary mb-5">
-                  No calls. No confusion. Just support.
-                </p>
 
-                <Link
-                  to="/story"
-                  className="bg-primary text-textInverted px-6 py-2 rounded-md hover:bg-primaryDark transition inline-block"
-                >
-                  Read Their Story
-                </Link>
+{/* STORY SECTION — stays light in dark mode and has a top-only shadow */}
+<div className="bg-bgCard dark:bg-bgCard rounded-xl p-8 shadow-[0_-10px_20px_rgba(0,0,0,0.12)] dark:shadow-[0_-12px_24px_rgba(0,0,0,0.35)]">
+  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+    <div className="lg:col-span-8">
+      <h2 className="font-bold text-2xl mb-3 text-textPrimary dark:text-textPrimary">
+        Insurance that showed up on time
+      </h2>
+      <p className="text-lg text-textSecondary mb-3 dark:text-textSecondary">
+        When the Mehta family faced an unexpected emergency, their
+        SELFSERVE health policy handled everything approvals,
+        payments, and peace of mind.
+      </p>
+      <p className="text-textSecondary mb-5 dark:text-textSecondary">
+        No calls. No confusion. Just support.
+      </p>
 
-              </div>
+      <Link
+        to="/story"
+        className="bg-primary text-textInverted px-6 py-2 rounded-md hover:bg-primaryDark transition inline-block"
+      >
+        Read Their Story
+      </Link>
+    </div>
 
-              <div className="lg:col-span-4 text-center">
-                <div className="text-6xl font-bold text-primary">24×7</div>
-                <p className="text-textSecondary text-lg">
-                  Claim support availability
-                </p>
-              </div>
-            </div>
-          </div>
+    <div className="lg:col-span-4 text-center">
+      <div className="text-6xl font-bold text-primary">24×7</div>
+      <p className="text-textSecondary text-lg dark:text-textSecondary">
+        Claim support availability
+      </p>
+    </div>
+  </div>
+</div>
+
         </div>
       </section>
 
+      {/* Footer sits at the bottom thanks to flex layout */}
       <Footer />
-    </>
+    </div>
   );
 };
 
@@ -121,14 +139,18 @@ const SmallCard = ({ title, desc, img, to }) => {
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "translateY(-6px)";
         const arrow = e.currentTarget.querySelector(".arrow");
-        arrow.style.color = "#2563eb"; // primary
-        arrow.style.transform = "translateX(6px)";
+        if (arrow) {
+          arrow.style.color = "#2563eb"; // primary
+          arrow.style.transform = "translateX(6px)";
+        }
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "translateY(0)";
         const arrow = e.currentTarget.querySelector(".arrow");
-        arrow.style.color = "#64748B"; // textMuted
-        arrow.style.transform = "translateX(0)";
+        if (arrow) {
+          arrow.style.color = "#64748B"; // textMuted
+          arrow.style.transform = "translateX(0)";
+        }
       }}
     >
       <img src={img} alt={title} className="w-full h-[170px] object-cover" />
@@ -150,9 +172,7 @@ const SmallCard = ({ title, desc, img, to }) => {
   );
 
   if (to) return <Link to={to}>{content}</Link>;
-
   return content;
 };
 
 export default Home;
-``

@@ -1,33 +1,41 @@
-import TermsModal from "../../Components/TermsModal";
-import PrivacyPolicyModal from "../../Components/PrivacyPolicyModal";
+
+// src/Pages/Authentication/signup.jsx
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import TermsModal from "../../Components/TermsModal";
+import PrivacyPolicyModal from "../../Components/PrivacyPolicyModal";
 import { registerUser, findUserByEmail } from "../../utils/auth";
 
 function SignUp() {
   const navigate = useNavigate();
 
+  // Modal open flags
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
 
-
+  // Form fields
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [contact, setContact] = useState("");
+
+  // OTP flow
   const [otp, setOtp] = useState("");
   const [generatedOtp, setGeneratedOtp] = useState("");
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+
+  // Legal checkboxes (controlled)
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
+  // UI & validation state
   const [error, setError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [mobileError, setMobileError] = useState("");
-  const [isOtpVerified, setIsOtpVerified] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showExists, setShowExists] = useState(false);
   const [toast, setToast] = useState({ show: false, type: "info", message: "" });
@@ -37,7 +45,38 @@ function SignUp() {
     setTimeout(() => setToast((t) => ({ ...t, show: false })), ms);
   };
 
-  // If the email field loses focus and user exists, redirect to login
+  // ===== Helpers & validation =====
+  const isValidComEmail = (rawEmail) => {
+    const normalized = rawEmail.trim().toLowerCase();
+    if (!normalized) return false;
+    const pattern = /^[^@\s]+@([a-z0-9-]+\.)*[a-z0-9-]+\.com$/;
+    return pattern.test(normalized);
+  };
+
+  const validatePassword = (pwd) => {
+    const pattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+    return pattern.test(pwd);
+  };
+
+  const isEmailValid = isValidComEmail(email);
+  const isContactValid = /^[0-9]{10}$/.test(contact);
+
+  // ===== Handlers =====
+
+  // Tick ONLY Terms when Agree in Terms modal
+  const handleAgreeTerms = () => {
+    setTermsAccepted(true);
+    setShowTerms(false);
+  };
+
+  // Tick ONLY Privacy when Agree in Privacy modal
+  const handleAgreePrivacy = () => {
+    setPrivacyAccepted(true);
+    setShowPrivacy(false);
+  };
+
+  // Blur check for existing email
   const handleEmailBlur = async () => {
     const normalized = email.trim().toLowerCase();
     if (!normalized || !isValidComEmail(normalized)) return;
@@ -45,6 +84,7 @@ function SignUp() {
       const user = await findUserByEmail(normalized);
       if (user) {
         setShowExists(true);
+
         // clear fields
         setFirstName("");
         setMiddleName("");
@@ -58,27 +98,15 @@ function SignUp() {
         setTermsAccepted(false);
         setPrivacyAccepted(false);
         setIsOtpVerified(false);
+
         setTimeout(() => {
           setShowExists(false);
           navigate("/login");
         }, 900);
       }
-    } catch (e) {
+    } catch {
       // ignore network errors here
     }
-  };
-
-  const validatePassword = (pwd) => {
-    const pattern =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
-    return pattern.test(pwd);
-  };
-
-  const isValidComEmail = (rawEmail) => {
-    const normalized = rawEmail.trim().toLowerCase();
-    if (!normalized) return false;
-    const pattern = /^[^@\s]+@([a-z0-9-]+\.)*[a-z0-9-]+\.com$/;
-    return pattern.test(normalized);
   };
 
   const handleGenerateOtp = () => {
@@ -96,6 +124,7 @@ function SignUp() {
     }
     setError("");
     setMobileError("");
+
     const randomOtp = Math.floor(100000 + Math.random() * 900000).toString();
     setGeneratedOtp(randomOtp);
     setIsOtpVerified(false);
@@ -120,6 +149,7 @@ function SignUp() {
     setError("");
     setPasswordError("");
     setMobileError("");
+
     // Basic validations
     if (!firstName.trim() || !lastName.trim()) {
       setError("Please enter your full name");
@@ -191,7 +221,7 @@ function SignUp() {
       return;
     }
 
-    // Show a small success popup (like Login page) and redirect to /login
+    // Show a small success popup and redirect to /login
     setShowSuccess(true);
     // Reset fields
     setFirstName("");
@@ -207,15 +237,11 @@ function SignUp() {
     setPrivacyAccepted(false);
     setIsOtpVerified(false);
 
-    // Redirect to login after small delay (keep banner visible briefly)
     setTimeout(() => {
       setShowSuccess(false);
       navigate("/login");
     }, 4000);
   };
-
-  const isEmailValid = isValidComEmail(email);
-  const isContactValid = /^[0-9]{10}$/.test(contact);
 
   return (
     <div className="min-h-screen bg-secondary bg-gradient-to-br from-secondary to-primaryDark text-textInverted flex justify-center items-center p-4">
@@ -228,6 +254,7 @@ function SignUp() {
             <span className="text-xs opacity-80">Redirecting…</span>
           </div>
         )}
+
         {/* Already exists popup (small) */}
         {showExists && (
           <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] bg-accent text-textInverted rounded-md shadow-md p-3 flex items-center justify-between">
@@ -235,20 +262,23 @@ function SignUp() {
             <span className="text-xs opacity-80">Redirecting to login…</span>
           </div>
         )}
+
         {/* Toast (otp/info/error) */}
         {toast.show && (
           <div
-            className={`absolute -top-4 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] rounded-md shadow-md p-3 flex items-center justify-between ${toast.type === "success"
+            className={`absolute -top-4 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] rounded-md shadow-md p-3 flex items-center justify-between ${
+              toast.type === "success"
                 ? "bg-success text-textInverted"
                 : toast.type === "error"
-                  ? "bg-danger text-textInverted"
-                  : "bg-primary text-textInverted"
-              }`}
+                ? "bg-danger text-textInverted"
+                : "bg-primary text-textInverted"
+            }`}
           >
             <span className="font-semibold">{toast.message}</span>
             <span className="text-xs opacity-80">&nbsp;</span>
           </div>
         )}
+
         <h2 className="text-center text-2xl font-semibold text-textPrimary mb-6">
           New Registration
         </h2>
@@ -287,6 +317,7 @@ function SignUp() {
             placeholder="Email *"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onBlur={handleEmailBlur}
             className="w-full p-3 mb-2 rounded-md bg-white text-textPrimary placeholder:text-textMuted border border-borderDefault focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
           />
           {!isEmailValid && email.trim() !== "" && (
@@ -311,18 +342,19 @@ function SignUp() {
 
             <button
               type="button"
-              className={`py-2.5 rounded-md text-textInverted text-sm font-medium transition ${!isEmailValid || !isContactValid
+              className={`py-2.5 rounded-md text-textInverted text-sm font-medium transition ${
+                !isEmailValid || !isContactValid
                   ? "bg-accent/50 cursor-not-allowed"
                   : "bg-accent hover:bg-success"
-                } mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight`}
+              } mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight`}
               onClick={handleGenerateOtp}
               disabled={!isEmailValid || !isContactValid}
               title={
                 !isEmailValid
                   ? "Enter a valid .com email first"
                   : !isContactValid
-                    ? "Enter a 10-digit mobile number"
-                    : "Get OTP"
+                  ? "Enter a 10-digit mobile number"
+                  : "Get OTP"
               }
             >
               Get OTP
@@ -381,15 +413,15 @@ function SignUp() {
           />
 
           {/* Terms & Conditions */}
-
           <div className="flex items-center mb-2 text-xs sm:text-sm">
             <input
               type="checkbox"
               checked={termsAccepted}
               onChange={(e) => setTermsAccepted(e.target.checked)}
               className="mr-2 accent-primary"
+              id="termsCheckbox"
             />
-            <label className="text-textSecondary">
+            <label htmlFor="termsCheckbox" className="text-textSecondary">
               I agree to the{" "}
               <button
                 type="button"
@@ -397,21 +429,20 @@ function SignUp() {
                 onClick={() => setShowTerms(true)}
               >
                 Terms &amp; Conditions
-              </button>{" "}
+              </button>
             </label>
           </div>
 
-
           {/* Privacy Policy */}
-
           <div className="flex items-center mb-3 text-xs sm:text-sm">
             <input
               type="checkbox"
               checked={privacyAccepted}
               onChange={(e) => setPrivacyAccepted(e.target.checked)}
               className="mr-2 accent-primary"
+              id="privacyCheckbox"
             />
-            <label className="text-textSecondary">
+            <label htmlFor="privacyCheckbox" className="text-textSecondary">
               I agree to the{" "}
               <button
                 type="button"
@@ -419,15 +450,21 @@ function SignUp() {
                 onClick={() => setShowPrivacy(true)}
               >
                 Privacy Policy
-              </button>{" "}
+              </button>
             </label>
           </div>
 
-
           {/* Legal modals */}
-          <TermsModal isOpen={showTerms} onClose={() => setShowTerms(false)} />
-          <PrivacyPolicyModal isOpen={showPrivacy} onClose={() => setShowPrivacy(false)} />
-
+          <TermsModal
+            isOpen={showTerms}
+            onClose={() => setShowTerms(false)}
+            onAgree={handleAgreeTerms}   // ✅ ticks ONLY Terms
+          />
+          <PrivacyPolicyModal
+            isOpen={showPrivacy}
+            onClose={() => setShowPrivacy(false)}
+            onAgree={handleAgreePrivacy} // ✅ ticks ONLY Privacy
+          />
 
           {/* General errors */}
           {error && (

@@ -1,7 +1,6 @@
-
 import React, { useEffect, useRef } from "react";
 
-export default function Modal({ isOpen, onClose, title, children, onAgree }) {
+export default function NotificationModal({ isOpen, onClose, title, children }) {
   const closeBtnRef = useRef(null);
 
   useEffect(() => {
@@ -12,6 +11,7 @@ export default function Modal({ isOpen, onClose, title, children, onAgree }) {
     };
     document.addEventListener("keydown", onKeyDown);
 
+    // move focus to the close button
     const id = setTimeout(() => closeBtnRef.current?.focus(), 0);
 
     return () => {
@@ -24,11 +24,6 @@ export default function Modal({ isOpen, onClose, title, children, onAgree }) {
 
   const handleBackdrop = (e) => {
     if (e.target === e.currentTarget) onClose?.();
-  };
-
-  const handleAgree = () => {
-    onAgree?.(); // ✅ parent decides which checkbox to tick
-    onClose?.(); // ✅ then close
   };
 
   return (
@@ -57,16 +52,6 @@ export default function Modal({ isOpen, onClose, title, children, onAgree }) {
 
         <div className="max-h-[70vh] overflow-y-auto px-4 py-4 text-textPrimary">
           {children}
-        </div>
-
-        <div className="px-4 py-3 border-t border-borderDefault flex justify-end">
-          <button
-            type="button"
-            onClick={handleAgree}
-            className="px-4 py-2 rounded-md bg-primary text-textInverted hover:bg-primaryDark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryLight"
-          >
-            Agree
-          </button>
         </div>
       </div>
     </div>
