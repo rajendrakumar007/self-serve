@@ -21,6 +21,7 @@ import PolicyList from "./Pages/Policypages/PolicyList";
 
 import StoryPage from "./Pages/Story/story";
 import { Provider } from "react-redux";
+import SupportPage from "./Pages/support/SupportPage";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/story" element={<StoryPage />} />
+      <Route path="/support" element={<SupportPage />} />
+      
 
       {/* Auth */}
       <Route path="/auth" element={<AuthLanding />} />

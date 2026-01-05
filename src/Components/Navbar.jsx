@@ -1,4 +1,3 @@
-
 import { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "../Context/ThemeContext";
 import { FaShieldAlt, FaBell, FaSun, FaMoon } from "react-icons/fa";
@@ -6,6 +5,10 @@ import { IoIosArrowDown } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { isLoggedIn, AUTH_EVENT, getCurrentUser } from "../utils/auth";
 import pp from "../assets/pp.png";
+import NotificationCard from "../Components/notifications/NotificationCard.jsx";
+import NotificationModal from "../Components/notifications/NotificationModal.jsx";
+import notifications from "../data/notifications/notifications.json";
+import SupportPage from "../Pages/support/SupportPage.jsx";
 
 const CLOSE_DELAY_MS = 150;
 
@@ -37,6 +40,20 @@ const Navbar = () => {
   const [mobilePoliciesOpen, setMobilePoliciesOpen] = useState(false);
   const [mobileClaimsOpen, setMobileClaimsOpen] = useState(false);
   const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
+
+  const [show, setShow] = useState(false);
+  const [viewAll, setViewAll] = useState(false);
+  const [selectedType, setSelectedType] = useState("All");
+
+  const handleToggle = () => {
+    console.log(notifications);
+    setShow(!show);
+    setViewAll(false);
+  };
+
+  const uniqueTypes = ["All", ...new Set(notifications.notifications.map(n => n.type))];
+
+  const filteredNotifications = selectedType === "All" ? notifications.notifications : notifications.notifications.filter(n => n.type === selectedType);
 
   const navRef = useRef(null);
 
@@ -105,7 +122,10 @@ const Navbar = () => {
               }}
               onMouseLeave={scheduleDropdownClose}
             >
-              <button type="button" className="flex items-center gap-1 cursor-pointer">
+              <button
+                type="button"
+                className="flex items-center gap-1 cursor-pointer"
+              >
                 Policies <IoIosArrowDown size={14} />
               </button>
 
@@ -170,7 +190,10 @@ const Navbar = () => {
             {/* Check Your Policy — ONLY when logged in */}
             {isAuthenticated && (
               <li>
-                <Link className="cursor-pointer hover:text-primary" to="/check-policy">
+                <Link
+                  className="cursor-pointer hover:text-primary"
+                  to="/check-policy"
+                >
                   Check Your Policy
                 </Link>
               </li>
@@ -185,7 +208,10 @@ const Navbar = () => {
               }}
               onMouseLeave={scheduleDropdownClose}
             >
-              <button type="button" className="flex items-center gap-1 cursor-pointer">
+              <button
+                type="button"
+                className="flex items-center gap-1 cursor-pointer"
+              >
                 Claims <IoIosArrowDown size={14} />
               </button>
               {openDropdown === "claims" && (
@@ -194,9 +220,15 @@ const Navbar = () => {
                   onMouseEnter={cancelDropdownClose}
                   onMouseLeave={scheduleDropdownClose}
                 >
-                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">Submit Claim</li>
-                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">Track Claim</li>
-                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">Claim History</li>
+                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">
+                    Submit Claim
+                  </li>
+                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">
+                    Track Claim
+                  </li>
+                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">
+                    Claim History
+                  </li>
                 </ul>
               )}
             </li>
@@ -210,7 +242,10 @@ const Navbar = () => {
               }}
               onMouseLeave={scheduleDropdownClose}
             >
-              <button type="button" className="flex items-center gap-1 cursor-pointer">
+              <button
+                type="button"
+                className="flex items-center gap-1 cursor-pointer"
+              >
                 Resources <IoIosArrowDown size={14} />
               </button>
               {openDropdown === "resources" && (
@@ -219,9 +254,15 @@ const Navbar = () => {
                   onMouseEnter={cancelDropdownClose}
                   onMouseLeave={scheduleDropdownClose}
                 >
-                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">Policy Guides</li>
-                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">FAQs</li>
-                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">Blogs</li>
+                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">
+                    Policy Guides
+                  </li>
+                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">
+                    FAQs
+                  </li>
+                  <li className="px-4 py-2 hover:bg-bgHover rounded-md cursor-pointer">
+                    Blogs
+                  </li>
                 </ul>
               )}
             </li>
@@ -233,7 +274,11 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link className="flex items-center gap-1 cursor-pointer hover:text-primary" to="/support">
+              <Link
+                className="flex items-center gap-1 cursor-pointer hover:text-primary"
+                to="/support"
+              >
+                {/* <SupportPage /> */}
                 Support
               </Link>
             </li>
@@ -244,11 +289,51 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           {/* NOTIFICATION */}
           <div className="relative">
-            <FaBell className="text-lg" />
+            <FaBell className="text-lg" onClick={() => handleToggle()} />
             <span className="absolute -top-2 -right-2 bg-danger text-textInverted text-xs rounded-full px-2">
-              3
+              {notifications.notifications.length}
             </span>
           </div>
+
+          <NotificationModal
+            isOpen={show}
+            onClose={() => {
+              setShow(false);
+              setViewAll(false);
+            }}
+            title={viewAll ? "All Notifications" : "Notifications"}
+          >
+            <div className="space-y-4">
+              <div className="flex gap-2 mb-4">
+                <select
+                  value={selectedType}
+                  onChange={(e) => setSelectedType(e.target.value)}
+                  className="px-3 py-1 rounded-md text-sm bg-gray-200 text-gray-700"
+                >
+                  {uniqueTypes.map(type => (
+                    <option key={type} value={type}>{type}</option>
+                  ))}
+                </select>
+              </div>
+              {(viewAll
+                ? filteredNotifications
+                : filteredNotifications.slice(0, 3)
+              ).map((notification) => (
+                <NotificationCard
+                  key={notification.id}
+                  notification={notification}
+                />
+              ))}
+              {!viewAll && filteredNotifications.length > 3 && (
+                <button
+                  onClick={() => setViewAll(true)}
+                  className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                >
+                  View All ({filteredNotifications.length})
+                </button>
+              )}
+            </div>
+          </NotificationModal>
 
           {/* THEME TOGGLE */}
           <button
@@ -276,7 +361,11 @@ const Navbar = () => {
               className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-bgHover transition"
               title="Profile"
             >
-              <img src={pp} alt="profile" className="w-9 h-9 rounded-full object-cover" />
+              <img
+                src={pp}
+                alt="profile"
+                className="w-9 h-9 rounded-full object-cover"
+              />
               {currentUser?.name && (
                 <span className="hidden sm:inline text-sm text-textPrimary dark:text-textInverted">
                   Hi {currentUser.name.split(" ")[0]}
@@ -290,7 +379,9 @@ const Navbar = () => {
       {/* MOBILE MENU (collapsible) */}
       <div
         id="nav-mobile"
-        className={`lg:hidden border-t border-borderDefault ${mobileOpen ? "block" : "hidden"}`}
+        className={`lg:hidden border-t border-borderDefault ${
+          mobileOpen ? "block" : "hidden"
+        }`}
       >
         <div className="px-4 py-3 space-y-2">
           {/* Policies accordion */}
@@ -300,37 +391,59 @@ const Navbar = () => {
             aria-expanded={mobilePoliciesOpen}
           >
             <span className="font-medium">Policies</span>
-            <IoIosArrowDown className={`transition-transform ${mobilePoliciesOpen ? "rotate-180" : ""}`} />
+            <IoIosArrowDown
+              className={`transition-transform ${
+                mobilePoliciesOpen ? "rotate-180" : ""
+              }`}
+            />
           </button>
           {mobilePoliciesOpen && (
             <ul className="pl-3 space-y-1 text-sm">
               <li>
-                <Link to="/policies/car" className="block px-2 py-1 rounded hover:bg-bgHover">
+                <Link
+                  to="/policies/car"
+                  className="block px-2 py-1 rounded hover:bg-bgHover"
+                >
                   Car Insurance
                 </Link>
               </li>
               <li>
-                <Link to="/policies/bike" className="block px-2 py-1 rounded hover:bg-bgHover">
+                <Link
+                  to="/policies/bike"
+                  className="block px-2 py-1 rounded hover:bg-bgHover"
+                >
                   Bike & Scooter Insurance
                 </Link>
               </li>
               <li>
-                <Link to="/policies/health" className="block px-2 py-1 rounded hover:bg-bgHover">
+                <Link
+                  to="/policies/health"
+                  className="block px-2 py-1 rounded hover:bg-bgHover"
+                >
                   Health Insurance
                 </Link>
               </li>
               <li>
-                <Link to="/policies/life" className="block px-2 py-1 rounded hover:bg-bgHover">
+                <Link
+                  to="/policies/life"
+                  className="block px-2 py-1 rounded hover:bg-bgHover"
+                >
                   Life Insurance
                 </Link>
               </li>
               <li>
-                <Link to="/policies/travel" className="block px-2 py-1 rounded hover:bg-bgHover">
-                Travel Insurance
+                <Link
+                  to="/policies/travel"
+                  className="block px-2 py-1 rounded hover:bg-bgHover"
+                >
+                  Travel Insurance
                 </Link>
               </li>
               <li>
-                <Link to="/policies/airpass" className="block px-2 py-1 rounded hover:bg-bgHover">
+                <Link
+                  to="/policies/airpass"
+                  className="block px-2 py-1 rounded hover:bg-bgHover"
+                >
                   Air Pass
                 </Link>
               </li>
@@ -339,7 +452,10 @@ const Navbar = () => {
 
           {/* Check Your Policy (mobile) — ONLY when logged in */}
           {isAuthenticated && (
-            <Link to="/check-policy" className="block px-2 py-2 rounded-md hover:bg-bgHover font-medium">
+            <Link
+              to="/check-policy"
+              className="block px-2 py-2 rounded-md hover:bg-bgHover font-medium"
+            >
               Check Your Policy
             </Link>
           )}
@@ -351,22 +467,35 @@ const Navbar = () => {
             aria-expanded={mobileClaimsOpen}
           >
             <span className="font-medium">Claims</span>
-            <IoIosArrowDown className={`transition-transform ${mobileClaimsOpen ? "rotate-180" : ""}`} />
+            <IoIosArrowDown
+              className={`transition-transform ${
+                mobileClaimsOpen ? "rotate-180" : ""
+              }`}
+            />
           </button>
           {mobileClaimsOpen && (
             <ul className="pl-3 space-y-1">
               <li>
-                <Link to="/claims/submit" className="block px-2 py-1 rounded hover:bg-bgHover">
+                <Link
+                  to="/claims/submit"
+                  className="block px-2 py-1 rounded hover:bg-bgHover"
+                >
                   Submit Claim
                 </Link>
               </li>
               <li>
-                <Link to="/claims/track" className="block px-2 py-1 rounded hover:bg-bgHover">
+                <Link
+                  to="/claims/track"
+                  className="block px-2 py-1 rounded hover:bg-bgHover"
+                >
                   Track Claim
                 </Link>
               </li>
               <li>
-                <Link to="/claims/history" className="block px-2 py-1 rounded hover:bg-bgHover">
+                <Link
+                  to="/claims/history"
+                  className="block px-2 py-1 rounded hover:bg-bgHover"
+                >
                   Claim History
                 </Link>
               </li>
@@ -380,11 +509,17 @@ const Navbar = () => {
             aria-expanded={mobileResourcesOpen}
           >
             <span className="font-medium">Resources</span>
-            <IoIosArrowDown className={`transition-transform ${mobileResourcesOpen ? "rotate-180" : ""}`} />
+            <IoIosArrowDown
+              className={`transition-transform ${
+                mobileResourcesOpen ? "rotate-180" : ""
+              }`}
+            />
           </button>
           {mobileResourcesOpen && (
             <ul className="pl-3 space-y-1">
-              <li className="px-2 py-1 rounded hover:bg-bgHover">Policy Guides</li>
+              <li className="px-2 py-1 rounded hover:bg-bgHover">
+                Policy Guides
+              </li>
               <li className="px-2 py-1 rounded hover:bg-bgHover">FAQs</li>
               <li className="px-2 py-1 rounded hover:bg-bgHover">Blogs</li>
             </ul>
@@ -392,10 +527,16 @@ const Navbar = () => {
 
           {/* Static links */}
           <div className="pt-2 border-top mt-2 space-y-1 border-t border-borderDefault">
-            <Link className="block px-2 py-1 rounded hover:bg-bgHover" to="/about">
+            <Link
+              className="block px-2 py-1 rounded hover:bg-bgHover"
+              to="/about"
+            >
               About
             </Link>
-            <Link className="block px-2 py-1 rounded hover:bg-bgHover" to="/support">
+            <Link
+              className="block px-2 py-1 rounded hover:bg-bgHover"
+              to="/support"
+            >
               <span className="inline-flex items-center gap-2">Support</span>
             </Link>
           </div>

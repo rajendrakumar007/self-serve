@@ -1,0 +1,74 @@
+{
+    "notifications" : [
+  {
+    "id": 1,
+    "customerId": 101,
+    "type": "PAYMENT",
+    "message": "Your premium payment was successful.",
+    "sentDate": "10 Feb 2025"
+  },
+  {
+    "id": 2,
+    "customerId": 101,
+    "type": "CLAIM",
+    "message": "Your claim is currently under review.",
+    "sentDate": "12 Feb 2025"
+  },
+  {
+    "id": 3,
+    "customerId": 101,
+    "type": "GENERAL",
+    "message": "Your policy renewal is due in 5 days.",
+    "sentDate": "15 Feb 2025"
+  },
+  {
+    "id": 4,
+    "customerId": 101,
+    "type": "UPDATE",
+    "message": "Your policy details have been updated.",
+    "sentDate": "18 Feb 2025"
+  },
+  {
+    "id": 5,
+    "customerId": 101,
+    "type": "REMINDER",
+    "message": "Don't forget to review your coverage options.",
+    "sentDate": "20 Feb 2025"
+  },
+  {
+    "id": 6,
+    "customerId": 101,
+    "type": "ALERT",
+    "message": "Important: Update your contact information.",
+    "sentDate": "22 Feb 2025"
+  },
+  {
+    "id": 7,
+    "customerId": 101,
+    "type": "PAYMENT",
+    "message": "Next payment due on March 1st.",
+    "sentDate": "25 Feb 2025"
+  },
+  {
+    "id": 8,
+    "customerId": 101,
+    "type": "CLAIM",
+    "message": "Your claim has been approved.",
+    "sentDate": "28 Feb 2025"
+  },
+  {
+    "id": 9,
+    "customerId": 101,
+    "type": "GENERAL",
+    "message": "New features available in your dashboard.",
+    "sentDate": "1 Mar 2025"
+  },
+  {
+    "id": 10,
+    "customerId": 101,
+    "type": "UPDATE",
+    "message": "Policy terms have been revised.",
+    "sentDate": "3 Mar 2025"
+  }
+]
+}
