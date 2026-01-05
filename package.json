@@ -9,8 +9,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "dev:api": "json-server --watch src/data/policies/policiesdb.json --port 4001",
-    "dev:all": "concurrently -n API,WEB -c green,blue \"npm:dev:api\" \"npm:dev\" \"npm:mock:server\""
+    "dev:all": "concurrently -n API,WEB -c green,blue \"npm:dev\" \"npm:mock:server\""
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",

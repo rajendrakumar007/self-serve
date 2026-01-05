@@ -2,18 +2,16 @@
 import React from "react";
 import Modal from "./Modal";
 
-export default function TermsModal({ isOpen, onClose }) {
+export default function TermsModal({ isOpen, onClose, onAgree }) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Terms & Conditions">
+    <Modal isOpen={isOpen} onClose={onClose} title="Terms & Conditions" onAgree={onAgree}>
       <section className="space-y-4 leading-relaxed">
         <p className="text-textSecondary">
-          Welcome to Self-Serve. By accessing or using our application, you agree to these Terms & Conditions.
+          Welcome to SELFSERVE. By accessing or using our application, you agree to these Terms & Conditions.
         </p>
 
         <h4 className="font-semibold">1. Use of Service</h4>
-        <p>
-          You must be at least 18 years old or have consent from a legal guardian. Do not misuse the service.
-        </p>
+        <p>You must be at least 18 years old or have consent from a legal guardian. Do not misuse the service.</p>
 
         <h4 className="font-semibold">2. Accounts & Security</h4>
         <p>
@@ -28,9 +26,7 @@ export default function TermsModal({ isOpen, onClose }) {
         </p>
 
         <h4 className="font-semibold">4. Changes to Terms</h4>
-        <p>
-          We may update these Terms periodically. Continued use after changes means you accept the revised Terms.
-        </p>
+        <p>We may update these Terms periodically. Continued use after changes means you accept the revised Terms.</p>
 
         <h4 className="font-semibold">5. Limitation of Liability</h4>
         <p>
