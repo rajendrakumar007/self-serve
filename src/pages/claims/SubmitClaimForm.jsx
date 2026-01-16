@@ -417,7 +417,7 @@ const SubmitClaimForm = () => {
 
                   {/* Action Button */}
                   <button
-                    onClick={() => navigate("/policies")}
+                    onClick={() => navigate("/")}
                     className="w-full py-3 px-6 bg-primary hover:bg-primaryDark text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
                   >
                     <Globe size={18} />
