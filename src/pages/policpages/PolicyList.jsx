@@ -51,7 +51,7 @@ export default function PolicyList() {
         setError(
           err.response?.data?.message ||
             err.message ||
-            "Failed to fetch policies"
+            "Failed to fetch policies",
         );
       }
     };
@@ -59,11 +59,7 @@ export default function PolicyList() {
     fetchPolicies();
   }, [userId]);
 
-  /**
-   * Filtered policies computation
-   * Uses useMemo to optimize performance and prevent unnecessary recalculations
-   * Filters directly over API `policies`.
-   */
+  //Filtered policies computation
   const filtered = useMemo(() => {
     let list = Array.isArray(policies) ? [...policies] : [];
 
@@ -75,15 +71,15 @@ export default function PolicyList() {
       list = list.filter(
         (p) =>
           (p.title ?? "").toLowerCase().includes(q) ||
-          (p.type ?? "").toLowerCase().includes(q)
+          (p.type ?? "").toLowerCase().includes(q),
       );
     }
-    
+
     // Filter by status if not "ALL"
     if (filters.status !== "ALL") {
       const targetStatus = filters.status.toUpperCase();
       list = list.filter(
-        (p) => (p.status ?? "").toUpperCase() === targetStatus
+        (p) => (p.status ?? "").toUpperCase() === targetStatus,
       );
     }
 
@@ -92,7 +88,7 @@ export default function PolicyList() {
       const targetType = filters.type.toLowerCase();
       list = list.filter((p) => (p.type ?? "").toLowerCase() === targetType);
     }
-    
+
     return list;
   }, [policies, filters]);
 
@@ -109,8 +105,7 @@ export default function PolicyList() {
 
   // Policy list page layout
   return (
-    <>
-      {/* Navigation bar */}
+    <> 
       <Navbar />
 
       {/* Loading state */}

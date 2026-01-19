@@ -6,18 +6,7 @@
       "id": "c848"
     }
   ],
-  "users": [
-    {
-      "id": "070f",
-      "firstName": "Anil",
-      "middleName": "",
-      "lastName": "Kasindula",
-      "email": "anilkasindula125@gmail.com",
-      "userId": "USR-2026-0001",
-      "password": "QW5pbEAyMDAz",
-      "contact": "9398579197"
-    }
-  ],
+  "users": [],
   "policiesCatalog": [
     {
       "id": "1",
@@ -44,10 +33,7 @@
       "policyId": "POL-LIF-0001",
       "type": "life",
       "title": "Life Secure Term",
-      "perks": [
-        "Death benefit",
-        "Affordable term cover"
-      ],
+      "perks": ["Death benefit", "Affordable term cover"],
       "terms": "Provides comprehensive life insurance coverage with death benefit payable to nominees. Term life insurance with no maturity benefits.",
       "sumInsured": 1000000,
       "premium": 12000,
@@ -62,11 +48,7 @@
       "policyId": "POL-CAR-0001",
       "type": "car",
       "title": "Comprehensive Drive",
-      "perks": [
-        "Own damage cover",
-        "Cashless garages",
-        "Roadside assistance"
-      ],
+      "perks": ["Own damage cover", "Cashless garages", "Roadside assistance"],
       "terms": "Comprehensive car insurance covering own damage, third party liability, and personal accident. Cashless repair at network garages. Roadside assistance included.",
       "sumInsured": 400000,
       "premium": 4200,
@@ -81,11 +63,7 @@
       "policyId": "POL-BIK-0001",
       "type": "bike",
       "title": "Smart Bike Plus",
-      "perks": [
-        "Theft protection",
-        "Accident cover",
-        "Easy claims"
-      ],
+      "perks": ["Theft protection", "Accident cover", "Easy claims"],
       "terms": "Two-wheeler insurance covering theft, accident damage, and third party liability. Easy online claims process with quick settlement.",
       "sumInsured": 150000,
       "premium": 1800,
@@ -100,10 +78,7 @@
       "policyId": "POL-AIR-0001",
       "type": "airpass",
       "title": "Saver Air Pass",
-      "perks": [
-        "Limited bookings",
-        "Fixed routes"
-      ],
+      "perks": ["Limited bookings", "Fixed routes"],
       "terms": "Annual air pass for limited domestic flights on fixed routes. Covers flight delays, cancellations, and medical emergencies during travel.",
       "sumInsured": 200000,
       "premium": 3000,
@@ -118,10 +93,7 @@
       "policyId": "POL-TRV-0001",
       "type": "travel",
       "title": "Travel Basic Guard",
-      "perks": [
-        "Emergency medical cover",
-        "Trip delay cover"
-      ],
+      "perks": ["Emergency medical cover", "Trip delay cover"],
       "terms": "Travel insurance covering medical emergencies, trip delays, cancellations, and lost baggage during international travel. Valid for trips up to 30 days.",
       "sumInsured": 250000,
       "premium": 3500,
@@ -155,11 +127,7 @@
       "policyId": "POL-LIF-0002",
       "type": "life",
       "title": "Life Income Plus",
-      "perks": [
-        "Income payout option",
-        "Tax benefits",
-        "Family security"
-      ],
+      "perks": ["Income payout option", "Tax benefits", "Family security"],
       "sumInsured": 1200000,
       "premium": 13500,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -174,10 +142,7 @@
       "policyId": "POL-CAR-0002",
       "type": "car",
       "title": "Third-Party Protect",
-      "perks": [
-        "Third-party liability",
-        "Legal coverage"
-      ],
+      "perks": ["Third-party liability", "Legal coverage"],
       "sumInsured": 350000,
       "premium": 4000,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -192,10 +157,7 @@
       "policyId": "POL-BIK-0002",
       "type": "bike",
       "title": "Basic Ride Cover",
-      "perks": [
-        "Third-party liability",
-        "Affordable premium"
-      ],
+      "perks": ["Third-party liability", "Affordable premium"],
       "sumInsured": 120000,
       "premium": 1600,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -210,10 +172,7 @@
       "policyId": "POL-AIR-0002",
       "type": "airpass",
       "title": "Flex Air Pass",
-      "perks": [
-        "Flexible bookings",
-        "Free rescheduling"
-      ],
+      "perks": ["Flexible bookings", "Free rescheduling"],
       "sumInsured": 220000,
       "premium": 3200,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -228,11 +187,7 @@
       "policyId": "POL-TRV-0002",
       "type": "travel",
       "title": "Global Travel Plus",
-      "perks": [
-        "Medical emergencies",
-        "Baggage loss",
-        "Trip cancellation"
-      ],
+      "perks": ["Medical emergencies", "Baggage loss", "Trip cancellation"],
       "sumInsured": 300000,
       "premium": 3800,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -267,10 +222,7 @@
       "policyId": "POL-LIF-0003",
       "type": "life",
       "title": "Life Secure Term",
-      "perks": [
-        "Death benefit",
-        "Affordable term cover"
-      ],
+      "perks": ["Death benefit", "Affordable term cover"],
       "sumInsured": 900000,
       "premium": 11000,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -325,10 +277,7 @@
       "policyId": "POL-AIR-0003",
       "type": "airpass",
       "title": "Saver Air Pass",
-      "perks": [
-        "Limited bookings",
-        "Fixed routes"
-      ],
+      "perks": ["Limited bookings", "Fixed routes"],
       "sumInsured": 210000,
       "premium": 3100,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -343,11 +292,7 @@
       "policyId": "POL-TRV-0003",
       "type": "travel",
       "title": "Global Travel Plus",
-      "perks": [
-        "Medical emergencies",
-        "Baggage loss",
-        "Trip cancellation"
-      ],
+      "perks": ["Medical emergencies", "Baggage loss", "Trip cancellation"],
       "sumInsured": 280000,
       "premium": 3600,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -382,11 +327,7 @@
       "policyId": "POL-LIF-0004",
       "type": "life",
       "title": "Life Income Plus",
-      "perks": [
-        "Income payout option",
-        "Tax benefits",
-        "Family security"
-      ],
+      "perks": ["Income payout option", "Tax benefits", "Family security"],
       "sumInsured": 1100000,
       "premium": 12500,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -401,11 +342,7 @@
       "policyId": "POL-CAR-0004",
       "type": "car",
       "title": "Comprehensive Drive",
-      "perks": [
-        "Own damage cover",
-        "Cashless garages",
-        "Roadside assistance"
-      ],
+      "perks": ["Own damage cover", "Cashless garages", "Roadside assistance"],
       "sumInsured": 420000,
       "premium": 4300,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -440,10 +377,7 @@
       "policyId": "POL-AIR-0004",
       "type": "airpass",
       "title": "Flex Air Pass",
-      "perks": [
-        "Flexible bookings",
-        "Free rescheduling"
-      ],
+      "perks": ["Flexible bookings", "Free rescheduling"],
       "sumInsured": 215000,
       "premium": 3150,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -458,10 +392,7 @@
       "policyId": "POL-TRV-0004",
       "type": "travel",
       "title": "Travel Basic Guard",
-      "perks": [
-        "Emergency medical cover",
-        "Trip delay cover"
-      ],
+      "perks": ["Emergency medical cover", "Trip delay cover"],
       "sumInsured": 260000,
       "premium": 3400,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -495,10 +426,7 @@
       "policyId": "POL-LIF-0005",
       "type": "life",
       "title": "Life Secure Term",
-      "perks": [
-        "Death benefit",
-        "Affordable term cover"
-      ],
+      "perks": ["Death benefit", "Affordable term cover"],
       "sumInsured": 950000,
       "premium": 11500,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -513,10 +441,7 @@
       "policyId": "POL-CAR-0005",
       "type": "car",
       "title": "Third-Party Protect",
-      "perks": [
-        "Third-party liability",
-        "Legal coverage"
-      ],
+      "perks": ["Third-party liability", "Legal coverage"],
       "sumInsured": 380000,
       "premium": 4100,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -531,10 +456,7 @@
       "policyId": "POL-BIK-0005",
       "type": "bike",
       "title": "Basic Ride Cover",
-      "perks": [
-        "Third-party liability",
-        "Affordable premium"
-      ],
+      "perks": ["Third-party liability", "Affordable premium"],
       "sumInsured": 140000,
       "premium": 1700,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -549,10 +471,7 @@
       "policyId": "POL-AIR-0005",
       "type": "airpass",
       "title": "Saver Air Pass",
-      "perks": [
-        "Limited bookings",
-        "Fixed routes"
-      ],
+      "perks": ["Limited bookings", "Fixed routes"],
       "sumInsured": 205000,
       "premium": 3050,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -567,10 +486,7 @@
       "policyId": "POL-TRV-0005",
       "type": "travel",
       "title": "Travel Basic Guard",
-      "perks": [
-        "Emergency medical cover",
-        "Trip delay cover"
-      ],
+      "perks": ["Emergency medical cover", "Trip delay cover"],
       "sumInsured": 270000,
       "premium": 3500,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -665,10 +581,7 @@
       "policyId": "POL-AIR-0006",
       "type": "airpass",
       "title": "Flex Air Pass",
-      "perks": [
-        "Flexible bookings",
-        "Free rescheduling"
-      ],
+      "perks": ["Flexible bookings", "Free rescheduling"],
       "sumInsured": 225000,
       "premium": 3300,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -683,11 +596,7 @@
       "policyId": "POL-TRV-0006",
       "type": "travel",
       "title": "Global Travel Plus",
-      "perks": [
-        "Medical emergencies",
-        "Baggage loss",
-        "Trip cancellation"
-      ],
+      "perks": ["Medical emergencies", "Baggage loss", "Trip cancellation"],
       "sumInsured": 290000,
       "premium": 3700,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -722,11 +631,7 @@
       "policyId": "POL-LIF-0007",
       "type": "life",
       "title": "Life Income Plus",
-      "perks": [
-        "Income payout option",
-        "Tax benefits",
-        "Family security"
-      ],
+      "perks": ["Income payout option", "Tax benefits", "Family security"],
       "sumInsured": 1050000,
       "premium": 12200,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -741,11 +646,7 @@
       "policyId": "POL-CAR-0007",
       "type": "car",
       "title": "Comprehensive Drive",
-      "perks": [
-        "Own damage cover",
-        "Cashless garages",
-        "Roadside assistance"
-      ],
+      "perks": ["Own damage cover", "Cashless garages", "Roadside assistance"],
       "sumInsured": 410000,
       "premium": 4250,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -780,10 +681,7 @@
       "policyId": "POL-AIR-0007",
       "type": "airpass",
       "title": "Saver Air Pass",
-      "perks": [
-        "Limited bookings",
-        "Fixed routes"
-      ],
+      "perks": ["Limited bookings", "Fixed routes"],
       "sumInsured": 210000,
       "premium": 3100,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -798,10 +696,7 @@
       "policyId": "POL-TRV-0007",
       "type": "travel",
       "title": "Travel Basic Guard",
-      "perks": [
-        "Emergency medical cover",
-        "Trip delay cover"
-      ],
+      "perks": ["Emergency medical cover", "Trip delay cover"],
       "sumInsured": 265000,
       "premium": 3450,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -836,10 +731,7 @@
       "policyId": "POL-LIF-0008",
       "type": "life",
       "title": "Life Secure Term",
-      "perks": [
-        "Death benefit",
-        "Affordable term cover"
-      ],
+      "perks": ["Death benefit", "Affordable term cover"],
       "sumInsured": 980000,
       "premium": 11800,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -854,10 +746,7 @@
       "policyId": "POL-CAR-0008",
       "type": "car",
       "title": "Third-Party Protect",
-      "perks": [
-        "Third-party liability",
-        "Legal coverage"
-      ],
+      "perks": ["Third-party liability", "Legal coverage"],
       "sumInsured": 370000,
       "premium": 4050,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -872,11 +761,7 @@
       "policyId": "POL-BIK-0008",
       "type": "bike",
       "title": "Smart Bike Plus",
-      "perks": [
-        "Theft protection",
-        "Accident cover",
-        "Easy claims"
-      ],
+      "perks": ["Theft protection", "Accident cover", "Easy claims"],
       "sumInsured": 145000,
       "premium": 1750,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -891,10 +776,7 @@
       "policyId": "POL-AIR-0008",
       "type": "airpass",
       "title": "Saver Air Pass",
-      "perks": [
-        "Limited bookings",
-        "Fixed routes"
-      ],
+      "perks": ["Limited bookings", "Fixed routes"],
       "sumInsured": 208000,
       "premium": 3080,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -909,11 +791,7 @@
       "policyId": "POL-TRV-0008",
       "type": "travel",
       "title": "Global Travel Plus",
-      "perks": [
-        "Medical emergencies",
-        "Baggage loss",
-        "Trip cancellation"
-      ],
+      "perks": ["Medical emergencies", "Baggage loss", "Trip cancellation"],
       "sumInsured": 275000,
       "premium": 3550,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -1028,11 +906,7 @@
       "policyId": "POL-TRV-0009",
       "type": "travel",
       "title": "Global Travel Plus",
-      "perks": [
-        "Medical emergencies",
-        "Baggage loss",
-        "Trip cancellation"
-      ],
+      "perks": ["Medical emergencies", "Baggage loss", "Trip cancellation"],
       "sumInsured": 295000,
       "premium": 3750,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -1067,11 +941,7 @@
       "policyId": "POL-LIF-0010",
       "type": "life",
       "title": "Life Income Plus",
-      "perks": [
-        "Income payout option",
-        "Tax benefits",
-        "Family security"
-      ],
+      "perks": ["Income payout option", "Tax benefits", "Family security"],
       "sumInsured": 1150000,
       "premium": 13000,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -1086,11 +956,7 @@
       "policyId": "POL-CAR-0010",
       "type": "car",
       "title": "Comprehensive Drive",
-      "perks": [
-        "Own damage cover",
-        "Cashless garages",
-        "Roadside assistance"
-      ],
+      "perks": ["Own damage cover", "Cashless garages", "Roadside assistance"],
       "sumInsured": 395000,
       "premium": 4180,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -1125,10 +991,7 @@
       "policyId": "POL-AIR-0010",
       "type": "airpass",
       "title": "Flex Air Pass",
-      "perks": [
-        "Flexible bookings",
-        "Free rescheduling"
-      ],
+      "perks": ["Flexible bookings", "Free rescheduling"],
       "sumInsured": 212000,
       "premium": 3120,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -1143,11 +1006,7 @@
       "policyId": "POL-TRV-0010",
       "type": "travel",
       "title": "Global Travel Plus",
-      "perks": [
-        "Medical emergencies",
-        "Baggage loss",
-        "Trip cancellation"
-      ],
+      "perks": ["Medical emergencies", "Baggage loss", "Trip cancellation"],
       "sumInsured": 285000,
       "premium": 3650,
       "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
@@ -1158,176 +1017,10 @@
       }
     }
   ],
-  "policies": [
-    {
-      "id": "80be",
-      "userId": "USR-2026-0001",
-      "policyId": "POL-HLT-0001",
-      "startDate": "2026-01-17",
-      "endDate": "2031-01-17",
-      "status": "ACTIVE",
-      "documentUrl": "/docs/USR-2026-0001.pdf",
-      "type": "health",
-      "title": "Smart Health Plus",
-      "perks": [
-        "Cashless hospitalization",
-        "Wider hospital network",
-        "Pre & post hospitalization",
-        "Day-care procedures"
-      ],
-      "sumInsured": 500000,
-      "premium": 7730,
-      "terms": "Pre-existing conditions covered after 24 months. Covers hospitalization, pre and post hospitalization expenses, and day care procedures. Cashless facility available at network hospitals.",
-      "tenure": 5
-    },
-    {
-      "id": "df16",
-      "userId": "USR-2026-0001",
-      "policyId": "POL-BIK-0001",
-      "startDate": "2026-01-17",
-      "endDate": "2031-01-17",
-      "status": "ACTIVE",
-      "documentUrl": "/docs/USR-2026-0001.pdf",
-      "type": "bike",
-      "title": "Smart Bike Plus",
-      "perks": [
-        "Theft protection",
-        "Accident cover",
-        "Easy claims"
-      ],
-      "sumInsured": 150000,
-      "premium": 2580,
-      "terms": "Two-wheeler insurance covering theft, accident damage, and third party liability. Easy online claims process with quick settlement.",
-      "tenure": 5
-    }
-  ],
-  "payments": [
-    {
-      "id": "9ade",
-      "paymentId": "PAY-2026-0001",
-      "userId": "USR-2026-0001",
-      "policyId": "POL-HLT-0001",
-      "amount": 9121.4,
-      "method": "upi",
-      "type": "Premium",
-      "status": "SUCCESS",
-      "paymentDate": "2026-01-17"
-    },
-    {
-      "id": "36cd",
-      "paymentId": "PAY-2026-0002",
-      "userId": "USR-2026-0001",
-      "policyId": "POL-BIK-0001",
-      "amount": 3044.4,
-      "method": "upi",
-      "type": "Premium",
-      "status": "SUCCESS",
-      "paymentDate": "2026-01-17"
-    }
-  ],
-  "claims": [
-    {
-      "id": "53b1",
-      "claimId": "CLM-2026-2469",
-      "userId": "USR-2026-0001",
-      "policyId": "POL-HLT-0001",
-      "policyType": "health",
-      "claimType": "",
-      "claimAmount": 400000,
-      "sumInsured": 500000,
-      "availableClaim": 500000,
-      "description": "Need to do operation.",
-      "location": "Hyderabad",
-      "incidentDate": "2026-01-15",
-      "submissionDate": "2026-01-17T04:26:59.971Z",
-      "documents": [
-        {
-          "id": "1768624019971-s09z2qj5n",
-          "name": "Claim_CLM-2026-5757_Details.pdf",
-          "size": 3961,
-          "type": "pdf",
-          "url": "https://lqgasaotqjtbnqkahsdk.supabase.co/storage/v1/object/public/pdfs/claims/CLM-2026-2469/1768624019971-Claim_CLM-2026-5757_Details.pdf",
-          "uploadedAt": "2026-01-17T04:27:01.577Z"
-        }
-      ],
-      "status": "UNDER REVIEW",
-      "approvedAmount": null,
-      "rejectionReason": null,
-      "raisedDate": "2026-01-17T04:26:59.971Z",
-      "timeline": {
-        "submitted": "2026-01-17T04:26:59.971Z",
-        "approved": null,
-        "settled": null
-      }
-    }
-  ],
-  "notifications": [
-    {
-      "id": "e251",
-      "notificationId": "NTF-2026-0001",
-      "userId": "USR-2026-0001",
-      "type": "Payment",
-      "message": "Your purchase of Smart Health Plus was successful. Policy active 2026-01-17 → 2031-01-17.",
-      "read": true,
-      "sentDate": "2026-01-17"
-    },
-    {
-      "id": "7307",
-      "notificationId": "NTF-2026-0002",
-      "userId": "USR-2026-0001",
-      "type": "CLAIM",
-      "message": "Your policy claim (CLM-2026-2469) has been submitted successfully",
-      "read": true,
-      "date": "2026-01-17"
-    },
-    {
-      "id": "8f00",
-      "notificationId": "NTF-1768624055189",
-      "userId": "USR-2026-0001",
-      "type": "CLAIM",
-      "message": "Your claim (CLM-2026-2469) is under review",
-      "read": true,
-      "date": "2026-01-17"
-    },
-    {
-      "id": "72ad",
-      "notificationId": "NTF-1768627215893",
-      "userId": "USR-2026-0001",
-      "type": "CLAIM",
-      "message": "Your claim (CLM-2026-2469) is under review",
-      "read": true,
-      "date": "2026-01-17"
-    },
-    {
-      "id": "70e8",
-      "notificationId": "NTF-2026-0005",
-      "userId": "USR-2026-0001",
-      "type": "Support",
-      "message": "Ticket TKT-2026-0001 has been successfully raised.",
-      "read": true,
-      "sentDate": "2026-01-17T05:27:49.494Z"
-    },
-    {
-      "id": "e51b",
-      "notificationId": "NTF-2026-0006",
-      "userId": "USR-2026-0001",
-      "type": "Payment",
-      "message": "Your purchase of Smart Bike Plus was successful. Policy active 2026-01-17 → 2031-01-17.",
-      "read": true,
-      "sentDate": "2026-01-17"
-    }
-  ],
-  "tickets": [
-    {
-      "id": "0d5e",
-      "ticketId": "TKT-2026-0001",
-      "userId": "USR-2026-0001",
-      "issueDescription": "Hii, My profile is allowing email change.",
-      "status": "OPEN",
-      "sentDate": "2026-01-17T05:27:49.466Z",
-      "adminResolution": null,
-      "updatedDate": "2026-01-17T05:27:49.466Z"
-    }
-  ],
+  "policies": [],
+  "payments": [],
+  "claims": [],
+  "notifications": [],
+  "tickets": [],
   "renewals": []
 }

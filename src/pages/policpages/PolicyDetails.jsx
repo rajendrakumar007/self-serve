@@ -5,7 +5,7 @@ import StatusBadge from "../../Components/policies/StatusBadge.jsx";
 import DownloadButton from "../../Components/policies/DownloadButton.jsx";
 import Loading from "../../Components/policies/Loading.jsx";
 import Navbar from "../../components/common/Navbar.jsx";
-import CoverageTermsCard from "../../Components/policies/CoverageTermsCard.jsx";
+import CoverageTermsCard from "../../components/policies/CoverageTermsCard.jsx";
 
 export default function PolicyDetails() {
   const { id: idParam } = useParams();
