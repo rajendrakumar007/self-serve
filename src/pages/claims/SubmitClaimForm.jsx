@@ -19,7 +19,10 @@ import {
 } from "lucide-react";
 import Navbar from "../../components/common/Navbar";
 import { claimsApi } from "../../utils/claims/apiClaim";
-import { generateClaimId, generateNotificationId } from "../../utils/claims/generateClaimId";
+import {
+  generateClaimId,
+  generateNotificationId,
+} from "../../utils/claims/generateClaimId";
 import ClaimSummary from "../../components/claims/ClaimSummary";
 import { uploadMultipleDocuments } from "../../utils/claims/supabaseStorageService";
 import { getCurrentUserId } from "../../utils/auth/auth";
@@ -417,7 +420,7 @@ const SubmitClaimForm = () => {
 
                   {/* Action Button */}
                   <button
-                    onClick={() => navigate("/policies")}
+                    onClick={() => navigate("/")}
                     className="w-full py-3 px-6 bg-primary hover:bg-primaryDark text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
                   >
                     <Globe size={18} />

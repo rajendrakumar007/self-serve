@@ -18,7 +18,6 @@ export default function PolicyList() {
 
   // Get current user ID from auth
   const userId = getCurrentUserId();
-  console.log(userId);
 
   // Filter state managed locally
   const [filters, setFilters] = useState({
@@ -71,6 +70,15 @@ export default function PolicyList() {
     // Normalize search query
     const q = filters.q.trim().toLowerCase();
 
+    // Filter by search query (policy ID or type)
+    if (q) {
+      list = list.filter(
+        (p) =>
+          (p.title ?? "").toLowerCase().includes(q) ||
+          (p.type ?? "").toLowerCase().includes(q)
+      );
+    }
+    
     // Filter by status if not "ALL"
     if (filters.status !== "ALL") {
       const targetStatus = filters.status.toUpperCase();
@@ -84,16 +92,7 @@ export default function PolicyList() {
       const targetType = filters.type.toLowerCase();
       list = list.filter((p) => (p.type ?? "").toLowerCase() === targetType);
     }
-
-    // Filter by search query (policy ID or type) — preserving your original UX
-
-    if (q) {
-      list = list.filter(
-        (p) =>
-          (p.title ?? "").toLowerCase().includes(q) ||
-          (p.type ?? "").toLowerCase().includes(q)
-      );
-    }
+    
     return list;
   }, [policies, filters]);
 

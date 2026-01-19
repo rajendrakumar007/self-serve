@@ -4,18 +4,18 @@ import AdminNavbar from "./AdminNavbar.jsx";
 import { IoClose } from "react-icons/io5";
 import { Listbox, Transition } from "@headlessui/react";
 
-//amount formatting
+// Amount formatting
 function formatINR(n) {
   const v = typeof n === "number" ? n : Number(n ?? 0);
   return v.toLocaleString("en-IN", { maximumFractionDigits: 0 });
 }
+// Date formatting
 function fmtDate(d) {
   const dt = new Date(d);
   return Number.isNaN(dt.getTime()) ? "-" : dt.toLocaleDateString();
 }
 
 export default function AdminClaims() {
-  // Local filters (no dependency on any dashboard)
   const [filters, setFilters] = useState({
     q: "",
     status: "ALL",
@@ -23,9 +23,6 @@ export default function AdminClaims() {
     sort: "NEWEST",
   });
 
-  // Data state (independent)
-  const [users, setUsers] = useState([]);
-  const [loadingUsers, setLoadingUsers] = useState(false);
   const [claims, setClaims] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
@@ -54,16 +51,10 @@ export default function AdminClaims() {
     loadClaims();
   }, []);
 
-  // currently display userId only
-  const claimsJoined = useMemo(() => {
-    const map = new Map(users.map((u) => [u.userId, u]));
-    return claims.map((c) => ({ ...c, _user: map.get(c.userId) || null }));
-  }, [claims, users]);
-
   // Filtering + Sorting (by Raised column)
   const filteredClaims = useMemo(() => {
-    let list = [...claimsJoined];
-    const q = filters.q.trim().toLowerCase();
+    let list = [...claims];
+    const q = filters.q.trim().toLowerCase(); // Used to get search value 
 
     if (filters.status !== "ALL") {
       list = list.filter(
@@ -109,7 +100,7 @@ export default function AdminClaims() {
     }
 
     return list;
-  }, [claimsJoined, filters]);
+  }, [claims, filters]);
 
   // Modal control
   function closeModal() {

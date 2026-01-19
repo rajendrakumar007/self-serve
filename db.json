@@ -7,7 +7,16 @@
     }
   ],
   "users": [
-    
+    {
+      "id": "070f",
+      "firstName": "Anil",
+      "middleName": "",
+      "lastName": "Kasindula",
+      "email": "anilkasindula125@gmail.com",
+      "userId": "USR-2026-0001",
+      "password": "QW5pbEAyMDAz",
+      "contact": "9398579197"
+    }
   ],
   "policiesCatalog": [
     {
@@ -1150,19 +1159,175 @@
     }
   ],
   "policies": [
-    
+    {
+      "id": "80be",
+      "userId": "USR-2026-0001",
+      "policyId": "POL-HLT-0001",
+      "startDate": "2026-01-17",
+      "endDate": "2031-01-17",
+      "status": "ACTIVE",
+      "documentUrl": "/docs/USR-2026-0001.pdf",
+      "type": "health",
+      "title": "Smart Health Plus",
+      "perks": [
+        "Cashless hospitalization",
+        "Wider hospital network",
+        "Pre & post hospitalization",
+        "Day-care procedures"
+      ],
+      "sumInsured": 500000,
+      "premium": 7730,
+      "terms": "Pre-existing conditions covered after 24 months. Covers hospitalization, pre and post hospitalization expenses, and day care procedures. Cashless facility available at network hospitals.",
+      "tenure": 5
+    },
+    {
+      "id": "df16",
+      "userId": "USR-2026-0001",
+      "policyId": "POL-BIK-0001",
+      "startDate": "2026-01-17",
+      "endDate": "2031-01-17",
+      "status": "ACTIVE",
+      "documentUrl": "/docs/USR-2026-0001.pdf",
+      "type": "bike",
+      "title": "Smart Bike Plus",
+      "perks": [
+        "Theft protection",
+        "Accident cover",
+        "Easy claims"
+      ],
+      "sumInsured": 150000,
+      "premium": 2580,
+      "terms": "Two-wheeler insurance covering theft, accident damage, and third party liability. Easy online claims process with quick settlement.",
+      "tenure": 5
+    }
   ],
   "payments": [
-    
+    {
+      "id": "9ade",
+      "paymentId": "PAY-2026-0001",
+      "userId": "USR-2026-0001",
+      "policyId": "POL-HLT-0001",
+      "amount": 9121.4,
+      "method": "upi",
+      "type": "Premium",
+      "status": "SUCCESS",
+      "paymentDate": "2026-01-17"
+    },
+    {
+      "id": "36cd",
+      "paymentId": "PAY-2026-0002",
+      "userId": "USR-2026-0001",
+      "policyId": "POL-BIK-0001",
+      "amount": 3044.4,
+      "method": "upi",
+      "type": "Premium",
+      "status": "SUCCESS",
+      "paymentDate": "2026-01-17"
+    }
   ],
   "claims": [
-    
+    {
+      "id": "53b1",
+      "claimId": "CLM-2026-2469",
+      "userId": "USR-2026-0001",
+      "policyId": "POL-HLT-0001",
+      "policyType": "health",
+      "claimType": "",
+      "claimAmount": 400000,
+      "sumInsured": 500000,
+      "availableClaim": 500000,
+      "description": "Need to do operation.",
+      "location": "Hyderabad",
+      "incidentDate": "2026-01-15",
+      "submissionDate": "2026-01-17T04:26:59.971Z",
+      "documents": [
+        {
+          "id": "1768624019971-s09z2qj5n",
+          "name": "Claim_CLM-2026-5757_Details.pdf",
+          "size": 3961,
+          "type": "pdf",
+          "url": "https://lqgasaotqjtbnqkahsdk.supabase.co/storage/v1/object/public/pdfs/claims/CLM-2026-2469/1768624019971-Claim_CLM-2026-5757_Details.pdf",
+          "uploadedAt": "2026-01-17T04:27:01.577Z"
+        }
+      ],
+      "status": "UNDER REVIEW",
+      "approvedAmount": null,
+      "rejectionReason": null,
+      "raisedDate": "2026-01-17T04:26:59.971Z",
+      "timeline": {
+        "submitted": "2026-01-17T04:26:59.971Z",
+        "approved": null,
+        "settled": null
+      }
+    }
   ],
   "notifications": [
-    
+    {
+      "id": "e251",
+      "notificationId": "NTF-2026-0001",
+      "userId": "USR-2026-0001",
+      "type": "Payment",
+      "message": "Your purchase of Smart Health Plus was successful. Policy active 2026-01-17 → 2031-01-17.",
+      "read": true,
+      "sentDate": "2026-01-17"
+    },
+    {
+      "id": "7307",
+      "notificationId": "NTF-2026-0002",
+      "userId": "USR-2026-0001",
+      "type": "CLAIM",
+      "message": "Your policy claim (CLM-2026-2469) has been submitted successfully",
+      "read": true,
+      "date": "2026-01-17"
+    },
+    {
+      "id": "8f00",
+      "notificationId": "NTF-1768624055189",
+      "userId": "USR-2026-0001",
+      "type": "CLAIM",
+      "message": "Your claim (CLM-2026-2469) is under review",
+      "read": true,
+      "date": "2026-01-17"
+    },
+    {
+      "id": "72ad",
+      "notificationId": "NTF-1768627215893",
+      "userId": "USR-2026-0001",
+      "type": "CLAIM",
+      "message": "Your claim (CLM-2026-2469) is under review",
+      "read": true,
+      "date": "2026-01-17"
+    },
+    {
+      "id": "70e8",
+      "notificationId": "NTF-2026-0005",
+      "userId": "USR-2026-0001",
+      "type": "Support",
+      "message": "Ticket TKT-2026-0001 has been successfully raised.",
+      "read": true,
+      "sentDate": "2026-01-17T05:27:49.494Z"
+    },
+    {
+      "id": "e51b",
+      "notificationId": "NTF-2026-0006",
+      "userId": "USR-2026-0001",
+      "type": "Payment",
+      "message": "Your purchase of Smart Bike Plus was successful. Policy active 2026-01-17 → 2031-01-17.",
+      "read": true,
+      "sentDate": "2026-01-17"
+    }
   ],
   "tickets": [
-    
+    {
+      "id": "0d5e",
+      "ticketId": "TKT-2026-0001",
+      "userId": "USR-2026-0001",
+      "issueDescription": "Hii, My profile is allowing email change.",
+      "status": "OPEN",
+      "sentDate": "2026-01-17T05:27:49.466Z",
+      "adminResolution": null,
+      "updatedDate": "2026-01-17T05:27:49.466Z"
+    }
   ],
   "renewals": []
 }

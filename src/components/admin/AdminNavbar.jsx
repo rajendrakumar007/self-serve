@@ -24,7 +24,10 @@ const AdminNavbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 py-2 flex items-center">
         {/* Left: Logo + Company Name */}
-        <Link to="/admin/claims" className="flex items-center gap-2 font-bold text-lg">
+        <Link
+          to="/admin/claims"
+          className="flex items-center gap-2 font-bold text-lg"
+        >
           <FaShieldAlt className="text-primary text-2xl" />
           <span className="tracking-tight">SELFSERVE</span>
         </Link>
@@ -61,7 +64,10 @@ const AdminNavbar = () => {
             Hi <span className="font-semibold">Admin</span>
           </span>
           <button
-            onClick={() => { adminLogout(); navigate("/", { replace: true }); }}
+            onClick={() => {
+              adminLogout();
+              navigate("/", { replace: true });
+            }}
             className="px-3 py-1.5 text-sm rounded-md border border-borderDefault hover:bg-bgHover"
             title="Logout"
           >
