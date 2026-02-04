@@ -14,7 +14,7 @@ const PolicyPage = () => {
             <main className="max-w-6xl mx-auto p-6">
                 <section className="mb-6">
                     <h1 className="text-3xl font-bold mb-2">{messages.title}</h1>
-                    <p className="text-textSecondary">
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
                         {messages.tagLine}
                     </p>
                 </section>

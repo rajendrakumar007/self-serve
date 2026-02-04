@@ -4,15 +4,6 @@ import AdminNavbar from "./AdminNavbar.jsx";
 import { IoClose } from "react-icons/io5";
 import { Listbox, Transition } from "@headlessui/react";
 
-/** ---------- Helpers ---------- */
-function getDisplayName(u) {
-  if (!u) return "-";
-  if (u.name) return u.name;
-  const first = u.firstName || "";
-  const last = u.lastName || "";
-  const full = `${first} ${last}`.trim();
-  return full || u.email || u.userId || "-";
-}
 function fmtDate(d) {
   const dt = new Date(d);
   return Number.isNaN(dt.getTime()) ? "-" : dt.toLocaleDateString();
@@ -27,7 +18,6 @@ export default function AdminTickets() {
   });
 
   // Data
-  const [users, setUsers] = useState([]);
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
@@ -47,7 +37,9 @@ export default function AdminTickets() {
         const res = await axiosClient.get("/tickets");
         setTickets(Array.isArray(res.data) ? res.data : []);
       } catch (e) {
-        setErr(e.response?.data?.message || e.message || "Failed to load tickets");
+        setErr(
+          e.response?.data?.message || e.message || "Failed to load tickets"
+        );
       } finally {
         setLoading(false);
       }
@@ -55,40 +47,35 @@ export default function AdminTickets() {
     loadTickets();
   }, []);
 
-  // Join users
-  const ticketsJoined = useMemo(() => {
-    const map = new Map(users.map((u) => [u.userId, u]));
-    return tickets.map((t) => ({
-      ...t,
-      _user: t.userId ? map.get(t.userId) || null : null,
-    }));
-  }, [tickets, users]);
-
   // Filtered + Sorted
   const filteredTickets = useMemo(() => {
-    let list = [...ticketsJoined];
+    let list = [...tickets];
     const q = filters.q.trim().toLowerCase();
 
     // Status filter
     if (filters.status !== "ALL") {
       list = list.filter(
-        (t) => String(t.status ?? "").toUpperCase() === filters.status.toUpperCase()
+        (t) =>
+          String(t.status ?? "").toUpperCase() === filters.status.toUpperCase()
       );
     }
 
     // Search filter
+
     if (q) {
       list = list.filter((t) => {
-        const nm = t._user ? getDisplayName(t._user).toLowerCase() : "";
         return (
-          String(t.ticketId ?? "").toLowerCase().includes(q) ||
-          String(t.issueDescription ?? "").toLowerCase().includes(q) ||
-          nm.includes(q)
+          String(t.ticketId ?? "")
+            .toLowerCase()
+            .includes(q) ||
+          String(t.issueDescription ?? "")
+            .toLowerCase()
+            .includes(q)
         );
       });
     }
 
-    // Sort: NEWEST / OLDEST 
+    // Sort: NEWEST / OLDEST
     const getSortKey = (t) => {
       // Prefer updatedDate → sentDate → numeric id as fallback
       const upd = t.updatedDate ? new Date(t.updatedDate).getTime() : NaN;
@@ -105,7 +92,7 @@ export default function AdminTickets() {
     }
 
     return list;
-  }, [ticketsJoined, filters]);
+  }, [tickets, filters]);
 
   // Modal control
   function closeModal() {
@@ -207,7 +194,9 @@ export default function AdminTickets() {
                   type="text"
                   placeholder="e.g. TKT-2026 / Issue"
                   value={filters.q}
-                  onChange={(e) => setFilters((f) => ({ ...f, q: e.target.value }))}
+                  onChange={(e) =>
+                    setFilters((f) => ({ ...f, q: e.target.value }))
+                  }
                   className="w-full rounded-md border border-borderDefault bg-bgBase text-textPrimary px-3 py-2 text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-primary/40"
                 />
               </div>
@@ -321,11 +310,16 @@ export default function AdminTickets() {
                 </thead>
                 <tbody>
                   {filteredTickets.map((t) => (
-                    <tr key={t.id} className="border-t border-borderDefault hover:bg-bgHover/40">
+                    <tr
+                      key={t.id}
+                      className="border-t border-borderDefault hover:bg-bgHover/40"
+                    >
                       <td className="px-4 py-2 font-medium">{t.ticketId}</td>
                       <td className="px-4 py-2">
                         <div className="flex flex-col">
-                          <span className="text-textPrimary">{t.userId || "-"}</span>
+                          <span className="text-textPrimary">
+                            {t.userId || "-"}
+                          </span>
                         </div>
                       </td>
                       <td className="px-4 py-2">{t.issueDescription}</td>
@@ -358,7 +352,10 @@ export default function AdminTickets() {
 
                   {filteredTickets.length === 0 && (
                     <tr>
-                      <td className="px-4 py-6 text-center text-textMuted" colSpan={6}>
+                      <td
+                        className="px-4 py-6 text-center text-textMuted"
+                        colSpan={6}
+                      >
                         No tickets found with current filters.
                       </td>
                     </tr>
@@ -373,8 +370,13 @@ export default function AdminTickets() {
             <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
               <div className="w-full max-w-lg rounded-xl border border-borderStrong bg-bgCard shadow-xl">
                 <div className="px-4 py-3 border-b border-borderDefault flex items-center justify-between">
-                  <h3 className="text-base font-semibold text-textPrimary">Resolve Ticket</h3>
-                  <button onClick={closeModal} className="text-textSecondary hover:text-textPrimary">
+                  <h3 className="text-base font-semibold text-textPrimary">
+                    Resolve Ticket
+                  </h3>
+                  <button
+                    onClick={closeModal}
+                    className="text-textSecondary hover:text-textPrimary"
+                  >
                     <IoClose size={24} />
                   </button>
                 </div>
@@ -387,7 +389,12 @@ export default function AdminTickets() {
                     <textarea
                       rows={3}
                       value={form.resolutionSolution}
-                      onChange={(e) => setForm((f) => ({ ...f, resolutionSolution: e.target.value }))}
+                      onChange={(e) =>
+                        setForm((f) => ({
+                          ...f,
+                          resolutionSolution: e.target.value,
+                        }))
+                      }
                       className="w-full rounded-md border border-borderDefault bg-bgBase text-textPrimary px-3 py-2 text-sm"
                       placeholder="Enter your solution"
                       maxLength={1000}

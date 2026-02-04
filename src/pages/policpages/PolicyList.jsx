@@ -18,7 +18,6 @@ export default function PolicyList() {
 
   // Get current user ID from auth
   const userId = getCurrentUserId();
-  console.log(userId);
 
   // Filter state managed locally
   const [filters, setFilters] = useState({
@@ -52,7 +51,7 @@ export default function PolicyList() {
         setError(
           err.response?.data?.message ||
             err.message ||
-            "Failed to fetch policies"
+            "Failed to fetch policies",
         );
       }
     };
@@ -60,22 +59,27 @@ export default function PolicyList() {
     fetchPolicies();
   }, [userId]);
 
-  /**
-   * Filtered policies computation
-   * Uses useMemo to optimize performance and prevent unnecessary recalculations
-   * Filters directly over API `policies`.
-   */
+  //Filtered policies computation
   const filtered = useMemo(() => {
     let list = Array.isArray(policies) ? [...policies] : [];
 
     // Normalize search query
     const q = filters.q.trim().toLowerCase();
 
+    // Filter by search query (policy ID or type)
+    if (q) {
+      list = list.filter(
+        (p) =>
+          (p.title ?? "").toLowerCase().includes(q) ||
+          (p.type ?? "").toLowerCase().includes(q),
+      );
+    }
+
     // Filter by status if not "ALL"
     if (filters.status !== "ALL") {
       const targetStatus = filters.status.toUpperCase();
       list = list.filter(
-        (p) => (p.status ?? "").toUpperCase() === targetStatus
+        (p) => (p.status ?? "").toUpperCase() === targetStatus,
       );
     }
 
@@ -85,15 +89,6 @@ export default function PolicyList() {
       list = list.filter((p) => (p.type ?? "").toLowerCase() === targetType);
     }
 
-    // Filter by search query (policy ID or type) — preserving your original UX
-
-    if (q) {
-      list = list.filter(
-        (p) =>
-          (p.title ?? "").toLowerCase().includes(q) ||
-          (p.type ?? "").toLowerCase().includes(q)
-      );
-    }
     return list;
   }, [policies, filters]);
 
@@ -111,7 +106,6 @@ export default function PolicyList() {
   // Policy list page layout
   return (
     <>
-      {/* Navigation bar */}
       <Navbar />
 
       {/* Loading state */}
@@ -130,15 +124,17 @@ export default function PolicyList() {
           {/* Page container (match SubmitClaimForm outer spacing) */}
           <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 md:py-12">
             {/* Page header card (same radius/shadow style) */}
-            <div className="px-4 py-3 flex items-center justify-between bg-bgCard border border-borderStrong rounded-xl sm:rounded-2xl shadow-lg">
-              <h2 className="text-base sm:text-lg font-semibold text-textPrimary">
+            <div className="px-4 py-3 flex items-center justify-between bg-bgCard dark:bg-gray-800 border border-borderDefault dark:border-gray-700 rounded-xl sm:rounded-2xl shadow-lg">
+              <h2 className="text-base sm:text-lg font-semibold text-textPrimary dark:text-textInverted">
                 Policies ({filtered.length})
               </h2>
-              <div className="text-textMuted">Customer: {userId}</div>
+              <div className="text-textMuted dark:text-textInverted">
+                Customer: {userId}
+              </div>
             </div>
 
             {/* Filters card */}
-            <div className="mt-3 rounded-xl sm:rounded-2xl border border-borderDefault bg-bgCard shadow-lg p-4 sm:p-6 lg:p-8">
+            <div className="mt-3 rounded-xl sm:rounded-2xl border border-borderDefault dark:border-gray-700 bg-bgCard dark:bg-gray-800 shadow-lg p-4 sm:p-6 lg:p-8">
               <PolicyFilters value={filters} onChange={setFilters} />
             </div>
 
@@ -153,7 +149,7 @@ export default function PolicyList() {
                 return (
                   <div
                     key={p.id || p.policyId}
-                    className="group relative rounded-xl sm:rounded-2xl border border-borderDefault bg-bgCard shadow-lg hover:shadow-md transition"
+                    className="group relative rounded-xl sm:rounded-2xl border border-borderDefault dark:border-gray-700 bg-bgCard dark:bg-gray-800 shadow-lg hover:shadow-md transition"
                   >
                     {/* Card header */}
                     <div className="px-4 pt-4 flex items-start justify-between">
@@ -161,14 +157,14 @@ export default function PolicyList() {
                         <Link
                           to={`/check-policy/${p.id ?? p.title}`}
                           state={{ policy: p }}
-                          className="inline-block text-textPrimary font-semibold hover:text-primaryDark transition"
+                          className="inline-block font-semibold hover:text-primaryDark transition text-textPrimary dark:text-textInverted"
                           title="View details"
                         >
                           {p.title}
                         </Link>
-                        <div className="mt-0.5 text-xs text-textMuted">
+                        <div className="mt-0.5 text-xs text-textMuted dark:text-textInverted">
                           Type:{" "}
-                          <span className="font-medium text-textSecondary">
+                          <span className="font-medium text-textSecondary dark:text-textInverted">
                             {p.type ?? "-"}
                           </span>
                         </div>
@@ -179,26 +175,26 @@ export default function PolicyList() {
                     {/* Card body */}
                     <div className="px-4 py-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-textSecondary">
+                        <span className="text-sm text-textSecondary dark:text-textInverted">
                           Coverage
                         </span>
-                        <span className="text-sm font-semibold text-textPrimary">
+                        <span className="text-sm font-semibold text-textPrimary dark:text-textInverted">
                           ₹{formatINR(p.sumInsured)}
                         </span>
                       </div>
 
                       <div className="mt-2 flex items-center justify-between">
-                        <span className="text-sm text-textSecondary">
+                        <span className="text-sm text-textSecondary dark:text-textInverted">
                           Start — End
                         </span>
-                        <span className="text-sm font-medium text-textPrimary">
+                        <span className="text-sm font-medium text-textPrimary dark:text-textInverted">
                           {start} — {end}
                         </span>
                       </div>
                     </div>
 
                     {/* Divider */}
-                    <div className="mx-4 h-px bg-borderDefault" />
+                    <div className="mx-4 h-px bg-borderDefault dark:bg-gray-700" />
 
                     {/* Card footer: actions (match button style to page) */}
                     <div className="px-4 py-3 flex items-center justify-between">
@@ -226,11 +222,11 @@ export default function PolicyList() {
               {/* Empty state when no policies match filters */}
               {filtered.length === 0 && (
                 <div className="col-span-full">
-                  <div className="rounded-xl sm:rounded-2xl border border-borderDefault bg-bgCard shadow-lg p-6 text-center">
-                    <p className="text-textMuted">
+                  <div className="rounded-xl sm:rounded-2xl border border-borderDefault dark:border-gray-700 bg-bgCard dark:bg-gray-800 shadow-lg p-6 text-center">
+                    <p className="text-textMuted dark:text-textInverted">
                       No policies match the filters.
                     </p>
-                    <p className="mt-1 text-xs text-textSecondary">
+                    <p className="mt-1 text-xs text-textSecondary dark:text-textInverted">
                       Try adjusting the search, status, or type filters.
                     </p>
                   </div>

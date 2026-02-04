@@ -3,8 +3,6 @@ import { useAuth } from "../context/AuthContext.jsx";
 
 const ProtectedRoute = () => {
   const { isAuthenticated, loading , token } = useAuth();
-  console.log(isAuthenticated)
-  console.log(token)
   const location = useLocation();
 
   if (loading) {

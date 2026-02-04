@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useContext } from "react";
-import { useNavigate , Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext.jsx";
 import { API_BASE, getCurrentUserId } from "../../utils/auth/auth.js";
 import Navbar from "../../components/common/Navbar.jsx";
@@ -48,7 +48,8 @@ const getNextAnnualDueDate = (startDate, endDate, now = new Date()) => {
  */
 const daysUntil = (futureDate, now = new Date()) => {
   const msPerDay = 24 * 60 * 60 * 1000;
-  const diff = atLocalMidnight(futureDate).getTime() - atLocalMidnight(now).getTime();
+  const diff =
+    atLocalMidnight(futureDate).getTime() - atLocalMidnight(now).getTime();
   return Math.ceil(diff / msPerDay);
 };
 
@@ -70,7 +71,9 @@ const formatDate = (d) => {
  * Replace with your app’s actual endpoint or util if available.
  */
 const fetchUserPolicies = async (userId) => {
-  const res = await fetch(`${API_BASE}/policies?userId=${encodeURIComponent(userId)}`);
+  const res = await fetch(
+    `${API_BASE}/policies?userId=${encodeURIComponent(userId)}`,
+  );
   if (!res.ok) throw new Error(`Failed to fetch policies: ${res.status}`);
   const data = await res.json();
   return Array.isArray(data) ? data : [];
@@ -154,32 +157,21 @@ const PayPremiums = () => {
   }, [enriched]);
 
   const cardBase =
-    theme === "dark"
-      ? "rounded-lg ring-1 ring-borderStrong bg-bgCard text-textInverted p-4"
-      : "rounded-lg ring-1 ring-borderDefault bg-bgCard text-textPrimary p-4";
+    "rounded-lg border border-borderDefault dark:border-gray-700 bg-bgCard dark:bg-gray-800 text-textPrimary dark:text-textInverted p-4";
 
   const cardDanger =
-    theme === "dark"
-      ? "ring-danger border border-danger/60 bg-danger/10"
-      : "ring-danger border border-danger/60 bg-danger/10";
+    "ring-danger border border-danger/60 bg-danger/10 dark:bg-danger/20";
 
   const cardOverdue =
-    theme === "dark"
-      ? "ring-danger border border-danger bg-danger/20"
-      : "ring-danger border border-danger bg-danger/20";
+    "ring-danger border border-danger bg-danger/20 dark:bg-danger/30";
 
   const payBtn =
-    theme === "dark"
-      ? "px-4 py-2 rounded-md bg-primary text-textInverted hover:bg-primary/85 transition-colors"
-      : "px-4 py-2 rounded-md bg-primary text-white hover:bg-primary/90 transition-colors";
+    "px-4 py-2 rounded-md bg-primary dark:bg-primary text-white dark:text-textInverted hover:bg-primary/90 dark:hover:bg-primary/85 transition-colors";
 
-  const mutedText =
-    theme === "dark" ? "text-textSecondary" : "text-textSecondary";
+  const mutedText = "text-textSecondary dark:text-textMuted";
 
   const labelChip =
-    theme === "dark"
-      ? "inline-block text-xs px-2 py-0.5 rounded-full bg-white/10 ring-1 ring-borderStrong"
-      : "inline-block text-xs px-2 py-0.5 rounded-full bg-bgHover ring-1 ring-borderDefault";
+    "inline-block text-xs px-2 py-0.5 rounded-full bg-bgHover dark:bg-white/10 ring-1 ring-borderDefault dark:ring-borderStrong";
 
   const onPayPremium = (policy) => {
     // Navigate to checkout with state containing policy details
@@ -191,12 +183,14 @@ const PayPremiums = () => {
         type: policy.type,
         premiumAmount: policy.premium,
         sumInsured: policy.sumInsured,
-        nextDueDate: policy._nextDueDate ? policy._nextDueDate.toISOString() : null,
+        nextDueDate: policy._nextDueDate
+          ? policy._nextDueDate.toISOString()
+          : null,
         status: policy.status,
         documentUrl: policy.documentUrl,
         // Include full policy for flexibility on the checkout page
         policy,
-        fromPath : location.pathname + location.search + location.hash
+        fromPath: location.pathname + location.search + location.hash,
       },
       replace: false,
     });
@@ -204,12 +198,14 @@ const PayPremiums = () => {
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
 
       <div className="max-w-5xl mx-auto px-4 py-6">
         <header className="mb-6">
-          <h1 className="text-2xl font-semibold">Pay Premiums</h1>
-          <p className={`${mutedText} mt-1`}>
+          <h1 className="text-2xl font-semibold text-textPrimary dark:text-textInverted">
+            Pay Premiums
+          </h1>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
             Review upcoming premium dues for your policies and pay securely.
           </p>
         </header>
@@ -217,32 +213,40 @@ const PayPremiums = () => {
         {loading && (
           <div className="space-y-3">
             <div className={`${cardBase} animate-pulse`}>
-              <div className="h-4 w-48 bg-bgHover rounded mb-2" />
-              <div className="h-3 w-64 bg-bgHover rounded mb-2" />
-              <div className="h-3 w-40 bg-bgHover rounded mb-2" />
-              <div className="h-9 w-28 bg-bgHover rounded mt-3" />
+              <div className="h-4 w-48 bg-bgHover dark:bg-gray-700 rounded mb-2" />
+              <div className="h-3 w-64 bg-bgHover dark:bg-gray-700 rounded mb-2" />
+              <div className="h-3 w-40 bg-bgHover dark:bg-gray-700 rounded mb-2" />
+              <div className="h-9 w-28 bg-bgHover dark:bg-gray-700 rounded mt-3" />
             </div>
             <div className={`${cardBase} animate-pulse`}>
-              <div className="h-4 w-56 bg-bgHover rounded mb-2" />
-              <div className="h-3 w-72 bg-bgHover rounded mb-2" />
-              <div className="h-3 w-32 bg-bgHover rounded mb-2" />
-              <div className="h-9 w-28 bg-bgHover rounded mt-3" />
+              <div className="h-4 w-56 bg-bgHover dark:bg-gray-700 rounded mb-2" />
+              <div className="h-3 w-72 bg-bgHover dark:bg-gray-700 rounded mb-2" />
+              <div className="h-3 w-32 bg-bgHover dark:bg-gray-700 rounded mb-2" />
+              <div className="h-9 w-28 bg-bgHover dark:bg-gray-700 rounded mt-3" />
             </div>
           </div>
         )}
 
         {!loading && err && (
-          <div className={`${cardBase} ring-danger border border-danger bg-danger/10`}>
+          <div
+            className={`${cardBase} ring-danger border border-danger bg-danger/10 dark:bg-danger/20`}
+          >
             <p className="text-danger font-medium">Unable to load policies.</p>
-            <p className={`${mutedText} mt-1`}>{err}</p>
+            <p className="text-textPrimary dark:text-textInverted mt-1">
+              {err}
+            </p>
           </div>
         )}
 
         {!loading && !err && sorted.length === 0 && (
           <div className={cardBase}>
             <span>
-              <p className="font-medium">No policies found for your account.</p>
-              <Link to="/" className="text-primary">Explore Policies</Link>
+              <p className="font-medium text-textPrimary dark:text-textInverted">
+                No policies found for your account.
+              </p>
+              <Link to="/" className="text-primary">
+                Explore Policies
+              </Link>
             </span>
             <p className={`${mutedText} mt-1`}>
               If you believe this is an error, please contact Support.
@@ -264,64 +268,82 @@ const PayPremiums = () => {
                   : `Due in ${days} day${days === 1 ? "" : "s"}`
                 : "No upcoming premiums";
 
-              const badge =
-                isOverdue ? (
-                  <span className="inline-flex items-center gap-2 text-danger font-semibold">
-                    {dueLabel}
-                  </span>
-                ) : isNear ? (
-                  <span className="inline-flex items-center gap-2 text-danger font-semibold">
-                    {dueLabel}
-                  </span>
-                ) : (
-                  <span className={`${mutedText}`}>{dueLabel}</span>
-                );
+              const badge = isOverdue ? (
+                <span className="inline-flex items-center gap-2 text-danger font-semibold">
+                  {dueLabel}
+                </span>
+              ) : isNear ? (
+                <span className="inline-flex items-center gap-2 text-danger font-semibold">
+                  {dueLabel}
+                </span>
+              ) : (
+                <span className="text-textPrimary dark:text-textInverted">
+                  {dueLabel}
+                </span>
+              );
 
               const cardTone = isOverdue
                 ? `${cardBase} ${cardOverdue}`
                 : isNear
-                ? `${cardBase} ${cardDanger}`
-                : cardBase;
+                  ? `${cardBase} ${cardDanger}`
+                  : cardBase;
 
               return (
                 <div key={p.id ?? p.policyId} className={cardTone}>
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="text-lg font-semibold">
+                      <h3 className="text-lg font-semibold text-textPrimary dark:text-textInverted">
                         {p.title}{" "}
                         <span className={labelChip}>
                           {p.type?.toUpperCase()}
                         </span>
                       </h3>
-                      <p className={`${mutedText} mt-0.5`}>
-                        Policy ID: <span className="font-mono">{p.policyId ?? p.id}</span>
+                      <p className="text-textPrimary dark:text-textInverted mt-0.5">
+                        Policy ID:{" "}
+                        <span className="font-mono">{p.policyId ?? p.id}</span>
                       </p>
-                      <p className={`${mutedText} mt-0.5`}>
-                        Status: <span className="font-medium">{p.status}</span>
+                      <p className="text-textPrimary dark:text-textInverted mt-0.5">
+                        Status:{" "}
+                        <span className="font-medium text-textPrimary dark:text-textInverted">
+                          {p.status}
+                        </span>
                       </p>
                     </div>
                     {hasUpcoming && (
                       <div className="text-right">
-                        <p className="text-sm">Next Due</p>
-                        <p className="font-medium">{formatDate(p._nextDueDate)}</p>
+                        <p className="text-sm text-textSecondary dark:text-textInverted">
+                          Next Due
+                        </p>
+                        <p className="font-medium text-textPrimary dark:text-textInverted">
+                          {formatDate(p._nextDueDate)}
+                        </p>
                       </div>
                     )}
                   </div>
 
                   <div className="mt-3 grid grid-cols-2 gap-3">
-                    <div className="rounded-md ring-1 ring-borderDefault p-2">
-                      <p className={`${mutedText} text-xs`}>Sum Insured</p>
-                      <p className="font-medium">₹ {Number(p.sumInsured).toLocaleString()}</p>
+                    <div className="rounded-md border border-borderDefault dark:border-gray-700 dark:bg-gray-800 p-2">
+                      <p className="text-textPrimary dark:text-textInverted text-xs">
+                        Sum Insured
+                      </p>
+                      <p className="font-medium text-textPrimary dark:text-textInverted">
+                        ₹ {Number(p.sumInsured).toLocaleString()}
+                      </p>
                     </div>
-                    <div className="rounded-md ring-1 ring-borderDefault p-2">
-                      <p className={`${mutedText} text-xs`}>Premium</p>
-                      <p className="font-medium">₹ {Number(p.premium).toLocaleString()}</p>
+                    <div className="rounded-md border border-borderDefault dark:border-gray-700 dark:bg-gray-800 p-2">
+                      <p className="text-textPrimary dark:text-textInverted text-xs">
+                        Premium
+                      </p>
+                      <p className="font-medium text-textPrimary dark:text-textInverted">
+                        ₹ {Number(p.premium).toLocaleString()}
+                      </p>
                     </div>
                   </div>
 
-
                   <div className="mt-4 flex items-center justify-between">
-                  <div className="mt-3">{badge}</div>
+                    <div className="mt-3 text-textPrimary dark:text-textInverted">
+                      {badge}
+                    </div>
                     <button
                       className={payBtn}
                       onClick={() => onPayPremium(p)}
@@ -330,8 +352,8 @@ const PayPremiums = () => {
                         !hasUpcoming
                           ? "No upcoming premiums for this policy."
                           : p.status !== "ACTIVE"
-                          ? "Only active policies can be paid."
-                          : "Pay premium"
+                            ? "Only active policies can be paid."
+                            : "Pay premium"
                       }
                     >
                       Pay Premium

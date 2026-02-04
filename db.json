@@ -7,7 +7,16 @@
     }
   ],
   "users": [
-    
+    {
+      "id": "014e",
+      "firstName": "Anil",
+      "middleName": "",
+      "lastName": "Kasindula",
+      "email": "anilkasindula125@gmail.com",
+      "userId": "USR-2026-0001",
+      "password": "QW5pbEAyMDAz",
+      "contact": "9398579197"
+    }
   ],
   "policiesCatalog": [
     {
@@ -1150,19 +1159,272 @@
     }
   ],
   "policies": [
-    
+    {
+      "id": "3c86",
+      "userId": "USR-2026-0001",
+      "policyId": "POL-BIK-0002",
+      "startDate": "2026-01-19",
+      "endDate": "2031-01-19",
+      "status": "ACTIVE",
+      "documentUrl": "/docs/USR-2026-0001.pdf",
+      "type": "bike",
+      "title": "Basic Ride Cover",
+      "perks": [
+        "Third-party liability",
+        "Affordable premium"
+      ],
+      "sumInsured": 120000,
+      "premium": 2130,
+      "terms": "Standard insurance terms apply. Please refer to the policy document for complete details.",
+      "tenure": 5
+    },
+    {
+      "id": "e0d4",
+      "userId": "USR-2026-0001",
+      "policyId": "POL-HLT-0001",
+      "startDate": "2026-02-04",
+      "endDate": "2031-02-04",
+      "status": "ACTIVE",
+      "documentUrl": "/docs/USR-2026-0001.pdf",
+      "type": "health",
+      "title": "Smart Health Plus",
+      "perks": [
+        "Cashless hospitalization",
+        "Wider hospital network",
+        "Pre & post hospitalization",
+        "Day-care procedures"
+      ],
+      "sumInsured": 500000,
+      "premium": 7730,
+      "terms": "Pre-existing conditions covered after 24 months. Covers hospitalization, pre and post hospitalization expenses, and day care procedures. Cashless facility available at network hospitals.",
+      "tenure": 5
+    }
   ],
   "payments": [
-    
+    {
+      "id": "08f2",
+      "paymentId": "PAY-2026-0001",
+      "userId": "USR-2026-0001",
+      "policyId": "POL-BIK-0002",
+      "amount": 2513.4,
+      "method": "upi",
+      "type": "Premium",
+      "status": "SUCCESS",
+      "paymentDate": "2026-01-19"
+    },
+    {
+      "id": "134f",
+      "paymentId": "PAY-2026-0002",
+      "userId": "USR-2026-0001",
+      "policyId": "POL-HLT-0001",
+      "amount": 9121.4,
+      "method": "upi",
+      "type": "Premium",
+      "status": "SUCCESS",
+      "paymentDate": "2026-02-04"
+    }
   ],
   "claims": [
-    
+    {
+      "id": "f8f4",
+      "claimId": "CLM-2026-5694",
+      "userId": "USR-2026-0001",
+      "policyId": "POL-BIK-0002",
+      "policyType": "bike",
+      "claimType": "",
+      "claimAmount": 99999,
+      "sumInsured": 120000,
+      "availableClaim": 30000,
+      "description": "Meth with accident",
+      "location": "Pune",
+      "incidentDate": "2026-01-17",
+      "submissionDate": "2026-01-19T09:50:48.778Z",
+      "documents": [
+        {
+          "id": "1768816248779-igvznj15f",
+          "name": "Policy_POL-BIK-0002.pdf",
+          "size": 4414,
+          "type": "pdf",
+          "url": "https://lqgasaotqjtbnqkahsdk.supabase.co/storage/v1/object/public/pdfs/claims/CLM-2026-5694/1768816248779-Policy_POL-BIK-0002.pdf",
+          "uploadedAt": "2026-01-19T09:50:50.259Z"
+        }
+      ],
+      "status": "APPROVED",
+      "approvedAmount": 90000,
+      "rejectionReason": null,
+      "raisedDate": "2026-01-19T09:50:48.778Z",
+      "timeline": {
+        "submitted": "2026-01-19T09:50:48.778Z",
+        "approved": "2026-01-19",
+        "settled": null
+      }
+    },
+    {
+      "id": "716b",
+      "claimId": "CLM-2026-1815",
+      "userId": "USR-2026-0001",
+      "policyId": "POL-BIK-0002",
+      "policyType": "bike",
+      "claimType": "",
+      "claimAmount": 30000,
+      "sumInsured": 120000,
+      "availableClaim": 30000,
+      "description": "Met with accident",
+      "location": "Pune",
+      "incidentDate": "2026-02-02",
+      "submissionDate": "2026-02-03T06:56:25.395Z",
+      "documents": [
+        {
+          "id": "1770101785396-zdaj0g3i6",
+          "name": "Certificate of Volunteering.pdf",
+          "size": 350057,
+          "type": "pdf",
+          "url": "https://lqgasaotqjtbnqkahsdk.supabase.co/storage/v1/object/public/pdfs/claims/CLM-2026-1815/1770101785396-Certificate%20of%20Volunteering.pdf",
+          "uploadedAt": "2026-02-03T06:56:27.397Z"
+        }
+      ],
+      "status": "SUBMITTED",
+      "approvedAmount": null,
+      "rejectionReason": null,
+      "raisedDate": "2026-02-03T06:56:25.395Z",
+      "timeline": {
+        "submitted": "2026-02-03T06:56:25.395Z",
+        "approved": null,
+        "settled": null
+      }
+    },
+    {
+      "id": "ca60",
+      "claimId": "CLM-2026-2101",
+      "userId": "USR-2026-0001",
+      "policyId": "POL-HLT-0001",
+      "policyType": "health",
+      "claimType": "",
+      "claimAmount": 400000,
+      "sumInsured": 500000,
+      "availableClaim": 500000,
+      "description": "Joined in hospital for lungs operation.",
+      "location": "Pune",
+      "incidentDate": "2026-02-02",
+      "submissionDate": "2026-02-04T11:33:46.165Z",
+      "documents": [
+        {
+          "id": "1770204826165-5lgwikbk1",
+          "name": "Certificate of Volunteering.pdf",
+          "size": 350057,
+          "type": "pdf",
+          "url": "https://lqgasaotqjtbnqkahsdk.supabase.co/storage/v1/object/public/pdfs/claims/CLM-2026-2101/1770204826165-Certificate%20of%20Volunteering.pdf",
+          "uploadedAt": "2026-02-04T11:33:48.388Z"
+        }
+      ],
+      "status": "SUBMITTED",
+      "approvedAmount": null,
+      "rejectionReason": null,
+      "raisedDate": "2026-02-04T11:33:46.165Z",
+      "timeline": {
+        "submitted": "2026-02-04T11:33:46.165Z",
+        "approved": null,
+        "settled": null
+      }
+    }
   ],
   "notifications": [
-    
+    {
+      "id": "f75f",
+      "notificationId": "NTF-2026-0001",
+      "userId": "USR-2026-0001",
+      "type": "Payment",
+      "message": "Your purchase of Basic Ride Cover was successful. Policy active 2026-01-19 → 2031-01-19.",
+      "read": true,
+      "sentDate": "2026-01-19"
+    },
+    {
+      "id": "c4a2",
+      "notificationId": "NTF-2026-0002",
+      "userId": "USR-2026-0001",
+      "type": "CLAIM",
+      "message": "Your policy claim (CLM-2026-5694) has been submitted successfully",
+      "read": true,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "fcd2",
+      "notificationId": "NTF-1768816271440",
+      "userId": "USR-2026-0001",
+      "type": "CLAIM",
+      "message": "Your claim (CLM-2026-5694) is under review",
+      "read": true,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "078b",
+      "notificationId": "NTF-1768816317404",
+      "userId": "USR-2026-0001",
+      "type": "CLAIM",
+      "message": "Your claim (CLM-2026-5694) has been approved",
+      "read": true,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "cfa5",
+      "notificationId": "NTF-2026-0005",
+      "userId": "USR-2026-0001",
+      "type": "Support",
+      "message": "Ticket TKT-2026-0001 has been successfully raised.",
+      "read": true,
+      "sentDate": "2026-01-19T09:52:33.012Z"
+    },
+    {
+      "id": "1e99",
+      "notificationId": "NTF-1768816388271",
+      "userId": "USR-2026-0001",
+      "type": "SYSTEM",
+      "message": "Your ticket (TKT-2026-0001) has been resolved",
+      "read": true,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "f0da",
+      "notificationId": "NTF-2026-0007",
+      "userId": "USR-2026-0001",
+      "type": "CLAIM",
+      "message": "Your policy claim (CLM-2026-1815) has been submitted successfully",
+      "read": true,
+      "date": "2026-02-03"
+    },
+    {
+      "id": "1f3d",
+      "notificationId": "NTF-2026-0008",
+      "userId": "USR-2026-0001",
+      "type": "Payment",
+      "message": "Your purchase of Smart Health Plus was successful. Policy active 2026-02-04 → 2031-02-04.",
+      "read": true,
+      "sentDate": "2026-02-04"
+    },
+    {
+      "id": "5c9f",
+      "notificationId": "NTF-2026-0009",
+      "userId": "USR-2026-0001",
+      "type": "CLAIM",
+      "message": "Your policy claim (CLM-2026-2101) has been submitted successfully",
+      "read": true,
+      "date": "2026-02-04"
+    }
   ],
   "tickets": [
-    
+    {
+      "id": "a869",
+      "ticketId": "TKT-2026-0001",
+      "userId": "USR-2026-0001",
+      "issueDescription": "My policies are not visible",
+      "status": "RESOLVED",
+      "sentDate": "2026-01-19T09:52:32.981Z",
+      "adminResolution": {
+        "solution": "We disussed with backend the issue was resolved.",
+        "closedDate": "2026-01-19"
+      },
+      "updatedDate": "2026-01-19"
+    }
   ],
   "renewals": []
 }

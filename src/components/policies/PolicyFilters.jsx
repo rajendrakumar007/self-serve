@@ -1,5 +1,6 @@
-import React, { useReducer, useEffect, Fragment } from "react";
+import React, { useContext, useReducer, useEffect, Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
+import { ThemeContext } from "../../Context/ThemeContext.jsx";
 
 // Policy filters component
 const initial = {
@@ -24,6 +25,7 @@ function reducer(state, action) {
 }
 
 export default function PolicyFilters({ onChange }) {
+  const { theme } = useContext(ThemeContext);
   const [state, dispatch] = useReducer(reducer, initial);
 
   useEffect(() => {
@@ -54,12 +56,16 @@ export default function PolicyFilters({ onChange }) {
     typeOptions.find((o) => o.value === state.type)?.label ?? "All";
 
   return (
-    <div className="rounded-card border border-borderDefault bg-bgCard shadow-sm mb-3">
+    <div className="rounded-card border border-borderDefault bg-bgCard dark:bg-gray-800 dark:border-gray-700 shadow-sm mb-3">
       <div className="px-4 py-3">
         <div className="grid grid-cols-1 md:grid-cols-12 md:items-end gap-2">
           {/* Search */}
           <div className="md:col-span-4">
-            <label className="block text-sm font-medium text-textSecondary mb-1">
+            <label
+              className={`block text-sm font-medium mb-1 ${
+                theme === "dark" ? "text-textInverted" : "text-textSecondary"
+              }`}
+            >
               Search
             </label>
             <input
@@ -69,13 +75,21 @@ export default function PolicyFilters({ onChange }) {
               onChange={(e) =>
                 dispatch({ type: "SET_Q", payload: e.target.value })
               }
-              className="w-full rounded-md border border-borderDefault bg-bgBase text-textPrimary px-3 py-2 text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-primary/40 dark:bg-gray-800 dark:text-white dark:border-gray-600"
+              className={`w-full rounded-md border border-borderDefault px-3 py-2 text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-primary/40 ${
+                theme === "dark"
+                  ? "bg-gray-700 text-textInverted border-gray-600"
+                  : "bg-bgBase text-textPrimary"
+              }`}
             />
           </div>
 
           {/* Status (Headless UI Listbox) */}
           <div className="md:col-span-3">
-            <label className="block text-sm font-medium text-textSecondary mb-1">
+            <label
+              className={`block text-sm font-medium mb-1 ${
+                theme === "dark" ? "text-textInverted" : "text-textSecondary"
+              }`}
+            >
               Status
             </label>
 
@@ -86,19 +100,28 @@ export default function PolicyFilters({ onChange }) {
               <div className="relative">
                 {/* Closed control */}
                 <Listbox.Button
-                  className="
+                  className={`
                     w-full rounded-lg border border-borderDefault
-                    bg-bgBase text-textPrimary
                     px-3 py-2 pr-9 text-sm
                     transition-all duration-200 ease-out
-                    hover:bg-bgHover/40 hover:shadow-sm
+                    hover:shadow-sm
                     focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary
-                    dark:bg-gray-800 dark:text-white dark:border-gray-600
                     flex items-center justify-between
-                  "
+                    ${
+                      theme === "dark"
+                        ? "bg-gray-700 text-textInverted border-gray-600 hover:bg-gray-700/80"
+                        : "bg-bgBase text-textPrimary hover:bg-bgHover/40"
+                    }
+                  `}
                 >
                   <span className="truncate">{statusLabel}</span>
-                  <i className="bi bi-chevron-down text-base text-textSecondary dark:text-gray-300" />
+                  <i
+                    className={`bi bi-chevron-down text-base ${
+                      theme === "dark"
+                        ? "text-textInverted"
+                        : "text-textSecondary"
+                    }`}
+                  />
                 </Listbox.Button>
 
                 {/* Popup menu */}
@@ -109,13 +132,17 @@ export default function PolicyFilters({ onChange }) {
                   leaveTo="opacity-0"
                 >
                   <Listbox.Options
-                    className="
+                    className={`
                       absolute z-20 mt-1 w-full
-                      rounded-lg border border-borderDefault bg-bgBase shadow-lg
+                      rounded-lg border border-borderDefault shadow-lg
                       overflow-hidden
-                      dark:bg-gray-800 dark:border-gray-600
                       focus:outline-none
-                    "
+                      ${
+                        theme === "dark"
+                          ? "bg-gray-700 border-gray-600"
+                          : "bg-bgBase"
+                      }
+                    `}
                   >
                     {statusOptions.map((opt) => (
                       <Listbox.Option
@@ -124,11 +151,19 @@ export default function PolicyFilters({ onChange }) {
                         className={({ active, selected }) =>
                           `
                           cursor-pointer select-none px-3 py-2 text-sm
-                          ${active ? "bg-bgHover/60 dark:bg-gray-700" : ""}
+                          ${
+                            active
+                              ? theme === "dark"
+                                ? "bg-gray-600"
+                                : "bg-bgHover/60"
+                              : ""
+                          }
                           ${
                             selected
                               ? "bg-primary/10 text-primary"
-                              : "text-textPrimary"
+                              : theme === "dark"
+                                ? "text-textInverted"
+                                : "text-textPrimary"
                           }
                         `
                         }
@@ -144,7 +179,11 @@ export default function PolicyFilters({ onChange }) {
 
           {/* Type (Headless UI Listbox) */}
           <div className="md:col-span-3">
-            <label className="block text-sm font-medium text-textSecondary mb-1">
+            <label
+              className={`block text-sm font-medium mb-1 ${
+                theme === "dark" ? "text-textInverted" : "text-textSecondary"
+              }`}
+            >
               Type
             </label>
 
@@ -155,19 +194,28 @@ export default function PolicyFilters({ onChange }) {
               <div className="relative">
                 {/* Closed control */}
                 <Listbox.Button
-                  className="
+                  className={`
                     w-full rounded-lg border border-borderDefault
-                    bg-bgBase text-textPrimary
                     px-3 py-2 pr-9 text-sm
                     transition-all duration-200 ease-out
-                    hover:bg-bgHover/40 hover:shadow-sm
+                    hover:shadow-sm
                     focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary
-                    dark:bg-gray-800 dark:text-white dark:border-gray-600
                     flex items-center justify-between
-                  "
+                    ${
+                      theme === "dark"
+                        ? "bg-gray-700 text-textInverted border-gray-600 hover:bg-gray-700/80"
+                        : "bg-bgBase text-textPrimary hover:bg-bgHover/40"
+                    }
+                  `}
                 >
                   <span className="truncate">{typeLabel}</span>
-                  <i className="bi bi-chevron-down text-base text-textSecondary dark:text-gray-300" />
+                  <i
+                    className={`bi bi-chevron-down text-base ${
+                      theme === "dark"
+                        ? "text-textInverted"
+                        : "text-textSecondary"
+                    }`}
+                  />
                 </Listbox.Button>
 
                 {/* Popup menu */}
@@ -178,13 +226,17 @@ export default function PolicyFilters({ onChange }) {
                   leaveTo="opacity-0"
                 >
                   <Listbox.Options
-                    className="
+                    className={`
                       absolute z-20 mt-1 w-full
-                      rounded-lg border border-borderDefault bg-bgBase shadow-lg
+                      rounded-lg border border-borderDefault shadow-lg
                       overflow-hidden
-                      dark:bg-gray-800 dark:border-gray-600
                       focus:outline-none
-                    "
+                      ${
+                        theme === "dark"
+                          ? "bg-gray-700 border-gray-600"
+                          : "bg-bgBase"
+                      }
+                    `}
                   >
                     {typeOptions.map((opt) => (
                       <Listbox.Option
@@ -193,11 +245,19 @@ export default function PolicyFilters({ onChange }) {
                         className={({ active, selected }) =>
                           `
                           cursor-pointer select-none px-3 py-2 text-sm
-                          ${active ? "bg-bgHover/60 dark:bg-gray-700" : ""}
+                          ${
+                            active
+                              ? theme === "dark"
+                                ? "bg-gray-600"
+                                : "bg-bgHover/60"
+                              : ""
+                          }
                           ${
                             selected
                               ? "bg-primary/10 text-primary"
-                              : "text-textPrimary"
+                              : theme === "dark"
+                                ? "text-textInverted"
+                                : "text-textPrimary"
                           }
                         `
                         }
@@ -216,7 +276,11 @@ export default function PolicyFilters({ onChange }) {
             <button
               onClick={() => dispatch({ type: "RESET" })}
               type="button"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-borderDefault px-3 py-2 text-sm text-textSecondary hover:bg-bgHover focus:outline-none focus:ring-2 focus:ring-primary/30 transition dark:hover:bg-gray-700 dark:border-gray-600 dark:text-gray-300"
+              className={`inline-flex w-full items-center justify-center gap-2 rounded-md border border-borderDefault px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-primary/30 ${
+                theme === "dark"
+                  ? "text-textInverted hover:bg-gray-700 border-gray-600"
+                  : "text-textSecondary hover:bg-bgHover"
+              }`}
             >
               <i className="bi bi-arrow-counterclockwise" />
               Reset

@@ -19,7 +19,10 @@ import {
 } from "lucide-react";
 import Navbar from "../../components/common/Navbar";
 import { claimsApi } from "../../utils/claims/apiClaim";
-import { generateClaimId, generateNotificationId } from "../../utils/claims/generateClaimId";
+import {
+  generateClaimId,
+  generateNotificationId,
+} from "../../utils/claims/generateClaimId";
 import ClaimSummary from "../../components/claims/ClaimSummary";
 import { uploadMultipleDocuments } from "../../utils/claims/supabaseStorageService";
 import { getCurrentUserId } from "../../utils/auth/auth";

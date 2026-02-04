@@ -237,8 +237,8 @@ export default function DownloadButton({
             {safePolicy?.title
               ? String(safePolicy.title)
               : safePolicy?.title
-              ? `${String(safePolicy.title).toUpperCase()}`
-              : "POLICY DETAILS"}
+                ? `${String(safePolicy.title).toUpperCase()}`
+                : "POLICY DETAILS"}
           </Text>
 
           <Text style={styles.reportSubtitle}>Policy Summary</Text>
@@ -294,7 +294,7 @@ export default function DownloadButton({
                   {`• ${
                     typeof perk === "string"
                       ? perk
-                      : perk?.label ?? perk?.name ?? JSON.stringify(perk)
+                      : (perk?.label ?? perk?.name ?? JSON.stringify(perk))
                   }`}
                 </Text>
               ))}
@@ -338,7 +338,7 @@ export default function DownloadButton({
     <PDFDownloadLink
       document={PolicyPDF}
       fileName={resolvedFileName}
-      className="inline-flex items-center px-3 py-1.5 text-sm gap-1.5 rounded-md border border-primary text-primary bg-bgCard shadow-xs hover:bg-bgHover hover:text-primaryDark hover:border-primaryDark transition"
+      className="inline-flex items-center px-3 py-1.5 text-sm gap-1.5 rounded-md border border-primary dark:border-gray-600 text-primary dark:text-textInverted bg-bgCard dark:bg-gray-800 shadow-xs hover:bg-bgHover dark:hover:bg-gray-700 hover:text-primaryDark dark:hover:text-primary hover:border-primaryDark dark:hover:border-gray-500 transition"
     >
       <FaDownload />
       Download

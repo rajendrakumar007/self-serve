@@ -1,20 +1,23 @@
 import React, { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { IoClose } from "react-icons/io5";
 
 export default function NotificationModal({
   isOpen,
   onClose,
   title,
   children,
-  tabs = [],      // [{ key, label, count }]
-  activeTab,      // string
-  onTabChange,    // (key) => void
+  tabs = [], // [{ key, label, count }]
+  activeTab, // string
+  onTabChange, // (key) => void
 }) {
   const closeBtnRef = useRef(null);
 
   useEffect(() => {
     if (!isOpen) return;
-    const onKeyDown = (e) => { if (e.key === "Escape") onClose?.(); };
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") onClose?.();
+    };
     document.addEventListener("keydown", onKeyDown);
     const id = setTimeout(() => closeBtnRef.current?.focus(), 0);
     return () => {
@@ -33,9 +36,9 @@ export default function NotificationModal({
    * 1. FILTER LOGIC:
    * Removes 'read' and 'unread' tabs.
    */
-  const visibleTabs = tabs.filter(t => {
+  const visibleTabs = tabs.filter((t) => {
     const label = t.label?.toLowerCase().trim();
-    return label !== 'unread' && label !== 'read';
+    return label !== "unread" && label !== "read";
   });
 
   const modal = (
@@ -54,30 +57,33 @@ export default function NotificationModal({
           fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
           w-[min(90vw,40rem)]
           rounded-card border shadow-2xl
-          bg-bgCard text-textPrimary dark:text-textInverted
-          border-borderDefault dark:ring-[0.5px] dark:ring-borderStrong
+          bg-bgCard dark:bg-gray-800 text-textPrimary dark:text-textInverted
+          border-borderDefault dark:border-gray-700
           max-h-[85vh] overflow-hidden
           grid grid-rows-[auto_auto_1fr]
         "
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-borderDefault">
-          <h3 className="text-lg font-semibold capitalize">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-borderDefault dark:border-gray-700">
+          <h3 className="text-lg font-semibold capitalize text-textPrimary dark:text-textInverted">
             {title ?? "notifications"}
           </h3>
           <button
             ref={closeBtnRef}
             type="button"
             onClick={onClose}
-            className="px-2 py-1 rounded-md bg-bgMuted hover:bg-primaryLight hover:text-textInverted transition-colors"
+            className={`bg-bgCard dark:bg-gray-800 p-2 rounded-lg shadow-md border-2 hover:shadow-lg transition-shadow 
+          ? "border-blue-600 dark:border-blue-500"
+          : "border-gray-300 dark:border-gray-600"
+      }`}
           >
-            ✕
+            <IoClose />
           </button>
         </div>
 
         {/* Tabs Section */}
         {visibleTabs.length > 0 ? (
-          <div className="px-4 py-2 border-b border-borderDefault bg-bgMuted/40">
+          <div className="px-4 py-2 border-b border-borderDefault dark:border-gray-700 bg-bgMuted dark:bg-gray-700/50">
             <div className="flex flex-wrap items-center gap-2">
               {visibleTabs.map((t) => {
                 const isActive = t.key === activeTab;
@@ -88,20 +94,20 @@ export default function NotificationModal({
                     onClick={() => onTabChange?.(t.key)}
                     className={`
                       px-3 py-1 rounded-md border transition-colors text-sm
-                      ${isActive
-                        ? "bg-primaryLight text-textInverted border-primaryLight"
-                        : "bg-bgCard text-textPrimary dark:text-textInverted border-borderDefault hover:bg-primaryLight hover:text-textInverted"}
+                      ${
+                        isActive
+                          ? "bg-primary text-white dark:bg-primary dark:text-textInverted border-primary dark:border-primary"
+                          : "bg-bgCard dark:bg-gray-800 text-textPrimary dark:text-textInverted border-borderDefault dark:border-gray-600 hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-textInverted"
+                      }
                     `}
                   >
                     {/* FIX: Force lower case first, then use 'capitalize' 
                         This converts "PAYMENT" -> "payment" -> "Payment"
                     */}
-                    <span className="capitalize">
-                        {t.label?.toLowerCase()}
-                    </span>
-                    
+                    <span className="capitalize">{t.label?.toLowerCase()}</span>
+
                     {typeof t.count === "number" && (
-                      <span className="ml-1 inline-flex items-center justify-center rounded-full bg-bgMuted px-2 text-xs text-textPrimary dark:text-textInverted font-semibold">
+                      <span className="ml-1 inline-flex items-center justify-center rounded-full bg-gray-600 dark:bg-gray-600 px-2 text-xs text-white dark:text-textInverted font-semibold">
                         {t.count}
                       </span>
                     )}

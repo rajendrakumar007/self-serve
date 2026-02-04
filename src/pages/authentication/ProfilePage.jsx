@@ -30,7 +30,6 @@ const emptyProfile = {
 };
 
 const loadProfile = () => getCurrentUser() || { ...emptyProfile };
-console.log(loadProfile())
 
 const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const validatePhone = (phone) => /^[0-9]{10}$/.test(phone);
