@@ -6,8 +6,11 @@ import DownloadButton from "../../Components/policies/DownloadButton.jsx";
 import Loading from "../../Components/policies/Loading.jsx";
 import Navbar from "../../components/common/Navbar.jsx";
 import CoverageTermsCard from "../../components/policies/CoverageTermsCard.jsx";
+import { useContext } from "react";
+import { ThemeContext } from "../../Context/ThemeContext.jsx";
 
 export default function PolicyDetails() {
+  const { theme } = useContext(ThemeContext);
   const { id: idParam } = useParams();
 
   const [policy, setPolicy] = useState(null);
@@ -46,7 +49,9 @@ export default function PolicyDetails() {
       } catch (err) {
         setStatus("failed");
         setError(
-          err.response?.data?.message || err.message || "Failed to fetch policy"
+          err.response?.data?.message ||
+            err.message ||
+            "Failed to fetch policy",
         );
         setPolicy(null);
       }
@@ -107,82 +112,74 @@ export default function PolicyDetails() {
     <>
       <Navbar />
 
-      <section className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <section
+        className={`min-h-screen ${
+          theme === "dark"
+            ? "bg-gray-900"
+            : "bg-gradient-to-br from-slate-50 to-slate-100"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 md:py-12">
           {/* Header */}
-          <div className="px-4 py-4 flex items-center justify-between bg-bgCard border border-borderStrong rounded-xl sm:rounded-2xl shadow-lg">
+          <div className="px-4 py-4 flex items-center justify-between bg-bgCard dark:bg-gray-800 border border-borderDefault dark:border-gray-700 rounded-xl sm:rounded-2xl shadow-lg">
             <div>
-              <h2 className="text-lg font-semibold text-textPrimary">
+              <h2 className="text-lg font-semibold text-textPrimary dark:text-textInverted">
                 Policy Id: {p.policyId ?? "-"}
               </h2>
-              <p className="text-xs text-textMuted">
-                {p.title ? p.title : p.type ?? ""}
+              <p className="text-xs text-textMuted dark:text-textInverted">
+                {p.title ? p.title : (p.type ?? "")}
               </p>
             </div>
             <StatusBadge status={p.status ?? "-"} />
           </div>
 
           {/* Main details card */}
-          <div className="mt-4 bg-bgCard border border-borderDefault rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8">
+          <div className="mt-4 bg-bgCard dark:bg-gray-800 border border-borderDefault dark:border-gray-700 rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8">
             {/* Basic details */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span className="text-textSecondary">Customer ID</span>
-                  <span className="font-semibold text-textPrimary">
-                    {p.userId ?? "-"}
-                  </span>
+                  <span className="text-textSecondary dark:text-textInverted">Customer ID</span>
+                  <span className="font-semibold text-textPrimary dark:text-textInverted">{p.userId ?? "-"}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-textSecondary">Policy Type</span>
-                  <span className="font-semibold text-textPrimary">
-                    {p.type ?? "-"}
-                  </span>
+                  <span className="text-textSecondary dark:text-textInverted">Policy Type</span>
+                  <span className="font-semibold text-textPrimary dark:text-textInverted">{p.type ?? "-"}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-textSecondary">Coverage</span>
-                  <span className="font-semibold text-textPrimary">
-                    ₹{formatINR(p.sumInsured)}
-                  </span>
+                  <span className="text-textSecondary dark:text-textInverted">Coverage</span>
+                  <span className="font-semibold text-textPrimary dark:text-textInverted">₹{formatINR(p.sumInsured)}</span>
                 </div>
               </div>
 
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span className="text-textSecondary">Start</span>
-                  <span className="font-semibold text-textPrimary">
-                    {formatDate(p.startDate ?? "-")}
-                  </span>
+                  <span className="text-textSecondary dark:text-textInverted">Start</span>
+                  <span className="font-semibold text-textPrimary dark:text-textInverted">{formatDate(p.startDate ?? "-")}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-textSecondary">End</span>
-                  <span className="font-semibold text-textPrimary">
-                    {formatDate(p.endDate ?? "-")}
-                  </span>
+                  <span className="text-textSecondary dark:text-textInverted">End</span>
+                  <span className="font-semibold text-textPrimary dark:text-textInverted">{formatDate(p.endDate ?? "-")}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-textSecondary">Premium</span>
-                  <span className="font-semibold text-textPrimary">
-                    ₹{formatINR(p.premium ?? 0)}
-                  </span>
+                  <span className="text-textSecondary dark:text-textInverted">Premium</span>
+                  <span className="font-semibold text-textPrimary dark:text-textInverted">₹{formatINR(p.premium ?? 0)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-textSecondary">Period</span>
-                  <span className="font-semibold text-textPrimary">
-                    {p.tenure ?? 0} Years
-                  </span>
+                  <span className="text-textSecondary dark:text-textInverted">Period</span>
+                  <span className="font-semibold text-textPrimary dark:text-textInverted">{p.tenure ?? 0} Years</span>
                 </div>
               </div>
             </div>
 
             {/* Divider */}
-            <div className="my-6 h-px bg-borderDefault" />
+            <div className="my-6 h-px bg-borderDefault dark:bg-gray-700" />
 
             {/* Terms */}
-            <h6 className="text-xs font-semibold tracking-wide text-textMuted uppercase">
+            <h6 className="text-xs font-semibold tracking-wide uppercase text-textMuted dark:text-textInverted">
               Terms &amp; Coverage Details
             </h6>
-            <p className="mt-2 text-sm text-textSecondary">
+            <p className="mt-2 text-sm text-textSecondary dark:text-textInverted">
               {p.terms || "Policy details not available"}
             </p>
 
@@ -199,7 +196,10 @@ export default function PolicyDetails() {
               >
                 Back to list
               </Link>
-              <DownloadButton policy={p} fileName={`Policy_${p.policyId}.pdf`} />
+              <DownloadButton
+                policy={p}
+                fileName={`Policy_${p.policyId}.pdf`}
+              />
             </div>
           </div>
         </div>
